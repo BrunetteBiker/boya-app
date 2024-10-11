@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@layer base {
+    html {
+        font-family: "Poppins", sans-serif;
+    }
+}
+
+
+.my-table {
+    @apply w-full;
+    th, td {
+        @apply p-4 border-b border-black;
+    }
+
+    th {
+        @apply p-4 font-semibold text-left ;
+    }
+
+    tbody tr:last-of-type td{
+        @apply border-b-0;
+    }
+}
+
+.my-container {
+    @apply border border-slate-700 p-4 rounded bg-white;
+}
+
+.notification {
+    @apply fixed bottom-4 right-4 p-4 text-white max-w-96 grid gap-3;
+
+    &-msg {
+        @apply flex-1 font-medium;
+    }
+
+    &-btn {
+        @apply ml-auto p-2.5 text-sm font-medium rounded-md;
+    }
+
+    &.info {
+        @apply bg-sky-600;
+        .notification-btn {
+            @apply bg-sky-700;
+        }
+    }
+
+    &.orange {
+        @apply bg-orange-600;
+        .notification-btn {
+            @apply bg-orange-700;
+        }
+    }
+
+    &.danger {
+        @apply bg-red-600;
+        .notification-btn {
+            @apply bg-red-700;
+        }
+    }
+
+    &.success {
+        @apply bg-green-600;
+        .notification-btn {
+            @apply bg-green-700;
+        }
+    }
+}
