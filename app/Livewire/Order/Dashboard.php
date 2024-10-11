@@ -3,6 +3,8 @@
 namespace App\Livewire\Order;
 
 use App\Models\Order;
+use App\Models\User;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -24,6 +26,9 @@ class Dashboard extends Component
         ],
     ];
 
+
+
+    #[Computed]
     function orders()
     {
         $items = Order::query();

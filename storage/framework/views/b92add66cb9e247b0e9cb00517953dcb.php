@@ -27,13 +27,19 @@
                 <th>İcraçı</th>
                 <th>Tarix</th>
                 </thead>
+                <tbody>
+                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr></tr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                </tbody>
             </table>
         </div>
     </div>
     <div class="w-80">
         <div class="my-container">
             <div class="grid gap-4">
-                <a href="<?php echo e(url("order/create")); ?>" wire:navigate class="bg-green-700 inline-flex justify-center text-white p-4 leading-none rounded font-medium">Yeni
+                <a href="<?php echo e(url("order/create")); ?>" wire:navigate
+                   class="bg-green-700 inline-flex justify-center text-white p-4 leading-none rounded font-medium">Yeni
                     sifariş</a>
                 <form action="" class="grid gap-3.5">
                     <div class="grid gap-1">

@@ -27,13 +27,19 @@
                 <th>İcraçı</th>
                 <th>Tarix</th>
                 </thead>
+                <tbody>
+                @foreach($this->orders as $order)
+                    <tr></tr>
+                @endforeach
+                </tbody>
             </table>
         </div>
     </div>
     <div class="w-80">
         <div class="my-container">
             <div class="grid gap-4">
-                <a href="{{url("order/create")}}" wire:navigate class="bg-green-700 inline-flex justify-center text-white p-4 leading-none rounded font-medium">Yeni
+                <a href="{{url("order/create")}}" wire:navigate
+                   class="bg-green-700 inline-flex justify-center text-white p-4 leading-none rounded font-medium">Yeni
                     sifariş</a>
                 <form action="" class="grid gap-3.5">
                     <div class="grid gap-1">

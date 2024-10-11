@@ -30,7 +30,7 @@
 }
 
 .notification {
-    @apply fixed bottom-4 right-4 p-4 text-white max-w-96 grid gap-3;
+    @apply fixed bottom-4 right-4 p-4 text-white max-w-96 grid gap-3 z-10;
 
     &-msg {
         @apply flex-1 font-medium;
@@ -47,7 +47,7 @@
         }
     }
 
-    &.orange {
+    &.warning {
         @apply bg-orange-600;
         .notification-btn {
             @apply bg-orange-700;

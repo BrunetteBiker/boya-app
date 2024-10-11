@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -44,5 +45,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+
+    function pid()
+    {
+        return "USR-" . Str::of($this->attributes["id"])->padLeft(6, 0);
+    }
+
+    function phones()
+    {
+        return $this->hasMany(Phone::class, "user_id", "id");
     }
 }

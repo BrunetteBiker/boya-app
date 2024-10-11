@@ -22,8 +22,8 @@ Route::middleware("auth")->group(function () {
         Route::get("create", \App\Livewire\Order\Create::class);
 
     });
-    Route::prefix("customer")->group(function () {
-        Route::get("dashboard", \App\Livewire\Customer\Dashboard::class);
+    Route::prefix("user")->group(function () {
+        Route::get("dashboard", \App\Livewire\User\Dashboard::class);
     });
 
     Route::prefix("product")->group(function () {

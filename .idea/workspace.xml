@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e1262d2-7c91-4ffb-aa0f-6d02a9d350ad" name="Changes" comment="" />
+    <list default="true" id="9e1262d2-7c91-4ffb-aa0f-6d02a9d350ad" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/84243601-9f7e-498e-9dc5-9ab5410ee348.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/84243601-9f7e-498e-9dc5-9ab5410ee348.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Livewire/Order/Create.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Order/Create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Livewire/Order/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Order/Dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/scss/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/scss/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/components/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/customer/dashboard.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/customer/details.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/order/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/order/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/17da24f0f7a1d26e455ba225f53fd965.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/17da24f0f7a1d26e455ba225f53fd965.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/4e91edae0027f5edb1c435c88d737b50.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/4e91edae0027f5edb1c435c88d737b50.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/b92add66cb9e247b0e9cb00517953dcb.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/b92add66cb9e247b0e9cb00517953dcb.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +31,9 @@
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -153,6 +174,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -185,7 +207,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1728624796636</updated>
-      <workItem from="1728624806640" duration="15575000" />
+      <workItem from="1728624806640" duration="20732000" />
     </task>
     <servers />
   </component>
