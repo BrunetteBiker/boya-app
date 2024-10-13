@@ -28,7 +28,7 @@ class Login extends Component
     #[Computed]
     function executors()
     {
-        return User::orderBy("name", "asc")->where("is_executor", true)->get();
+        return User::orderBy("name", "asc")->where("role_id", 1)->get();
     }
 
     function login()

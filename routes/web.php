@@ -16,10 +16,17 @@ Route::get('/', function () {
 Route::get("login", \App\Livewire\Login::class)->name("login");
 
 Route::middleware("auth")->group(function () {
+
+    Route::get("logout",function (){
+        auth()->logout();
+    });
+
     Route::prefix("order")->group(function () {
 
         Route::get("dashboard", \App\Livewire\Order\Dashboard::class);
         Route::get("create", \App\Livewire\Order\Create::class);
+        Route::get("details/{id}", \App\Livewire\Order\Details::class);
+
 
     });
     Route::prefix("user")->group(function () {

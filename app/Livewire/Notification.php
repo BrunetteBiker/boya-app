@@ -20,16 +20,18 @@ class Notification extends Component
     }
 
     #[On("notify")]
-    function notify($state = false, $msg = "", $autoHide = false, $redirectUrl = '')
+    function notify($state = false, $msg = "", $autoHide = false, $redirect = '')
     {
         $this->state = $state;
         $this->msg = $msg;
 
         if ($autoHide) {
-            $this->dispatch('autoHide')   ;
+            $this->dispatch('autoHide');
         }
 
-        $this->redirectUrl = $redirectUrl;
+        if ($redirect != "") {
+            $this->dispatch("redirect", url: $redirect);
+        }
     }
 
 

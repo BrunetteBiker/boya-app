@@ -33,7 +33,7 @@
                 <a href="{{url("product/dashboard")}}" wire:navigate
                    class="border border-black p-2 text-sm">Məhsullar</a>
                 <a href="" class="border border-black p-2 text-sm">Şəxsi kabinet</a>
-                <a href="" class="border border-black p-2 text-sm">Çıxış</a>
+                <a href="{{url("logout")}}" wire:navigate class="border border-black p-2 text-sm">Çıxış</a>
             </div>
         </div>
     @endif

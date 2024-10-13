@@ -17,4 +17,9 @@ class Product extends Model
     {
         return "PRD-" . Str::of($this->attributes["id"])->padLeft(6, 0);
     }
+
+    function recommendedInterval()
+    {
+        return $this->attributes["min_price"]."-".$this->attributes["max_price"];
+    }
 }

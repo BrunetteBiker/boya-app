@@ -12,7 +12,7 @@
         Livewire.on('redirect', function ({url}) {
             setTimeout(function () {
                 location.href = url
-            })
+            },2500)
         })
     </script>
     @endscript

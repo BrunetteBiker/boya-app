@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Phone::class, "user_id", "id");
     }
+
+    function role()
+    {
+        return $this->hasOne(UserRole::class, "id", "role_id");
+    }
 }

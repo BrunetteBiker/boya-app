@@ -68,3 +68,11 @@
         }
     }
 }
+
+.my-label{
+    @apply text-sm font-medium;
+}
+
+.my-input{
+    @apply border border-black p-3 outline-0;
+}
