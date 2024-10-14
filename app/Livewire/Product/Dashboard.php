@@ -17,7 +17,7 @@ class Dashboard extends Component
         'min' => '',
         'max' => ''
     ];
-    public $selectedId;
+    public $selectedId = 1;
     public $selectedProduct = [
         'name' => '',
         'min' => 0,

@@ -19,6 +19,7 @@ Route::middleware("auth")->group(function () {
 
     Route::get("logout",function (){
         auth()->logout();
+        return redirect()->route("login");
     });
 
     Route::prefix("order")->group(function () {
@@ -31,6 +32,7 @@ Route::middleware("auth")->group(function () {
     });
     Route::prefix("user")->group(function () {
         Route::get("dashboard", \App\Livewire\User\Dashboard::class);
+        Route::get("details/{id}", \App\Livewire\User\Details::class);
     });
 
     Route::prefix("product")->group(function () {

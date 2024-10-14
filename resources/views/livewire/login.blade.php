@@ -9,7 +9,7 @@
                     <option value="{{$executor->id}}">{{$executor->name}}</option>
                 @endforeach
             </select>
-            <button wire:click="login" class="self-stretch px-5 bg-green-600 text-white font-medium">Daxil ol</button>
+            <button wire:click="login" class="self-stretch px-5 bg-green-600 text-white font-medium whitespace-nowrap">Daxil ol</button>
         </div>
 
         @if($errorMsg != "")

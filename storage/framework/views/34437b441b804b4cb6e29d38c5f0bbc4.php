@@ -3,28 +3,24 @@
         <h1 class="text-2xl font-bold">Yeni müştəri blankı</h1>
         <div class="flex items-center gap-1.5">
             <div class="text-sm font-medium">İcraçıdır</div>
-            <div class="flex gap-3">
-                <label for="is-executor-1" class="border border-black p-3 inline-flex items-center gap-2">
-                    <input type="radio" id="is-executor-1" wire:model="data.isExecutor" value="1">
-                    <span>Bəli</span>
-                </label>
-                <label for="is-executor-0" class="border border-black p-3 inline-flex items-center gap-2">
-                    <input type="radio" id="is-executor-0" wire:model="data.isExecutor" value="0">
-                    <span>Xeyr</span>
-                </label>
-            </div>
+            <select class="my-input w-full" wire:model.live="data.role">
+                <option value="">Seçin</option>
+                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = \App\Models\UserRole::orderBy("name","asc")->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($role->id); ?>"><?php echo e($role->name); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+            </select>
 
         </div>
         <div class="flex items-center gap-1.5">
             <div class="text-sm font-medium">Ad və soyad</div>
-            <input type="text" class="border border-black p-3 flex-1" wire:model="data.name">
+            <input type="text" class="my-input flex-1" wire:model="data.name">
         </div>
         <div class="grid gap-1.5">
             <div class="text-sm font-medium">Əlaqə nömrəsi</div>
             <div class="grid gap-2 flex-1">
                 <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $data["phones"]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index=>$phone): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="flex items-center gap-2 flex-1">
-                        <input type="text" class="border border-black p-3 flex-1" wire:model="data.phones.<?php echo e($index); ?>" x-mask="099-999-99-99">
+                        <input type="text" class="my-input flex-1" wire:model="data.phones.<?php echo e($index); ?>" x-mask="099-999-99-99">
                         <button wire:click="addPhone">
                             <svg class="size-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                  stroke-linecap="round" stroke-linejoin="round">
@@ -45,20 +41,39 @@
             </div>
 
         </div>
-        <div class="grid grid-cols-2 gap-4">
-            <div class="flex items-center gap-1.5">
-                <div class="text-sm font-medium">Balans</div>
-                <input type="text" class="border border-black p-3 flex-1" wire:model="data.balance">
+        <!--[if BLOCK]><![endif]--><?php if($data["role"] == 2): ?>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="flex items-center gap-1.5">
+                    <div class="text-sm font-medium">Balans</div>
+                    <input type="text" class="my-input w-full" wire:model="data.balance">
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <div class="text-sm font-medium">Borc</div>
+                    <input type="text" class="my-input w-full" wire:model="data.debt">
+                </div>
             </div>
-            <div class="flex items-center gap-1.5">
-                <div class="text-sm font-medium">Borc</div>
-                <input type="text" class="border border-black p-3 flex-1" wire:model="data.debt">
+        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+        <!--[if BLOCK]><![endif]--><?php if($data["role"] == 3): ?>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-1.5 flex-1">
+                    <div class="text-sm font-medium">Kəsir</div>
+                    <input type="number" step="0.01" class="my-input flex-1" wire:model="data.remnant">
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <div class="text-sm font-medium">Valyuta</div>
+                    <select class="my-input" wire:model="data.remnantCurrency">
+                        <option value="">Seçin</option>
+                        <option value=AZN"">AZN</option>
+                        <option value="USD">USD</option>
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="flex justify-end gap-3">
-            <button wire:click="createUser" class="border border-black p-3 font-medium">Əlavə et</button>
-            <button wire:click="$dispatch('create-user')" class="border border-black p-3 font-medium">Ləğv et</button>
+        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
+        <div class="flex justify-end gap-3 text-sm font-semibold">
+            <button wire:click="createUser" class="my-input">Əlavə et</button>
+            <button wire:click="$dispatch('create-user')" class="my-input">Ləğv et</button>
         </div>
 
 

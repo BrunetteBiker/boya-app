@@ -131,23 +131,23 @@
 
         <div class="grid gap-1">
             <div class="text-sm font-medium">Cəm</div>
-            <input type="text" class="border border-black p-3" disabled value="<?php echo e($subTotal); ?> AZN">
+            <input type="text" class="my-input w-full" disabled value="<?php echo e($subTotal); ?> AZN">
         </div>
         <div class="grid gap-1">
             <div class="text-sm font-medium">Endirim</div>
-            <input type="text" class="border border-black p-3" wire:model="discount" wire:keyup="calculate">
+            <input type="text" class="my-input w-full" wire:model="discount" wire:keyup="calculate">
         </div>
         <div class="grid gap-1">
             <div class="text-sm font-medium">Yekun</div>
-            <input type="text" class="border border-black p-3" disabled value="<?php echo e($final); ?> AZN">
+            <input type="text" class="my-input w-full" disabled value="<?php echo e($final); ?> AZN">
         </div>
         <div class="grid gap-1">
             <div class="text-sm font-medium">Ödənilən</div>
-            <input type="text" class="border border-black p-3" wire:model="paid" wire:keyup="calculate">
+            <input type="text" class="my-input w-full" wire:model="paid" wire:keyup="calculate">
         </div>
         <div class="grid gap-1">
             <div class="text-sm font-medium">Borc</div>
-            <input type="text" class="border border-black p-3" disabled value="<?php echo e($debt); ?> AZN">
+            <input type="text" class="my-input w-full" disabled value="<?php echo e($debt); ?> AZN">
             <!--[if BLOCK]><![endif]--><?php if($debt < 0): ?>
                 <label for="add-to-balance" class="ml-auto text-sm inline-flex gap-1 items-center mt-2">
                     <input type="checkbox" id="add-to-balance" wire:model="addToBalance" value="1">
@@ -157,7 +157,7 @@
         </div>
         <div class="grid gap-1">
             <div class="text-sm font-medium">Qeyd</div>
-            <textarea class="border border-black p-3" rows="3" wire:model="notes"></textarea>
+            <textarea class="my-input w-full" rows="3" wire:model="notes"></textarea>
         </div>
 
 

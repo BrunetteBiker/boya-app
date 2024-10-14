@@ -8,7 +8,11 @@
                 </select>
             </div>
             <a href="<?php echo e(url("order/create")); ?>" wire:navigate
-               class="bg-green-700 inline-flex justify-center text-white p-3 leading-none rounded font-medium">Yeni
+               class="border border-black p-2.5 font-medium text-sm inline-flex items-center gap-1">
+                <svg class="size-5"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Yeni
                 sifariş</a>
         </div>
         <div class="my-container grid gap-4">

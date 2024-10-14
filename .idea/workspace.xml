@@ -8,24 +8,26 @@
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/84243601-9f7e-498e-9dc5-9ab5410ee348.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/84243601-9f7e-498e-9dc5-9ab5410ee348.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Customer/Details.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Customer/Details.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Login.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Notification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Notification.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Order/Create.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Order/Create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Order/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Order/Dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Order/Details.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Order/Details.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Livewire/Product/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Product/Dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Livewire/User/Create.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/User/Create.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Livewire/User/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/User/Dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/scss/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/scss/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/livewire/notification.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/notification.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/login.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/order/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/order/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/livewire/order/details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order/details.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/product/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/product/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/user/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/user/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/user/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/user/dashboard.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/0907edef129edc5e6a7e41e0c43406be.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/0907edef129edc5e6a7e41e0c43406be.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/1ecd8761821b6256d74a692f2bbccec7.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/1ecd8761821b6256d74a692f2bbccec7.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/34437b441b804b4cb6e29d38c5f0bbc4.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/34437b441b804b4cb6e29d38c5f0bbc4.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/754b3435fd92a6c73a42ca87f826a58a.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/754b3435fd92a6c73a42ca87f826a58a.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/77292fa25f673778f36b2045da04fa0f.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/77292fa25f673778f36b2045da04fa0f.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/862fd445fa415bdf99cb3f21a6acc8e8.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/862fd445fa415bdf99cb3f21a6acc8e8.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/9e7d8bbe404663fdd8bb2de9601ab7ba.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/9e7d8bbe404663fdd8bb2de9601ab7ba.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/e76955009be1725d3d314e243b179274.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/e76955009be1725d3d314e243b179274.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/e88c9b26da34168d7f160d3688e6081d.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/e88c9b26da34168d7f160d3688e6081d.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/fc41d0055141bec3046488827a9f3964.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/fc41d0055141bec3046488827a9f3964.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -174,27 +176,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
@@ -211,6 +213,8 @@
       <updated>1728624796636</updated>
       <workItem from="1728624806640" duration="20732000" />
       <workItem from="1728731955643" duration="27302000" />
+      <workItem from="1728884270647" duration="2143000" />
+      <workItem from="1728886676492" duration="19398000" />
     </task>
     <servers />
   </component>

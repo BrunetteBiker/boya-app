@@ -9,7 +9,7 @@
                     <option value="<?php echo e($executor->id); ?>"><?php echo e($executor->name); ?></option>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
             </select>
-            <button wire:click="login" class="self-stretch px-5 bg-green-600 text-white font-medium">Daxil ol</button>
+            <button wire:click="login" class="self-stretch px-5 bg-green-600 text-white font-medium whitespace-nowrap">Daxil ol</button>
         </div>
 
         <!--[if BLOCK]><![endif]--><?php if($errorMsg != ""): ?>
