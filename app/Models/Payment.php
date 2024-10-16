@@ -13,14 +13,16 @@ class Payment extends Model
 
     function pid()
     {
-        $createdAt = Carbon::make($this->attributes["created_at"]);
-
-        return "ÖDN" . $createdAt->format("dmY") . Str::of($this->attributes["id"])->padLeft(6, 0);
+        return "ÖDN" . Carbon::make($this->attributes["created_at"])->format("dmY") . Str::of($this->attributes["id"])->padLeft(6, 0);
     }
 
     function executor()
     {
-        return $this->hasOne(User::class,'id',"executor_id");
+        return $this->hasOne(User::class, "id", "executor_id");
     }
 
+    function type()
+    {
+        return $this->hasOne(PaymentType::class, "id", "type_id");
+    }
 }

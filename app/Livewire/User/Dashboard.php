@@ -6,6 +6,7 @@ use App\Models\Phone;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -16,6 +17,17 @@ class Dashboard extends Component
 
     use WithPagination;
 
+    public $sortings = [
+        "id|desc" => "Qeydiyyat tarixi (öncə yenilər)",
+        "id|asc" => "Qeydiyyat tarixi (öncə köhnələr)",
+        "name|asc" => "Ad və soyad (əlifba sırası ilə)",
+        "name|desc" => "Ad və soyad (əlifba sırasının əksinə)",
+        "balance|asc" => "Balans üzrə (azdan çoxa)",
+        "balance|desc" => "Balans üzrə (çoxdan aza)",
+        "debt|asc" => "Borc üzrə (azdan çoxa)",
+        "debt|desc" => "Borc üzrə (çoxdan aza)",
+    ];
+    public $currentSorting = "id|desc";
     public $searchState = false;
 
     public $filters = [
@@ -43,6 +55,7 @@ class Dashboard extends Component
 
     function mount()
     {
+
     }
 
     function search($reset = false)
@@ -56,15 +69,24 @@ class Dashboard extends Component
 
     }
 
+    function updated($prop)
+    {
+        if ($prop == "currentSorting") {
+            $this->resetPage();
+        }
+    }
+
     #[On("refresh-users")]
     function refresh()
     {
         $this->reset("filters");
         $this->resetPage();
     }
+
     #[Computed]
     function users()
     {
+        $orderBy = Str::of($this->currentSorting)->explode("|")->collect();
         $filters = collect($this->filters)->map(function ($item, $key) {
             if (is_array($item)) {
                 $item = collect($item);
@@ -77,6 +99,8 @@ class Dashboard extends Component
         })->filter();
 
         $items = User::query();
+
+        $items = $items->orderBy($orderBy->first(), $orderBy->last());
 
         if ($filters->has("pid")) {
             $items = $items->where("id", "like", "%" . $filters["pid"] . "%");
@@ -130,7 +154,6 @@ class Dashboard extends Component
             }
         }
 
-        $items = $items->whereNot("id", Auth::id());
 
         $items = $items->paginate(10);
 

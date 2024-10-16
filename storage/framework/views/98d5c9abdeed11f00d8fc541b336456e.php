@@ -1,7 +1,6 @@
 <div class="notification <?php echo e($state == '' ? "!hidden" : $state); ?>">
     <p class="notification-msg"><?php echo e($msg); ?></p>
     <button wire:click="resetNotify" class="notification-btn">Oldu</button>
-
         <?php
         $__scriptKey = '3777710832-0';
         ob_start();

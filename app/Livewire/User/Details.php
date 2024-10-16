@@ -2,23 +2,28 @@
 
 namespace App\Livewire\User;
 
+use App\Events\AcceptPayment;
 use App\Events\AddModifyLog;
+use App\Events\RecordUpdate;
 use App\Models\ModifyLog;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Phone;
+use App\Models\UpdateLog;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title("İstifadəçi məlumatları")]
 class Details extends Component
 {
 
     public $states = [
-        "lastOrders" => false,
+        "lastOrders" => true,
         "lastPayments" => false,
         "modifyLogs" => false
     ];
@@ -26,24 +31,53 @@ class Details extends Component
     public $user;
     public $personalData;
 
-    public $financialData = [
-        "type_id" => null,
-        "amount" => null
+    public $paymentData = [
+        "type" => null,
+        "amount" => null,
+        "note" => ""
     ];
 
+
+    function acceptPayment()
+    {
+        $validator = Validator::make($this->paymentData, [
+            "type" => "required",
+            "amount" => "required",
+        ], [
+            "type.required" => "Ödəniş təsnifatı seçilməlidir",
+            "amount.required" => "Məbləğ daxil edilməlidir"
+        ]);
+
+        if ($validator->fails()) {
+
+            $this->dispatch("notify", state: "warning", msg: $validator->errors()->first());
+            return;
+        }
+
+        switch ($this->paymentData["type"]) {
+            case 2 :
+                $this->user->increment("balance", $this->paymentData["amount"]);
+                break;
+            case 3 :
+                $this->user->decrement("balance", $this->paymentData["amount"]);
+                break;
+        }
+
+        event(new AcceptPayment(orderId: null, customerId: $this->user->id, amount: $this->paymentData["amount"], paymentTypeId: $this->paymentData["type"], note: ""));
+
+        $this->dispatch("notify", state: "success", msg: "Sorğunuz qeydə alındı");
+
+
+    }
 
     function mount($id)
     {
         $this->user = User::findOrFail($id);
         $this->personalData = $this->user->toArray();
-        $this->personalData["phones"] = [];
-
-        if (count($this->personalData["phones"])) {
+        $this->personalData["phones"] = $this->user->phones->pluck("item")->toArray();
+        if (count($this->personalData["phones"]) == 0) {
             $this->personalData["phones"] = [""];
-        } else {
-            $this->personalData["phones"] = $this->user->phones->pluck("item")->toArray();
         }
-
     }
 
     #[Computed]
@@ -68,17 +102,15 @@ class Details extends Component
         return $items;
     }
 
+
     #[Computed]
-    function modifyLogs()
+    function updateLogs()
     {
-        $items = ModifyLog::query();
+        $items = UpdateLog::query();
 
-        $items = $items->where("user_id", $this->user->id);
-
-        $items = $items->paginate();
+        $items = $items->paginate(10);
 
         return $items;
-
     }
 
     function addPhone()
@@ -93,86 +125,68 @@ class Details extends Component
 
     }
 
-    function modifyUser()
+    function updateUser()
     {
-        $oldPhones = $this->user->phones->pluck("item")->toArray();
 
-        Phone::where("user_id", $this->user->id)->delete();
+        $currentPhones = $this->user->phones->pluck("item");
 
-        $this->personalData["phones"] = collect($this->personalData["phones"])->filter()->toArray();
+        $personalData = collect($this->personalData)->filter();
 
-        if (!collect($this->personalData)->has("name")) {
-            $this->personalData["name"] = $this->user->name;
-        }
+        $phones = collect($personalData["phones"])->filter();
 
-        $validator = Validator::make($this->personalData, [
-            "phones" => "required|array|min:1",
-            "phones.*" => "unique:phones,item"
-        ], [
-            "phones.required" => "Ən bir ədəd əlaqə nömrəsi daxil edilməlidir",
-            "phones.*.unique" => ":position . sırada olan əlaqə nömrəsi istifadə olunmuşdur"
-        ]);
+        if ($this->user->phones->isEmpty() && $phones->isEmpty()) {
+            $this->dispatch("notify", state: "warning", msg: "Ən az bir ədəd əlaqə nömrəsi daxil edilməlidir");
+            return;
+        } elseif ($phones->isNotEmpty()) {
 
-        if ($validator->fails()) {
-
-            if (collect($this->personalData)->has("phones")) {
-                $this->personalData["phones"] = [""];
+            if ($currentPhones->isNotEmpty()) {
+                Phone::where("user_id", $this->user->id)->delete();
             }
 
-            $this->dispatch("notify", state: "warning", msg: $validator->errors()->first());
-            return;
-        }
-
-        $this->user->name = $this->personalData["name"];
-        $this->user->role_id = $this->personalData["role_id"];
-        $this->user->remnant = $this->personalData["remnant"];
-        $this->user->remnant_currency = $this->personalData["remnant_currency"];
-        $this->user->save();
-
-        foreach ($this->personalData["phones"] as $phone) {
-            Phone::insert([
-                "user_id" => $this->user->id,
-                "item" => $phone
+            $validator = Validator::make($phones->toArray(), [
+                "*" => "unique:phones,item"
+            ], [
+                "*.unique" => ":position . sırada daxil edilən əlaqə nömrəsi istifadə edilmişdir"
             ]);
+
+            if ($validator->fails()) {
+                if ($currentPhones->isNotEmpty()) {
+                    foreach ($currentPhones as $item) {
+                        Phone::insert([
+                            "user_id" => $this->user->id,
+                            "item" => $item
+                        ]);
+                    }
+                }
+                $this->dispatch("notify", state: "warning", msg: $validator->errors()->first());
+                return;
+            }
+
+            foreach ($phones as $phone) {
+                Phone::insert([
+                    "user_id" => $this->user->id,
+                    "item" => $phone
+                ]);
+            }
+
+
         }
+
+        if ($personalData->has("name")) {
+            $this->user->name = $personalData["name"];
+        }
+
+        $this->user->save();
 
         $this->dispatch("notify", state: "success", msg: "Düzəlişlər qeydə alındı", autoHide: true);
 
-        event(new AddModifyLog(userId: $this->user->id, note: "İstifadəçi məlumatları üzərində düzəliş edildi"));
+        event(new RecordUpdate(userId: $this->user->id, note: "Şəxsi məlumatlar üzərində " . Auth::user()->name . " tərəfindən düzəliş edildi."));
 
 
     }
 
-    function financialAction()
-    {
-        $payment = new Payment();
-        $payment->executor_id = Auth::id();
-        $payment->customer_id = $this->user->id;
-        $payment->type_id = $this->financialData["type_id"];
-        $payment->amount = $this->financialData["amount"];
-        $payment->save();
+    public $explanation = "";
 
-        switch ($this->financialData["type_id"]) {
-            case 1:
-                break;
-            case 2:
-                $this->user->increment("balance", $this->financialData["amount"]);
-                break;
-            case 3:
-                $this->user->decrement("balance", $this->financialData["amount"]);
-                break;
-            case 4:
-                $this->user->decrement("remnant", $this->financialData["amount"]);
-                break;
-            case 5:
-                $this->user->increment("debt", $this->financialData["amount"]);
-                break;
-        }
-
-        $this->dispatch("notify", state: "success", msg: "Sorğunuz icra olundu", autoHide: true);
-
-
-    }
 
 
     public function render()

@@ -10,6 +10,7 @@ class OrderItem extends Model
     use HasFactory;
 
     public const UPDATED_AT = null;
+    public  const CREATED_AT = null;
 
     function product()
     {

@@ -42,7 +42,12 @@
                             <td><?php echo e($order->total); ?> AZN</td>
                             <td><?php echo e($order->paid); ?> AZN</td>
                             <td><?php echo e($order->debt); ?> AZN</td>
-                            <td><?php echo e($order->customer->name); ?></td>
+                            <td>
+                                <a href="<?php echo e(url("user/details/$order->customer_id")); ?>" wire:navigate>
+                                    <?php echo e($order->customer->name); ?>
+
+                                </a>
+                            </td>
                             <td><?php echo e($order->executor->name); ?></td>
                             <td><?php echo e($order->created_at->format("d-m-Y h:i:s")); ?></td>
                         </tr>

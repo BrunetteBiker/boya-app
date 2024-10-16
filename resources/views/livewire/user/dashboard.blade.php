@@ -1,8 +1,8 @@
 <div class="grid gap-4">
 
-    <div class="my-container flex gap-3 justify-between">
+    <div class="my-container flex gap-4">
         <button wire:click="$dispatch('create-user')"
-                class="my-input font-semibold !p-2 text-sm inline-flex items-center gap-1">
+                class="my-input font-semibold !p-2 text-sm inline-flex items-center gap-1 mr-auto">
             <svg class="size-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                  fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z"/>
@@ -12,6 +12,14 @@
             </svg>
             Yeni istifadəçi
         </button>
+        <div class="flex items-center gap-1.5">
+            <div class="my-label">Sıralama</div>
+            <select class="my-input w-44 !p-2 text-sm" wire:model.live="currentSorting">
+                @foreach($sortings as $key=>$sorting)
+                    <option value="{{$key}}">{{$sorting}}</option>
+                @endforeach
+            </select>
+        </div>
         <button wire:click="$toggle('searchState')"
                 class="my-input font-semibold !p-2 text-sm inline-flex items-center gap-1">
             <svg class="size-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -48,8 +56,9 @@
                             <td>
                                 <a href="{{url("user/details/$user->id")}}"
                                    wire:navigate
-                                   class="my-input !p-2.5 text-sm inline-flex items-center gap-1 font-medium">
-                                    <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                   class="my-input !p-2.5 text-sm inline-flex items-center gap-1 font-medium group transition hover:text-blue-600">
+                                    <svg class="size-5 hidden group-hover:inline-block" fill="none" viewBox="0 0 24 24"
+                                         stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                               d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                     </svg>
@@ -57,7 +66,16 @@
                                 </a>
                             </td>
                             <td>{{$user->pid()}}</td>
-                            <td>{{$user->name}}</td>
+                            <td>
+                                <p>
+                                    {{$user->name}}
+                                    @if(auth()->id() == $user->id)
+                                        <br>
+                                        <span
+                                            class="inline-block text-xs bg-green-600 text-white p-1 rounded-md font-medium">Hazırki icraçı</span>
+                                    @endif
+                                </p>
+                            </td>
                             <td class="whitespace-normal">
                                 <p class="line-clamp-1 hover:line-clamp-none w-80">
                                     {{$user->phones->pluck("item")->implode(",")}}
@@ -76,7 +94,7 @@
             {{$this->users->links()}}
         </div>
         @if($searchState)
-            <div class="my-container w-80 grid gap-3">
+            <div wire:transition class="my-container w-80 grid gap-3">
                 <div class="grid gap-1">
                     <div class="my-label">İstifadəçi kodu</div>
                     <input type="text" class="my-input !p-2.5 w-full" wire:model="filters.pid">

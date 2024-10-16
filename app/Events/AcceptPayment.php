@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -12,26 +11,25 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
+use const http\Client\Curl\AUTH_ANY;
 
-class PaymentLog
+class AcceptPayment
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($orderId = null, $customerId = null, $amount = null, $typeId = null, $note = "")
+    public function __construct($orderId = null, $customerId, $paymentTypeId, $amount, $note = "")
     {
-
-        Payment::insert([
-            "executor_id" => Auth::id(),
-            "order_id" => $orderId,
-            "customer_id" => $customerId,
-            "amount" => $amount,
-            "type_id" => $typeId,
-            "note" => $note,
-            "created_at" => now()
-        ]);
+        $payment = new Payment();
+        $payment->executor_id = Auth::id();
+        $payment->order_id = $orderId;
+        $payment->customer_id = $customerId;
+        $payment->type_id = $paymentTypeId;
+        $payment->amount = $amount;
+        $payment->note = $note;
+        $payment->save();
 
     }
 

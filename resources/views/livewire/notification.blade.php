@@ -1,7 +1,6 @@
 <div class="notification {{$state == '' ? "!hidden" : $state}}">
     <p class="notification-msg">{{$msg}}</p>
     <button wire:click="resetNotify" class="notification-btn">Oldu</button>
-
     @script
     <script>
         Livewire.on('autoHide', function () {

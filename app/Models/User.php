@@ -62,4 +62,15 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserRole::class, "id", "role_id");
     }
+
+    function phone()
+    {
+        $phones = Phone::where("user_id", $this->attributes["id"])->get();
+        if (!is_null($phones)) {
+            return $phones->pluck("item")->implode(",");
+        } else {
+            return "";
+        }
+    }
+
 }

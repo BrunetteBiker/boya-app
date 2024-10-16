@@ -5,15 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ModifyLog extends Model
+class UpdateLog extends Model
 {
     use HasFactory;
 
-
-    function executor()
-    {
-        return $this->hasOne(User::class,'id',"executor_id");
-
-    }
+    public const UPDATED_AT = null;
 
 }

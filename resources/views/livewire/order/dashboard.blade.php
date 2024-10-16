@@ -42,7 +42,11 @@
                             <td>{{$order->total}} AZN</td>
                             <td>{{$order->paid}} AZN</td>
                             <td>{{$order->debt}} AZN</td>
-                            <td>{{$order->customer->name}}</td>
+                            <td>
+                                <a href="{{url("user/details/$order->customer_id")}}" wire:navigate>
+                                    {{$order->customer->name}}
+                                </a>
+                            </td>
                             <td>{{$order->executor->name}}</td>
                             <td>{{$order->created_at->format("d-m-Y h:i:s")}}</td>
                         </tr>

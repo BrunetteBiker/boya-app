@@ -14,6 +14,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
     @livewireStyles
     @vite("resources/scss/app.scss")
     <title>Document</title>
@@ -25,14 +26,14 @@
 
         <livewire:user.create/>
 
-        <div class="my-container">
-            <div class="flex justify-end gap-2 font-medium">
+        <div class="my-container flex justify-between items-center">
+            <div class="text-sm">İcraçı : <span class="font-bold">{{auth()->user()->name}}</span></div>
+            <div class="flex gap-2 font-medium">
                 <a href="{{url('order/dashboard')}}" wire:navigate
                    class="border border-black p-2 text-sm">Sifarişlər</a>
-                <a href="{{url('user/dashboard')}}" wire:navigate class="border border-black p-2 text-sm">Müştərilər</a>
+                <a href="{{url('user/dashboard')}}" wire:navigate class="border border-black p-2 text-sm">İstifadəçilər</a>
                 <a href="{{url("product/dashboard")}}" wire:navigate
                    class="border border-black p-2 text-sm">Məhsullar</a>
-                <a href="" class="border border-black p-2 text-sm">Şəxsi kabinet</a>
                 <a href="{{url("logout")}}" wire:navigate class="border border-black p-2 text-sm">Çıxış</a>
             </div>
         </div>

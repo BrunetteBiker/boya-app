@@ -14,6 +14,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
     <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::styles(); ?>
 
     <?php echo app('Illuminate\Foundation\Vite')("resources/scss/app.scss"); ?>
@@ -56,14 +57,14 @@ unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
 
-        <div class="my-container">
-            <div class="flex justify-end gap-2 font-medium">
+        <div class="my-container flex justify-between items-center">
+            <div class="text-sm">İcraçı : <span class="font-bold"><?php echo e(auth()->user()->name); ?></span></div>
+            <div class="flex gap-2 font-medium">
                 <a href="<?php echo e(url('order/dashboard')); ?>" wire:navigate
                    class="border border-black p-2 text-sm">Sifarişlər</a>
-                <a href="<?php echo e(url('user/dashboard')); ?>" wire:navigate class="border border-black p-2 text-sm">Müştərilər</a>
+                <a href="<?php echo e(url('user/dashboard')); ?>" wire:navigate class="border border-black p-2 text-sm">İstifadəçilər</a>
                 <a href="<?php echo e(url("product/dashboard")); ?>" wire:navigate
                    class="border border-black p-2 text-sm">Məhsullar</a>
-                <a href="" class="border border-black p-2 text-sm">Şəxsi kabinet</a>
                 <a href="<?php echo e(url("logout")); ?>" wire:navigate class="border border-black p-2 text-sm">Çıxış</a>
             </div>
         </div>

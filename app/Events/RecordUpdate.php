@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\ModifyLog;
+use App\Models\UpdateLog;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -10,9 +10,8 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
 
-class AddModifyLog
+class RecordUpdate
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -22,14 +21,12 @@ class AddModifyLog
     public function __construct($userId = null, $orderId = null, $paymentId = null, $note = "")
     {
 
-        ModifyLog::insert([
-            "executor_id" => Auth::id(),
-            "user_id" => $userId,
-            "order_id" => $orderId,
-            "payment_id" => $paymentId,
-            "note" => $note,
-            "created_at" => now(),
-        ]);
+        $updateLog = new UpdateLog();
+        $updateLog->user_id = $userId;
+        $updateLog->order_id = $orderId;
+        $updateLog->payment_id = $paymentId;
+        $updateLog->note = $note;
+        $updateLog->save();
 
     }
 

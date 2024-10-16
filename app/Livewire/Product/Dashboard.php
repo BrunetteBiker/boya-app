@@ -12,16 +12,18 @@ use Livewire\WithPagination;
 class Dashboard extends Component
 {
     use WithPagination;
+
+
     public $newProduct = [
+        "state" => false,
         'name' => '',
-        'min' => '',
-        'max' => ''
+        'note' => '',
+        "status" => true
     ];
-    public $selectedId = 1;
+    public $selectedId;
     public $selectedProduct = [
         'name' => '',
-        'min' => 0,
-        'max' => 0,
+        'note' => '',
         'visible' => 0
     ];
 
@@ -30,18 +32,15 @@ class Dashboard extends Component
         $this->selectedId = $id;
         $product = Product::find($this->selectedId);
         $this->selectedProduct["name"] = $product->name;
-        $this->selectedProduct["min"] = $product->min_price;
-        $this->selectedProduct["max"] = $product->max_price;
-        $this->selectedProduct["visible"] = (bool)$product->visible;
+        $this->selectedProduct["note"] = $product->note;
+        $this->selectedProduct["visible"] = (int)$product->visible;
     }
 
     function modify()
     {
-
         $current = Product::find($this->selectedId);
         $current->name = $this->selectedProduct["name"] ?? $current->name;
-        $current->min_price = $this->selectedProduct["min"] ?? $current->min_price;
-        $current->max_price = $this->selectedProduct["max"] ?? $current->max_price;
+        $current->note = $this->selectedProduct["note"];
         $current->visible = $this->selectedProduct["visible"];
         $current->save();
 
@@ -52,11 +51,9 @@ class Dashboard extends Component
 
     public $filters = [
         "name" => '',
-        "min" => '',
-        'max' => '',
+        "keyword" => '',
         'visible' => ''
     ];
-
 
     function search()
     {
@@ -69,6 +66,7 @@ class Dashboard extends Component
         $this->resetPage();
         $this->reset('filters');
     }
+
     function create()
     {
         $validator = Validator::make($this->newProduct, [
@@ -96,7 +94,7 @@ class Dashboard extends Component
     #[Computed]
     function products()
     {
-        $filters = collect($this->filters)->filter(function ($value){
+        $filters = collect($this->filters)->filter(function ($value) {
             return $value != '';
         });
 
@@ -108,20 +106,18 @@ class Dashboard extends Component
             $items = $items->where('name', 'like', "%" . $filters->get("name") . "%");
         }
 
-        if ($filters->has('min')) {
-            $items = $items->where('min_price', '>=', $filters->get("min"));
-            $orderBy = collect(['min_price', "desc"]);
-        }
-
-        if ($filters->has('max')) {
-            $items = $items->where('max_price', '<=', $filters->get("max"));
-            $orderBy = collect(['max_price', "desc"]);
+        if ($filters->has('keyword')) {
+            $this->resetPage();
+            $items = $items->where('id', 'like', "%" . $filters->get("keyword") . "%")
+                ->orWhere('name', 'like', "%" . $filters->get("keyword") . "%")
+                ->orWhere('note', 'like', "%" . $filters->get("keyword") . "%");
         }
 
         if ($filters->has('visible')) {
             $items = $items->where('visible', $filters->get("visible"));
 
         }
+
 
         $items = $items->orderBy($orderBy->first(), $orderBy->last())->paginate(10);
         return $items;

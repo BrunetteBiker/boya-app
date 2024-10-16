@@ -17,7 +17,7 @@ Route::get("login", \App\Livewire\Login::class)->name("login");
 
 Route::middleware("auth")->group(function () {
 
-    Route::get("logout",function (){
+    Route::get("logout", function () {
         auth()->logout();
         return redirect()->route("login");
     });
@@ -41,4 +41,12 @@ Route::middleware("auth")->group(function () {
 
     });
 
+});
+
+Route::get("generate-executor", function () {
+    \App\Models\User::insert([
+        "name"=>"Ədalət Məmmədli",
+        "role_id"=>1,
+        "created_at"=>now()
+    ]);
 });

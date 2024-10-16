@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Order;
 
+use App\Events\PaymentLog;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -11,104 +12,70 @@ use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
 
-
+#[Title("Yeni sifariş blankı")]
 class Create extends Component
 {
 
-    #[Title("Yeni sifariş blankı")]
-    public $addToBalance = false;
-    public $subTotal = 0;
-    public $discount = 0;
+    use WithPagination;
 
-    public $final = 0;
-
-    public $paid = 0;
-    public $debt = 0;
-    public $notes = "";
-
-
-    public $orderItems = [
-        [
-            "recommendedInterval" => null,
-            "productId" => null,
-            "price" => "",
-            "amount" => 0,
-            "total" => 0,
-            "receipt" => ""
-        ]
+    public $customer = [
+        "state" => false,
+        "id" => null,
+        "data" => null
     ];
 
-    public $customerSection = false;
-
-    public $searchCustomer = '';
-
-    #[Computed]
-    function customers()
+    function selectCustomer($id)
     {
-        $items = User::query();
-
-        $items = $items->where("role_id", 2);
-
-        if ($this->searchCustomer != '') {
-            $items = $items->where("name", "like", "%" . $this->searchCustomer . "%");
-        }
-
-        $items = $items->paginate(10);
-
-        return $items;
-
+        $user = User::find($id);
+        $this->customer["state"] = false;
+        $this->customer["data"] = $user;
     }
 
-    public $customerId;
+    public $summary = [
+        "total" => 0,
+        "subTotal" => 0,
+        "discount" => 0,
+        "paid" => 0,
+        "debt" => 0,
+        "addToBalance" => 0,
+        "note" => ""
+    ];
+    public $orderItemTemplate = [
+        "productId" => "",
+        "note" => "",
+        "price" => 0,
+        "amount" => 0,
+        "total" => 0,
+    ];
+    public $orderItems = [];
 
-    public $customer = "";
 
-    #[Computed]
-    function products()
+    function selectedProduct($index)
     {
-        return Product::orderBy("name", "asc")->get();
+        $this->orderItems[$index]["note"] = Product::find($this->orderItems[$index]["productId"])->note;
     }
 
-    function productInfo($index)
-    {
-        $this->orderItems[$index]["recommendedInterval"] = Product::find($this->orderItems[$index]["productId"])->recommendedInterval() . " AZN";
-    }
-
-    function updated($prop)
-    {
-        if ($prop == "customerId") {
-            $this->customer = User::find($this->customerId)->name;
-            $this->customerSection = false;
-        }
-    }
 
     function calculate()
     {
         foreach ($this->orderItems as $index => $orderItem) {
             $total = (float)$orderItem["price"] * (float)$orderItem["amount"];
-            $total = round($total, 1);
+            $total = round($total, 2);
             $this->orderItems[$index]["total"] = $total;
         }
 
-        $this->subTotal = collect($this->orderItems)->sum('total');
-        $this->final = $this->subTotal - (float)$this->discount;
-        $this->debt = $this->final - (float)$this->paid;
-        $this->debt = round($this->debt, 1);
-
+        $this->summary["total"] = collect($this->orderItems)->sum("total");
+        $this->summary["subTotal"] = $this->summary["total"] - $this->summary["discount"];
+        $this->summary["debt"] = $this->summary["subTotal"] - (float)$this->summary["paid"];
+        $this->summary["debt"] = round($this->summary["debt"], 2);
 
     }
 
     function addOrderItem()
     {
-        $this->orderItems[] = [
-            "recommendedInterval" => null,
-            "productId" => null,
-            "price" => '',
-            "amount" => 0,
-            "total" => 0,
-            "receipt" => ""
-        ];
+        $this->orderItems[] = $this->orderItemTemplate;
     }
 
     function removeOrderItem($index)
@@ -118,72 +85,98 @@ class Create extends Component
         $this->orderItems = array_values($this->orderItems);
     }
 
-    function save()
+    function mount()
     {
+        $this->orderItems[] = $this->orderItemTemplate;
+    }
 
-        $orderItems = [];
-        foreach ($this->orderItems as $index => $orderItem) {
-            $orderItems[] = collect($orderItem)->filter()->toArray();
+    public $searchUser = '';
+
+    #[Computed]
+    function users()
+    {
+        $users = User::query();
+
+        if ($this->searchUser != '') {
+            $keyword = $this->searchUser;
+            $users = $users->where("id", "like", "%$keyword%")
+                ->orWhere("name", "like", "%$keyword%")
+                ->orWhere("debt", "like", "%$keyword%")
+                ->orWhere("balance", "like", "%$keyword%")
+                ->orWhereHas("phones", function ($query) use ($keyword) {
+                    $query->where("item", "like", "%$keyword%");
+                })
+                ->orWhereHas("role", function ($query) use ($keyword) {
+                    $query->where("name", "like", "%$keyword%");
+                });
+
         }
 
-        $validator = Validator::make([
-            'customer' => $this->customerId,
-            "orderItems" => $orderItems
-        ], [
-            "customer" => "required",
-            "orderItems.*.productId" => "required",
-            "orderItems.*.price" => "required|numeric",
-            "orderItems.*.amount" => "required|numeric",
-            "orderItems.*.receipt" => "required",
-        ], [
-            "customer.required" => "Müştəri seçilməlidir",
-            "orderItems.*.productId.required" => ":position. məhsul seçilməlidir",
-            "orderItems.*.price" => ":position. məhsulun qiyməti daxil edilməlidir",
-            "orderItems.*.amount" => ":position. məhsulun miqdarı daxil edilməlidir",
-            "orderItems.*.receipt" => ":position. məhsulun tərkibi daxil edilməlidir",
+        $users = $users->paginate(7);
+
+        return $users;
+    }
+
+    #[Computed]
+    function products()
+    {
+        return Product::query()->orderBy("name", "asc")->get();
+    }
+
+    function save()
+    {
+        $vData["order"] = $this->summary;
+        $vData["customer"] = $this->customer;
+        $vData["orderItems"] = $this->orderItems;
+
+
+        $validator = Validator::make($vData, [
+            "customer.id"=>"required",
+            "orderItems.*.productId"=>"required",
+            "orderItems.*.price"=>"required",
+            "orderItems.*.amount"=>"required"
         ]);
 
-        if ($validator->fails()) {
-            $this->dispatch("notify", state: "warning", msg: $validator->errors()->first());
+
+
+        if ($validator->fails()){
+            $this->dispatch("notify",state : "warning",msg : $validator->errors()->first());
             return;
         }
 
+
         $order = new Order();
+        $order->customer_id = $this->customer["id"];
         $order->executor_id = Auth::id();
-        $order->customer_id = $this->customerId;
         $order->status_id = 1;
-        $order->amount = $this->subTotal;
-        $order->discount = $this->discount;
-        $order->total = $this->final;
+        $order->amount = $this->summary["total"];
+        $order->discount = $this->summary["discount"];
+        $order->total = $this->summary["subTotal"];
+        $order->debt = $this->summary["debt"];
+        $order->paid = $this->summary["paid"];
+        $order->notes = $this->summary["note"];
         $order->save();
 
-        foreach ($orderItems as $orderItem) {
-            OrderItem::insert([
-                "order_id" => $order->id,
-                "product_id" => $orderItem["productId"],
-                "amount" => $orderItem["amount"],
-                "price" => $orderItem["price"],
-                "total" => $orderItem["total"]
-            ]);
+
+        foreach ($this->orderItems as $item) {
+            $orderItem = new OrderItem();
+            $orderItem->order_id = $order->id;
+            $orderItem->product_id = $item["productId"];
+            $orderItem->amount = $item["amount"];
+            $orderItem->price = $item["price"];
+            $orderItem->total = $item["total"];
+            $orderItem->save();
         }
 
-        $customer = User::find($this->customerId);
-
-        if ($this->debt < 0 && $this->addToBalance) {
-            $customer->increment("balance", abs($this->debt));
+        if ($order->paid > 0) {
+            event(new PaymentLog(orderId: $order->id, customerId: $order->customer_id, amount: $order->paid, typeId: 1, note: "Borc ödənişi"));
         }
 
-        if ($this->debt > 0) {
-            $customer->increment("debt", $this->debt);
-        }
-
-
-        $this->dispatch("notify", state: "success", msg: "Yeni sifariş qeydə alındı", redirect: url("order/dashboard"));
-
+        return $this->dispatch("notify", state: "success", msg: "Sifariş qeydə alındı", redirect: url("order/details/$order->id"));
 
     }
 
-    public function render()
+    function render()
     {
         return view('livewire.order.create');
     }

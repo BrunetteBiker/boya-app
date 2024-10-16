@@ -35,7 +35,12 @@ class Order extends Model
 
     function items()
     {
-        return $this->hasMany(OrderItem::class,"id","order_id");
+        return $this->hasMany(OrderItem::class, "id", "order_id");
+    }
+
+    function updateLogs()
+    {
+        return $this->hasMany(UpdateLog::class, "id", "order_id");
     }
 
 }
