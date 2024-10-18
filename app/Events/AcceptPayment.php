@@ -20,13 +20,14 @@ class AcceptPayment
     /**
      * Create a new event instance.
      */
-    public function __construct($orderId = null, $customerId, $paymentTypeId, $amount, $note = "")
+    public function __construct($order = null, $customer = null, $type = null, $action = null, $amount = null, $note = "")
     {
         $payment = new Payment();
         $payment->executor_id = Auth::id();
-        $payment->order_id = $orderId;
-        $payment->customer_id = $customerId;
-        $payment->type_id = $paymentTypeId;
+        $payment->order_id = $order;
+        $payment->customer_id = $customer;
+        $payment->type_id = $type;
+        $payment->action_id = $action;
         $payment->amount = $amount;
         $payment->note = $note;
         $payment->save();

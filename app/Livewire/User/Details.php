@@ -33,17 +33,19 @@ class Details extends Component
 
     public $paymentData = [
         "type" => null,
+        "action" => null,
         "amount" => null,
         "note" => ""
     ];
 
-
     function acceptPayment()
     {
         $validator = Validator::make($this->paymentData, [
+            "action" => "required",
             "type" => "required",
             "amount" => "required",
         ], [
+            "action.required" => "Əməliyyat növü seçilməlidir",
             "type.required" => "Ödəniş təsnifatı seçilməlidir",
             "amount.required" => "Məbləğ daxil edilməlidir"
         ]);
@@ -55,15 +57,45 @@ class Details extends Component
         }
 
         switch ($this->paymentData["type"]) {
-            case 2 :
-                $this->user->increment("balance", $this->paymentData["amount"]);
+            case 1:
+                if ($this->paymentData["action"] == 1) {
+                    $this->user->increment("old_debt", $this->paymentData["amount"]);
+                } else {
+                    if ($this->paymentData["amount"] > $this->user->old_debt) {
+                        $this->user->old_debt = 0;
+                    }else{
+                        $this->user->decrement("old_debt", $this->paymentData["amount"]);
+                    }
+                }
+                $this->user->debt = $this->user->old_debt + $this->user->current_debt;
+                $this->user->save();
                 break;
-            case 3 :
-                $this->user->decrement("balance", $this->paymentData["amount"]);
+            case 2 :
+                if ($this->paymentData["action"] == 1) {
+                    $this->user->increment("balance", $this->paymentData["amount"]);
+                } else {
+                    if ($this->paymentData["amount"] > $this->user->balance) {
+                        $this->dispatch("notify", state: "danger", msg: "Balansda kifayət qədər vəsait yoxdur");
+                        return;
+                    }
+                    $this->user->decrement("balance", $this->paymentData["amount"]);
+                }
+                break;
+            case 3:
+                if ($this->paymentData["action"] == 1) {
+                    $this->user->increment("remnant", $this->paymentData["amount"]);
+                } else {
+                    if ($this->paymentData["amount"] > $this->user->remnant) {
+                        $this->user->remnant = 0;
+                        $this->user->save();
+                    }else{
+                        $this->user->decrement("remnant", $this->paymentData["amount"]);
+                    }
+                }
                 break;
         }
 
-        event(new AcceptPayment(orderId: null, customerId: $this->user->id, amount: $this->paymentData["amount"], paymentTypeId: $this->paymentData["type"], note: ""));
+        event(new AcceptPayment(order: null, customer: $this->user->id, amount: $this->paymentData["amount"], type: $this->paymentData["type"], action: $this->paymentData["action"], note: ""));
 
         $this->dispatch("notify", state: "success", msg: "Sorğunuz qeydə alındı");
 
@@ -101,7 +133,6 @@ class Details extends Component
 
         return $items;
     }
-
 
     #[Computed]
     function updateLogs()
@@ -180,12 +211,10 @@ class Details extends Component
 
         $this->dispatch("notify", state: "success", msg: "Düzəlişlər qeydə alındı", autoHide: true);
 
-        event(new RecordUpdate(userId: $this->user->id, note: "Şəxsi məlumatlar üzərində " . Auth::user()->name . " tərəfindən düzəliş edildi."));
+        event(new RecordUpdate(userId: $this->user->id, note: Auth::user()->name . " tərəfindən şəxsi məlumatlar üzərində düzəliş edildi."));
 
 
     }
-
-    public $explanation = "";
 
 
 

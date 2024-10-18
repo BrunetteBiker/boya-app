@@ -5,41 +5,52 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e1262d2-7c91-4ffb-aa0f-6d02a9d350ad" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/print/order.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/boya.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/boya.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/84243601-9f7e-498e-9dc5-9ab5410ee348.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/84243601-9f7e-498e-9dc5-9ab5410ee348.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Events/AddModifyLog.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Events/PaymentLog.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/AcceptPayment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/AcceptPayment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Livewire/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Login.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Livewire/Order/Create.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Order/Create.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Livewire/Order/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Order/Dashboard.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Livewire/Order/Details.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Order/Details.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Livewire/Product/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Product/Dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Livewire/User/Create.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/User/Create.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Livewire/User/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/User/Dashboard.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Livewire/User/Details.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/User/Details.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/ModifyLog.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Order.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/OrderItem.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/OrderItem.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Payment.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/PaymentType.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Payment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/cache/packages.php" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap/cache/packages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/cache/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap/cache/services.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/scss/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/scss/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/components/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/notification.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/notification.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/order/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/order/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order/dashboard.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/order/details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order/details.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/product/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/product/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/user/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/user/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/user/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/user/dashboard.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/user/details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/user/details.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/0907edef129edc5e6a7e41e0c43406be.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/0907edef129edc5e6a7e41e0c43406be.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/34437b441b804b4cb6e29d38c5f0bbc4.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/34437b441b804b4cb6e29d38c5f0bbc4.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/36ab886cdc4c0111e0e00b02c71a0a44.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/36ab886cdc4c0111e0e00b02c71a0a44.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/754b3435fd92a6c73a42ca87f826a58a.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/754b3435fd92a6c73a42ca87f826a58a.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/77292fa25f673778f36b2045da04fa0f.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/77292fa25f673778f36b2045da04fa0f.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/96ae916f0d14f1456d983a0dfac3305f.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/96ae916f0d14f1456d983a0dfac3305f.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/98d5c9abdeed11f00d8fc541b336456e.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/98d5c9abdeed11f00d8fc541b336456e.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/a741bc547714a58f6ff92ec98e83b803.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/a741bc547714a58f6ff92ec98e83b803.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/e88c9b26da34168d7f160d3688e6081d.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/e88c9b26da34168d7f160d3688e6081d.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,6 +191,12 @@
       <path value="$PROJECT_DIR$/vendor/nunomaduro/termwind" />
       <path value="$PROJECT_DIR$/vendor/nunomaduro/collision" />
       <path value="$PROJECT_DIR$/vendor/livewire/livewire" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/masterminds/html5" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
     </include_path>
   </component>
   <component name="ProjectId" id="2nHKveQyQloJJKYgsGVZXfcbgcs" />
@@ -227,11 +244,24 @@
       <workItem from="1728884270647" duration="2143000" />
       <workItem from="1728886676492" duration="19703000" />
       <workItem from="1728967623545" duration="26946000" />
-      <workItem from="1729054588706" duration="25699000" />
+      <workItem from="1729054588706" duration="26405000" />
+      <workItem from="1729141010912" duration="20739000" />
+      <workItem from="1729228655219" duration="22819000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

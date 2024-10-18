@@ -29,71 +29,133 @@ class Details extends Component
         "payments" => true,
         "orderItems" => false,
         "generalInfo" => true,
-        "customerInfo" => false,
-        "updateRecords" => true
+        "customerInfo" => true,
+        "cancel" => false
     ];
 
     public $paymentInfo = [
-        "amount" => null,
+        "amount" => 0,
         "fromBalance" => false,
         "debt" => null,
-        "addBalance" => false,
         "note" => "",
+        "reminder" => null
     ];
 
     function calculate()
     {
-        $this->paymentInfo["debt"] = round((float)$this->paymentInfo["amount"] - $this->order->debt, 2);
+        $payFromBalance = $this->paymentInfo["fromBalance"];
+        $reminder = 0;
+        $amount = $this->paymentInfo["amount"];
+        $debt = (float)$amount - $this->order->debt;
+        $debt = round($debt, 2);
+
+
+        if ($payFromBalance) {
+            $reminder = 0;
+        }
+
+        if ($debt > 0) {
+            $reminder = $debt;
+            $debt = 0;
+        } else {
+            $debt = abs($debt);
+        }
+
+        $this->paymentInfo["reminder"] = $reminder;
+        $this->paymentInfo["debt"] = $debt;
+        $this->paymentInfo["fromBalance"] = $payFromBalance;
+
     }
 
     function acceptPayment()
     {
-        if ($this->paymentInfo["fromBalance"]) {
-            if ($this->paymentInfo["amount"] > $this->order->customer->balance) {
+        $payFromBalance = $this->paymentInfo["fromBalance"];
+        $amount = $this->paymentInfo["amount"];
+        $debt = $this->paymentInfo["debt"];
+        $reminder = $this->paymentInfo["reminder"];
+
+
+        if ($amount == "" || $amount <= 0) {
+            $this->dispatch("notify", state: "warning", msg: "Ödəniş miqdarı düzgün qeyd olunmamışdır.");
+            return;
+        }
+
+        if ($payFromBalance) {
+            if ($amount > $this->order->customer->balance) {
                 $this->dispatch("notify", state: "warning", msg: "Balansda kifayət qədər vəsait yoxdur");
                 return;
             } else {
-                $this->order->customer->decrement("balance", $this->paymentInfo["amount"]);
+                $this->order->customer->decrement("balance", $amount);
             }
-        }
-
-        if ($this->paymentInfo["debt"] < 0) {
-            $this->order->debt = abs($this->paymentInfo["debt"]);
-        } else {
-            $this->order->debt = 0;
-        }
-
-        if ($this->paymentInfo["addBalance"]) {
-            $this->order->customer->increment("balance", $this->paymentInfo["debt"]);
-
-            event(new AcceptPayment(orderId : null , customerId: $this->order->customer_id,amount: $this->paymentInfo["debt"],paymentTypeId: 2,note: $this->order->pid() . " kodlu sifarişin ödənişində yaranan pulun qalığı"));
-
-            event(new RecordUpdate(userId: $this->order->customer_id ,note: "Borc ödənişinin pul qalığı balansa əlavə olundu"));
 
         }
 
+        if ($amount > $debt) {
+            $amount = $amount - $reminder;
+        }
+
+        $this->order->increment("paid",$amount);
+
+        event(new AcceptPayment(order: $this->order->id, customer: $this->order->customer_id, type: 4, amount: $amount, action: 1));
+
+        $this->order->debt = $debt;
         $this->order->save();
-        $this->order->customer->debt = Order::where("customer_id", $this->order->customer->id)->sum("debt");
+
+        $this->order->customer->debt = $this->order->customer->old_debt + Order::where("customer_id", $this->order->customer_id)->sum("debt");
         $this->order->customer->save();
-
-        event(new RecordUpdate(userId: $this->order->customer_id, orderId: $this->order->id, note: "Borc ödənişi edildi.Ödəniş miqdarı :" . $this->paymentInfo["amount"] . " AZN. ".$this->order->debt == 0 ? "Sifariş üzrə borc sıfırlandı" : ""));
-
-        event(new AcceptPayment(orderId: $this->order->id, customerId: $this->order->customer_id, paymentTypeId: 1, amount: $this->paymentInfo["amount"], note: $this->paymentInfo["note"]));
 
         $this->dispatch("notify", state: "success", msg: "Ödəniş qeydə alındı");
 
+    }
+
+    public $cancelExplanation = "";
+
+    function cancelOrder()
+    {
+        if ($this->cancelExplanation == "") {
+            $this->dispatch("notify", state: "info", msg: "Sifariş ləğv edildi");
+            return;
+        }
+
+        $this->order->status_id = 4;
+        $this->order->cancel_explanation = $this->cancelExplanation;
+        $this->order->save();
+        Payment::where("order_id", $this->order->id)->update(["is_cancelled" => true]);
+
+        $refunded = Payment::where([
+            "order_id" => $this->order->id,
+            "is_cancelled" => true
+        ])->sum("amount");
+
+        $this->order->customer->increment("balance", $refunded);
+
+        event(new AcceptPayment(order: null, customer: $this->order->customer_id, amount: $refunded, action: 1, type: 2, note: $this->order->pid . " kodlu sifarişin ləğvindən gələn artım."));
+
+        $this->order->customer->current_debt = Order::where(["customer_id" => $this->order->customer_id])->whereNot("status_id", 4)->sum("debt");
+        $this->order->customer->current_debt = round($this->order->customer->current_debt, 2);
+        $this->order->customer->debt = $this->order->customer->old_debt + $this->order->customer->current_debt;
+        $this->order->customer->save();
+
+        $this->dispatch("notify", state: "info", msg: "Sifariş ləğv edildi");
 
     }
 
     function mount($id)
     {
         $this->order = Order::findOrFail($id);
+
+        $this->paymentInfo["debt"] = $this->order->debt;
+
+        $this->cancelExplanation = $this->order->cancel_explanation;
+
+        $this->state["cancel"] = $this->order->status_id == 4;
+
     }
 
     #[Computed]
     function payments()
     {
-        $items = Payment::where("order_id", $this->order->id)->orderBy("id", "desc");
+        $items = Payment::where("order_id", $this->order->id)->where("type_id", 4)->orderBy("id", "desc");
 
         $items = $items->paginate(10);
 
@@ -107,34 +169,13 @@ class Details extends Component
         return OrderItem::where("order_id", $this->order->id)->paginate();
     }
 
-
-    public $updateLogData = [
-        "orderBy" => "id|desc",
-        "keyword" => ""
-    ];
-
-    function updatedUpdateLogData($val, $key)
-    {
-        $this->resetPage("updateLogsPager");
-    }
-
-
     #[Computed]
     function updateLogs()
     {
-        $keyword = $this->updateLogData["keyword"];
-        $orderBy = Str::of($this->updateLogData["orderBy"])->explode("|")->collect();
 
         $items = UpdateLog::query();
         $items = $items->where("order_id", $this->order->id);
-        $items = $items->orderBy($orderBy->first(), $orderBy->last());
-
-        if ($keyword != "") {
-            $items = $items->where("note", "like", "%$keyword%");
-        }
-
-
-
+        $items = $items->orderBy("id", "desc");
         $items = $items->paginate(10, pageName: "updateLogsPager");
         return $items;
     }

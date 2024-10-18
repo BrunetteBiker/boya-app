@@ -2,8 +2,10 @@
 
 namespace App\Livewire\User;
 
+use App\Events\RecordUpdate;
 use App\Models\Phone;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
@@ -17,12 +19,20 @@ class Create extends Component
     public $data = [
         "name" => "",
         "phones" => [''],
-        "debt" => 0,
+        "oldDebt" => 0,
         "balance" => 0,
         "role" => '',
-        "remnant"=>0,
-        "remnantCurrency"=>''
+        "remnant" => 0,
     ];
+
+    function updatedData($val, $key)
+    {
+        if ($key == "role") {
+            $this->data["remnant"] = 0;
+            $this->data["balance"] = 0;
+            $this->data["oldDebt"] = 0;
+        }
+    }
 
     function addPhone()
     {
@@ -60,15 +70,12 @@ class Create extends Component
             'name' => "required",
             "phones" => "array|min:1",
             "phones.*" => "unique:phones,item",
-            "role" => "required",
-            "remnant"=>"nullable",
-            "remnantCurrency"=>[Rule::requiredIf($this->data["remnant"] > 0)]
+            "role" => "required"
         ], [
             "name.required" => "Müştərinin adı və soyadı daxil edilməlidir",
             "phones.min" => "Ən az bir ədəd əlaqə nömrəsi daxil edilməlidir",
             "phones.*.unique" => ":position nömrəli əlaqə nömrəsi istifadə olunmuşdur",
             "role.required" => "Vəzifə seçilməlidir",
-            "remnantCurrency.required"=>"Kəsir valyutası seçilməlidir"
         ]);
 
         if ($validator->fails()) {
@@ -79,11 +86,10 @@ class Create extends Component
 
         $user = new User();
         $user->name = $this->data["name"];
-        $user->debt = $this->data["debt"];
+        $user->old_debt = $this->data["oldDebt"];
         $user->balance = $this->data["balance"];
         $user->role_id = $this->data["role"];
         $user->remnant = $this->data["remnant"];
-        $user->remnant_currency = $this->data["remnantCurrency"];
         $user->save();
 
         foreach ($this->data["phones"] as $phone) {
@@ -92,6 +98,9 @@ class Create extends Component
                 "item" => $phone
             ]);
         }
+
+        event(new RecordUpdate(userId: $user->id,note: Auth::user()->name. " tərəfindən portala əlavə olundu"));
+
 
         $this->state = false;
         $this->reset('data');

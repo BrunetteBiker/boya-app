@@ -45,8 +45,18 @@ Route::middleware("auth")->group(function () {
 
 Route::get("generate-executor", function () {
     \App\Models\User::insert([
-        "name"=>"Ədalət Məmmədli",
-        "role_id"=>1,
-        "created_at"=>now()
+        "name" => "Ədalət Məmmədli",
+        "role_id" => 1,
+        "created_at" => now()
     ]);
+});
+
+Route::get("print/{id}", function ($id) {
+
+    $order = \App\Models\Order::find($id);
+    $data["order"] = $order;
+
+    $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("print.order", $data);
+    $pdf->setPaper("A4","landscape");
+    return $pdf->download("order-$id.pdf");
 });

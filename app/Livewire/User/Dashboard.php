@@ -5,10 +5,12 @@ namespace App\Livewire\User;
 use App\Models\Phone;
 use App\Models\User;
 use App\Models\UserRole;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -30,6 +32,7 @@ class Dashboard extends Component
     public $currentSorting = "id|desc";
     public $searchState = false;
 
+    #[Url(except: "")]
     public $filters = [
         "pid" => "",
         "name" => "",
@@ -43,6 +46,14 @@ class Dashboard extends Component
             "min" => "",
             "max" => "",
         ],
+        "oldDebt" => [
+            "min" => "",
+            "max" => "",
+        ],
+        "currentDebt" => [
+            "min" => "",
+            "max" => "",
+        ],
         "remnant" => [
             "min" => "",
             "max" => "",
@@ -53,20 +64,19 @@ class Dashboard extends Component
         ],
     ];
 
+    #[Url(except: "")]
+    public $searchKeyword;
+
     function mount()
     {
-
     }
 
     function search($reset = false)
     {
-        if ($reset) {
+        if ($reset == true) {
             $this->reset('filters');
         }
         $this->resetPage();
-        $this->users();
-
-
     }
 
     function updated($prop)
@@ -74,6 +84,13 @@ class Dashboard extends Component
         if ($prop == "currentSorting") {
             $this->resetPage();
         }
+
+        if ($prop == "searchKeyword") {
+            $this->reset("filters");
+            $this->resetPage();
+        }
+
+
     }
 
     #[On("refresh-users")]
@@ -83,75 +100,103 @@ class Dashboard extends Component
         $this->resetPage();
     }
 
+
     #[Computed]
     function users()
     {
         $orderBy = Str::of($this->currentSorting)->explode("|")->collect();
-        $filters = collect($this->filters)->map(function ($item, $key) {
-            if (is_array($item)) {
-                $item = collect($item);
-                if ($item->filter()->isNotEmpty()) {
-                    return $item->toArray();
-                }
-            } elseif ($item != "" || !$item) {
-                return $item;
-            }
-        })->filter();
+        $filters = collect($this->filters)->filter();
+        $balance = collect($filters->get("balance"))->filter();
+        $debt = collect($filters->get("debt"))->filter();
+        $currentDebt = collect($filters->get("currentDebt"))->filter();
+        $oldDebt = collect($filters->get("oldDebt"))->filter();
+        $remnant = collect($filters->get("remnant"))->filter();
+        $registeredAt = collect($filters->get("registeredAt"))->filter();
+
 
         $items = User::query();
 
         $items = $items->orderBy($orderBy->first(), $orderBy->last());
 
-        if ($filters->has("pid")) {
-            $items = $items->where("id", "like", "%" . $filters["pid"] . "%");
-        }
-        if ($filters->has("name")) {
-            $items = $items->where("name", "like", "%" . $filters["name"] . "%");
-        }
-        if ($filters->has("phone")) {
-            $items = $items->whereHas("phones", function ($query) use ($filters) {
-                $query->where("item", "like", "%" . $filters["phone"] . "%");
-            });
-        }
+        if ($this->searchKeyword != "") {
 
-        if ($filters->has("roles")) {
-            $items = $items->whereIn("role_id", $filters["roles"]);
-        }
+            $searchKeyword = $this->searchKeyword;
+            $items = $items->where("name", "like", "%$searchKeyword%");
 
-        if ($filters->has("balance")) {
-            if ($filters->has("min")) {
-                $items = $items->where("balance", ">=", $filters["balance"]["min"]);
+        } else {
+            if ($filters->has("pid")) {
+                $items = $items->where("id", "like", "%" . $filters["pid"] . "%");
             }
-            if ($filters->has("max")) {
-                $items = $items->where("balance", "<=", $filters["balance"]["max"]);
+            if ($filters->has("name")) {
+                $items = $items->where("name", "like", "%" . $filters["name"] . "%");
             }
-        }
+            if ($filters->has("phone")) {
+                $items = $items->whereHas("phones", function ($query) use ($filters) {
+                    $query->where("item", "like", "%" . $filters["phone"] . "%");
+                });
+            }
 
-        if ($filters->has("debt")) {
-            if ($filters->has("min")) {
-                $items = $items->where("debt", ">=", $filters["debt"]["min"]);
+            if ($filters->has("roles")) {
+                $items = $items->whereIn("role_id", $filters["roles"]);
             }
-            if ($filters->has("max")) {
-                $items = $items->where("debt", "<=", $filters["debt"]["max"]);
-            }
-        }
 
-        if ($filters->has("remnant")) {
-            if ($filters->has("min")) {
-                $items = $items->where("remnant", ">=", $filters["remnant"]["min"]);
+            if ($balance->isNotEmpty()) {
+                if ($balance->count() == 1) {
+                    $items = $items->where("balance", $balance->first());
+                } else {
+                    $items = $items->where("balance", ">=", $balance->first());
+                    $items = $items->where("balance", "<=", $balance->last());
+                }
             }
-            if ($filters->has("max")) {
-                $items = $items->where("remnant", "<=", $filters["remnant"]["max"]);
-            }
-        }
 
-        if ($filters->has("registeredAt")) {
-            if ($filters->has("min")) {
-                $items = $items->whereDate("created_at", ">=", $filters["registeredAt"]["min"]);
+            if ($debt->isNotEmpty()) {
+                if ($debt->count() == 1) {
+                    $items = $items->where("debt", $debt->first());
+                } else {
+                    $items = $items->where("debt", ">=", $debt->first());
+                    $items = $items->where("debt", "<=", $debt->last());
+                }
             }
-            if ($filters->has("max")) {
-                $items = $items->whereDate("created_at", "<=", $filters["registeredAt"]["max"]);
+
+            if ($oldDebt->isNotEmpty()) {
+                if ($oldDebt->count() == 1) {
+                    $items = $items->where("old_debt", $oldDebt->first());
+                } else {
+                    $items = $items->where("old_debt", ">=", $oldDebt->first());
+                    $items = $items->where("old_debt", "<=", $oldDebt->last());
+                }
             }
+
+            if ($currentDebt->isNotEmpty()) {
+                if ($currentDebt->count() == 1) {
+                    $items = $items->where("current_debt", $currentDebt->first());
+                } else {
+                    $items = $items->where("current_debt", ">=", $currentDebt->first());
+                    $items = $items->where("current_debt", "<=", $currentDebt->last());
+                }
+            }
+
+            if ($remnant->isNotEmpty()) {
+                if ($remnant->count() == 1) {
+                    $items = $items->where("remnant", $remnant->first());
+                } else {
+                    $items = $items->where("remnant", ">=", $remnant->first());
+                    $items = $items->where("remnant", "<=", $remnant->last());
+                }
+            }
+
+            if ($registeredAt->isNotEmpty()) {
+                if ($registeredAt->count() == 1) {
+                    $date = Carbon::make($registeredAt->first())->format("Y-m-d");
+                    $items = $items->whereDate("created_at", $date);
+                } else {
+                    $date = Carbon::make($registeredAt->first())->format("Y-m-d");
+                    $items = $items->whereDate("created_at", ">=", $date);
+                    $date = Carbon::make($registeredAt->last())->format("Y-m-d");
+                    $items = $items->whereDate("created_at", "<=", $date);
+                }
+            }
+
         }
 
 

@@ -19,6 +19,9 @@ class Dashboard extends Component
 
     use WithPagination;
 
+
+    public $searchState = false;
+
     #[Url]
     public $orderBy = [
         'col' => 'id',

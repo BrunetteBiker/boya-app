@@ -1,4 +1,4 @@
-<div class="grid gap-4">
+<div class="grid gap-4" wire:keydown.escape="$toggle('customer.state')">
 
     @if($customer["state"])
         <div
@@ -124,6 +124,10 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="flex items-center gap-1.5">
+                            <div class="my-label">Tərkib</div>
+                            <input type="text" class="my-input flex-1" wire:model="orderItems.{{$index}}.receipt">
+                        </div>
                         <div class="flex items-start gap-1.5">
                             <div class="my-label">Qeyd</div>
                             <textarea name="" class="my-input flex-1" rows="3"
@@ -185,21 +189,7 @@
                 <input type="text" class="my-input" disabled wire:model.live="summary.subTotal">
             </div>
 
-            <div class="grid gap-1">
-                <div class="my-label">Ödənilən məbləğ</div>
-                <input type="number" step="0.01" class="my-input" wire:model.live="summary.paid" wire:blur="calculate">
-            </div>
 
-            <div class="grid gap-1">
-                <div class="my-label">Borc</div>
-                <input type="text" class="my-input" disabled wire:model.live="summary.debt">
-                @if($summary["debt"] < 0)
-                    <label for="add-to-balance" class="text-sm ml-auto mt-2 cursor-pointer">
-                        <input type="checkbox" value="1" id="add-to-balance" wire:model.live="summary.addToBalance">
-                        <span>Balansa əlavə et</span>
-                    </label>
-                @endif
-            </div>
             <div class="grid gap-1">
                 <div class="my-label">Qeyd</div>
                 <textarea class="my-input" rows="3" wire:model="summary.note"></textarea>
@@ -217,7 +207,7 @@
                     Qəbul et
                 </span>
             </button>
-            <p wire:loading class="text-sm font-semibold animate-pulse">Sorğunuz icra olunur...</p>
+            <p wire:loading wire:target="save" class="text-sm font-semibold animate-pulse">Sorğunuz icra olunur...</p>
 
         </div>
     </div>

@@ -48,30 +48,23 @@
                     <input type="text" class="my-input w-full" wire:model="data.balance">
                 </div>
                 <div class="flex items-center gap-1.5">
-                    <div class="text-sm font-medium">Borc</div>
-                    <input type="text" class="my-input w-full" wire:model="data.debt">
+                    <div class="text-sm font-medium">Faktiki borc</div>
+                    <input type="text" class="my-input w-full" wire:model="data.oldDebt">
                 </div>
             </div>
         @endif
         @if($data["role"] == 3)
             <div class="flex items-center gap-3">
                 <div class="flex items-center gap-1.5 flex-1">
-                    <div class="text-sm font-medium">Kəsir</div>
+                    <div class="text-sm font-medium">Alış borcu</div>
                     <input type="number" step="0.01" class="my-input flex-1" wire:model="data.remnant">
-                </div>
-                <div class="flex items-center gap-1.5">
-                    <div class="text-sm font-medium">Valyuta</div>
-                    <select class="my-input" wire:model="data.remnantCurrency">
-                        <option value="">Seçin</option>
-                        <option value=AZN"">AZN</option>
-                        <option value="USD">USD</option>
-                    </select>
                 </div>
             </div>
 
         @endif
 
-        <div class="flex justify-end gap-3 text-sm font-semibold">
+        <p wire:target="createUser" wire:loading class="text-sm font-medium animate-pulse">Sorğunuz icra olunur...</p>
+        <div wire:loading.class="hidden" class="flex justify-end gap-3 text-sm font-semibold">
             <button wire:click="createUser" class="my-input">Əlavə et</button>
             <button wire:click="$dispatch('create-user')" class="my-input">Ləğv et</button>
         </div>

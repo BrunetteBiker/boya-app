@@ -51,7 +51,6 @@ class Dashboard extends Component
 
     public $filters = [
         "name" => '',
-        "keyword" => '',
         'visible' => ''
     ];
 
@@ -83,8 +82,7 @@ class Dashboard extends Component
         }
         Product::insert([
             "name" => $this->newProduct["name"],
-            "min_price" => $this->newProduct["min"],
-            "max_price" => $this->newProduct["max"],
+            "note"=>$this->newProduct["note"]
         ]);
 
         $this->dispatch('notify', state: "info", msg: "Yeni məhsul əlavə edildi", autoHide: true);
@@ -104,13 +102,6 @@ class Dashboard extends Component
 
         if ($filters->has('name')) {
             $items = $items->where('name', 'like', "%" . $filters->get("name") . "%");
-        }
-
-        if ($filters->has('keyword')) {
-            $this->resetPage();
-            $items = $items->where('id', 'like', "%" . $filters->get("keyword") . "%")
-                ->orWhere('name', 'like', "%" . $filters->get("keyword") . "%")
-                ->orWhere('note', 'like', "%" . $filters->get("keyword") . "%");
         }
 
         if ($filters->has('visible')) {

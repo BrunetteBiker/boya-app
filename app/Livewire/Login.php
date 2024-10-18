@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Phone;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -17,6 +18,7 @@ class Login extends Component
 
     function mount()
     {
+
     }
 
     function updated($prop)

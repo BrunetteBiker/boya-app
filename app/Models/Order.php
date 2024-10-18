@@ -11,12 +11,6 @@ class Order extends Model
 {
     use HasFactory;
 
-    function pid()
-    {
-        $createdAt = Carbon::make($this->attributes["created_at"]);
-
-        return "SFR" . $createdAt->format("dmY") . Str::of($this->attributes["id"])->padLeft(6, 0);
-    }
 
     function customer()
     {
@@ -35,12 +29,17 @@ class Order extends Model
 
     function items()
     {
-        return $this->hasMany(OrderItem::class, "id", "order_id");
+        return $this->hasMany(OrderItem::class);
     }
 
     function updateLogs()
     {
         return $this->hasMany(UpdateLog::class, "id", "order_id");
+    }
+
+    function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
 
 }

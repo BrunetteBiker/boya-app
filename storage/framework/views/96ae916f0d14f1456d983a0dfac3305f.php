@@ -1,5 +1,14 @@
 <div class="flex items-start gap-4">
     <div class="w-80 grid gap-4">
+        <a href="<?php echo e(url("order/create?customer=".$user->id)); ?>" wire:navigate class="my-input bg-white font-semibold inline-flex items-center gap-2">
+            <svg class="size-7"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-center flex-1">
+            Yeni sifariş
+            </span>
+        </a>
+
         <div class="my-container grid gap-4">
             <div class="flex justify-between">
                 <h1 class="text-xl font-bold">Şəxsi məlumatlar</h1>
@@ -44,32 +53,49 @@
             </div>
             <button wire:click="updateUser" class="my-input font-medium">Düzəliş et</button>
         </div>
-        <div class="my-container grid gap-4">
-            <div class="grid gap-1">
-                <div class="my-label">Balans</div>
-                <input type="text" class="my-input" wire:model="personalData.balance" disabled>
-            </div>
-            <div class="grid gap-1">
-                <div class="my-label">Öncədən olan borc</div>
-                <input type="text" class="my-input" wire:model="personalData.old_debt" disabled>
-            </div>
-            <div class="grid gap-1">
-                <div class="my-label">Alış borcu</div>
-                <input type="number" step="0.01" class="my-input" wire:model="personalData.remnant" disabled>
-            </div>
-        </div>
     </div>
     <div class="flex-1 grid gap-4">
+
+        <div class="flex flex-wrap gap-4">
+            <div class="my-container  min-w-44">
+                <h1 class="text-2xl text-right font-semibold"><?php echo e($user->balance); ?> AZN</h1>
+                <p class="text-sm">Balans</p>
+            </div>
+            <div class="my-container min-w-44">
+                <h1 class="text-2xl text-right font-semibold"><?php echo e($user->debt); ?> AZN</h1>
+                <p class="text-sm">Ümumi borc</p>
+            </div>
+            <div class="my-container min-w-44">
+                <h1 class="text-2xl text-right font-semibold"><?php echo e($user->old_debt); ?> AZN</h1>
+                <p class="text-sm">Öncəki borc</p>
+            </div>
+            <div class="my-container min-w-44">
+                <h1 class="text-2xl text-right font-semibold"><?php echo e($user->current_debt); ?> AZN</h1>
+                <p class="text-sm">Faktiki borc</p>
+            </div>
+            <div class="my-container min-w-44">
+                <h1 class="text-2xl text-right font-semibold"><?php echo e($user->remnant); ?> AZN</h1>
+                <p class="text-sm">Alış borcu</p>
+            </div>
+        </div>
+
         <div class="my-container grid gap-4">
             <div class="flex gap-4">
                 <div class="grid gap-1 flex-1">
                     <div class="my-label">Təsnifat</div>
                     <select class="my-input w-full" wire:model="paymentData.type">
                         <option value="">Seçin</option>
-                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = \App\Models\PaymentType::orderBy("name","asc")->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $paymentType): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <!--[if BLOCK]><![endif]--><?php if($paymentType->id != 1): ?>
-                                <option value="<?php echo e($paymentType->id); ?>"><?php echo e($paymentType->name); ?></option>
-                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = \App\Models\PaymentType::where("is_manual",true)->orderBy("name","asc")->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $paymentType): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($paymentType->id); ?>"><?php echo e($paymentType->name); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                    </select>
+                </div>
+                <div class="grid gap-1">
+                    <div class="my-label">Əməliyyat növü</div>
+                    <select class="my-input" wire:model=paymentData.action>
+                        <option value="">Seçin</option>
+                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = \App\Models\Action::all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $action): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($action->id); ?>"><?php echo e($action->name); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </select>
                 </div>
@@ -100,6 +126,7 @@
                     <th>Əməliyyatlar</th>
                     <th>Ödəniş kodu</th>
                     <th>Təsnifat</th>
+                    <th>Əməliyyat</th>
                     <th>Məbləğ</th>
                     <th>Tarix</th>
                     <th>Qeyd</th>
@@ -108,13 +135,19 @@
                     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
                             <td>
-                                <a href="" class="my-input inline-flex gap-1 items-center text-sm">Qəbz çap et</a>
+                                <div class="inline-flex gap-2">
+                                    <a href="" class="my-input inline-flex gap-1 items-center text-sm">Qəbz çap et</a>
+                                    <button class="my-input inline-flex gap-1 items-center text-sm">Ləğv et</button>
+                                </div>
                             </td>
                             <td><?php echo e($payment->pid()); ?></td>
                             <td><?php echo e($payment->type->name); ?></td>
+                            <td><?php echo e($payment->action->name); ?></td>
                             <td><?php echo e($payment->amount); ?> AZN</td>
                             <td><?php echo e($payment->created_at->format("d-m-Y h:i:s")); ?></td>
-                            <td class="whitespace-normal"><?php echo e($payment->note); ?></td>
+                            <td class="whitespace-normal">
+                                <p class="line-clamp-1 hover:line-clamp-none"><?php echo e($payment->note); ?></p>
+                            </td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </tbody>

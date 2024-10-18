@@ -25,4 +25,9 @@ class Payment extends Model
     {
         return $this->hasOne(PaymentType::class, "id", "type_id");
     }
+
+    function action()
+    {
+        return $this->hasOne(Action::class, "id", "action_id");
+    }
 }
