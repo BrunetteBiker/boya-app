@@ -15,6 +15,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.54.1/apexcharts.min.css">
     <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::styles(); ?>
 
     <?php echo app('Illuminate\Foundation\Vite')("resources/scss/app.scss"); ?>
@@ -65,6 +68,8 @@ if (isset($__slots)) unset($__slots);
                 <a href="<?php echo e(url('user/dashboard')); ?>" wire:navigate class="border border-black p-2 text-sm">İstifadəçilər</a>
                 <a href="<?php echo e(url("product/dashboard")); ?>" wire:navigate
                    class="border border-black p-2 text-sm">Məhsullar</a>
+                <a href="<?php echo e(url("raport")); ?>" wire:navigate
+                   class="border border-black p-2 text-sm">Hesabat</a>
                 <a href="<?php echo e(url("logout")); ?>" wire:navigate class="border border-black p-2 text-sm">Çıxış</a>
             </div>
         </div>
@@ -73,8 +78,8 @@ if (isset($__slots)) unset($__slots);
 
 
 </div>
-
 <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scripts(); ?>
+
 
 </body>
 </html>
