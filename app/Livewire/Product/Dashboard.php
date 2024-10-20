@@ -5,10 +5,12 @@ namespace App\Livewire\Product;
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Title("Məhsullar")]
 class Dashboard extends Component
 {
     use WithPagination;

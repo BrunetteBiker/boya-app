@@ -6,22 +6,17 @@ use App\Models\Phone;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Title("Portala giriş")]
 class Login extends Component
 {
 
 
-    public $errorMsg;
-
-    public $executorId;
+    public $executorId = null;
 
     function mount()
-    {
-
-    }
-
-    function updated($prop)
     {
 
     }
@@ -35,6 +30,12 @@ class Login extends Component
 
     function login()
     {
+
+        if (is_null($this->executorId)) {
+            $this->dispatch("notify", state: "warning", msg: "İcraçı seçilməlidir");
+            return;
+        }
+
 
         Auth::loginUsingId($this->executorId);
         $this->redirect("order/dashboard");

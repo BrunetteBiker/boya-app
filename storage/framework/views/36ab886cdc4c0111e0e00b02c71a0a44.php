@@ -1,6 +1,9 @@
 <div class="grid gap-4">
     <div class="flex justify-end gap-4">
-        <a href="<?php echo e(url("print/$order->id")); ?>" class="my-container">Qaiməni çap et</a>
+        <a href="<?php echo e(url("print/$order->id")); ?>" class="my-container inline-flex items-center gap-2 font-medium !p-2.5 text-sm">
+            <svg class="size-7"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />  <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />  <rect x="7" y="13" width="10" height="8" rx="2" /></svg>
+            Qaiməni çap et
+        </a>
     </div>
     <div class="grid grid-cols-2 gap-4 items-start">
         <div class="grid gap-4">

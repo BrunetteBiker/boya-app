@@ -3,12 +3,14 @@
         <div class="my-container flex gap-8">
             <div class="inline-flex gap-1.5 items-center">
                 <div class="text-sm font-medium">Sıralama</div>
-                <select name="" id="" class="border text-sm border-black p-2">
-                    <option value="">Öncə yenilər</option>
+                <select class="border text-sm border-black p-2" wire:model.live="orderBy">
+                    @foreach($sortings as $key=>$sorting)
+                        <option value="{{$key}}">{{$sorting}}</option>
+                    @endforeach
                 </select>
             </div>
             <div x-transition x-show="!state" class="inline-flex items-center gap-1.5">
-                <input type="text" class="my-input !p-2.5 text-sm" placeholder="Sifariş kodu">
+                <input type="text" class="my-input !p-2.5 text-sm" placeholder="Sifariş kodu" wire:model.live="filters.pid">
                 <button wire:click="$toggle('searchState')" class="underline text-sm">Ətraflı axtarış</button>
             </div>
 
@@ -62,7 +64,7 @@
             {{$this->orders->links()}}
         </div>
     </div>
-    <div x-show="state" x-transition class="w-80 my-container grid gap-4 sticky top-4">
+    <div x-show="state" x-transition class="w-80 my-container grid gap-4 sticky top-4" wire:keydown.enter="search">
         <div class="flex justify-between items-center gap-2">
             <p class="font-semibold text-lg">Ətraflı axtarış</p>
             <button wire:click="$toggle('searchState')" class="my-input !p-1.5 text-xs ml-auto">Gizlə</button>
@@ -124,10 +126,11 @@
         <div class="grid gap-1">
             <div class="text-sm font-medium">Tarix</div>
             <div class="grid grid-cols-2 gap-2">
-                <input type="text" class="border border-black text-sm p-3 w-full" placeholder="gün-ay-il" wire:model="filters.createdAt.min">
-                <input type="text" class="border border-black text-sm p-3 w-full" placeholder="gün-ay-il" wire:model="filters.createdAt.max">
+                <input type="text" class="border border-black text-sm p-3 w-full" placeholder="gün-ay-il" wire:model="filters.createdAt.min" x-mask="99-99-9999">
+                <input type="text" class="border border-black text-sm p-3 w-full" placeholder="gün-ay-il" wire:model="filters.createdAt.max" x-mask="99-99-9999">
             </div>
         </div>
+        @json($filters["createdAt"])
         <div class="flex items-center justify-end gap-2">
             <button type="button" wire:click="search" class="leading-none p-3 rounded border border-black">Axtar</button>
             <button type="button" wire:click="search('true')" class="leading-none p-3 rounded border border-black">Sıfırla</button>

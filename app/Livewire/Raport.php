@@ -4,7 +4,12 @@ namespace App\Livewire;
 
 use AllowDynamicProperties;
 use App\Models\Order;
+use App\Models\User;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Title;
 use Livewire\Component;
+
+#[Title("Hesabatlar")]
 
 class Raport extends Component
 {
@@ -43,6 +48,17 @@ class Raport extends Component
         "Noyabr",
         "Dekabr",
     ];
+
+
+    #[Computed]
+    function suppliers()
+    {
+        $users = User::query()->where("role_id",3);
+
+        $users = $users->orderBy("remnant","desc");
+
+        return $users->get();
+    }
 
     public function render()
     {

@@ -6,7 +6,9 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -22,11 +24,17 @@ class Dashboard extends Component
 
     public $searchState = false;
 
-    #[Url]
-    public $orderBy = [
-        'col' => 'id',
-        'sort' => 'desc'
+    public $sortings = [
+        "id|desc" => "Öncə yenilər",
+        "id|asc" => "Öncə köhnələr",
+        "total|desc" => "Yekun məbləğ (çoxdan-aza)",
+        "total|asc" => "Yekun məbləğ (azdan-çoxa)",
+        "debt|desc" => "Borc (çoxdan-aza)",
+        "debt|asc" => "Borc (azdan-çoxa)",
     ];
+
+    #[Url]
+    public $orderBy = "id|desc";
 
     #[Url]
     public $filters = [
@@ -69,6 +77,19 @@ class Dashboard extends Component
         $this->orders();
     }
 
+    function updated($prop)
+    {
+        switch ($prop) {
+            case "orderBy":
+                $this->resetPage();
+                break;
+        }
+    }
+
+    function updatedFilters()
+    {
+        $this->resetPage();
+    }
 
     function mount()
     {
@@ -79,6 +100,8 @@ class Dashboard extends Component
     #[Computed]
     function orders()
     {
+        $orderBy = Str::of($this->orderBy)->explode("|")->collect();
+
         $filters = collect($this->filters)->filter();
         $createdAt = collect($this->filters["createdAt"])->filter();
         $total = collect($this->filters["total"])->filter();
@@ -90,7 +113,7 @@ class Dashboard extends Component
         $items = Order::query();
 
         if ($filters->has("pid")) {
-            $items = $items->where("id", "like", "%" . $filters["pid"] . "%");
+            $items = $items->where("pid", "like", "%" . $filters["pid"] . "%");
         }
 
         if ($filters->has("customer")) {
@@ -123,7 +146,8 @@ class Dashboard extends Component
 
             if ($total->has("min")) {
                 $items = $items->where("total", ">=", $total["min"]);
-            } else {
+            }
+            if ($total->has("max")) {
                 $items = $items->where("total", "<=", $total["max"]);
             }
         }
@@ -132,7 +156,8 @@ class Dashboard extends Component
 
             if ($discount->has("min")) {
                 $items = $items->where("discount", ">=", $total["min"]);
-            } else {
+            }
+            if ($discount->has("max")){
                 $items = $items->where("discount", "<=", $total["max"]);
             }
         }
@@ -141,7 +166,7 @@ class Dashboard extends Component
 
             if ($paid->has("min")) {
                 $items = $items->where("paid", ">=", $paid["min"]);
-            } else {
+            } if ($paid->has("max")) {
                 $items = $items->where("paid", "<=", $paid["max"]);
             }
         }
@@ -150,13 +175,28 @@ class Dashboard extends Component
 
             if ($debt->has("min")) {
                 $items = $items->where("debt", ">=", $debt["min"]);
-            } else {
+            }
+            if ($debt->has("max")) {
                 $items = $items->where("debt", "<=", $debt["max"]);
             }
         }
 
+        if ($createdAt->isNotEmpty()) {
 
-        $items = $items->orderBy($this->orderBy['col'], $this->orderBy['sort']);
+            if ($createdAt->count() == 1) {
+                $date = Carbon::make($createdAt->first())->format("Y-m-d");
+                $items = $items->whereDate("created_at",$date);
+            }else{
+                $min = Carbon::make($createdAt->get("min"))->format("Y-m-d");
+                $max = Carbon::make($createdAt->get("max"))->format("Y-m-d");
+                $items = $items->whereDate("created_at",">=",$min)
+                ->where("created_at","<=",$max);
+            }
+        }
+
+
+
+        $items = $items->orderBy($orderBy->first(), $orderBy->last());
         $items = $items->paginate(10);
 
         return $items;

@@ -126,27 +126,30 @@
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </tbody>
 </table>
-<br>
-<hr>
-<h1>Ödəniş cədvəli</h1>
-<table id="payments">
-    <thead>
-    <th>Ödəniş kodu</th>
-    <th>Qəbul edən</th>
-    <th>Məbləğ</th>
-    <th>Tarix</th>
-    </thead>
-    <tbody>
-    <?php $__currentLoopData = $order->payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <tr>
-            <td><?php echo e($payment->pid()); ?></td>
-            <td><?php echo e($payment->executor->name); ?></td>
-            <td><?php echo e($payment->amount); ?> AZN</td>
-            <td><?php echo e($payment->created_at->format("d-m-Y h:i:s")); ?></td>
-        </tr>
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-    </tbody>
-</table>
+<?php if($order->paid > 0): ?>
+    <br>
+    <hr>
+    <h1>Ödəniş cədvəli</h1>
+    <table id="payments">
+        <thead>
+        <th>Ödəniş kodu</th>
+        <th>Qəbul edən</th>
+        <th>Məbləğ</th>
+        <th>Tarix</th>
+        </thead>
+        <tbody>
+        <?php $__currentLoopData = $order->payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <tr>
+                <td><?php echo e($payment->pid()); ?></td>
+                <td><?php echo e($payment->executor->name); ?></td>
+                <td><?php echo e($payment->amount); ?> AZN</td>
+                <td><?php echo e($payment->created_at->format("d-m-Y h:i:s")); ?></td>
+            </tr>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </tbody>
+    </table>
+<?php endif; ?>
+
 </body>
 </html>
 <?php /**PATH C:\laragon\www\boya-app\resources\views/print/order.blade.php ENDPATH**/ ?>

@@ -79,11 +79,40 @@
             </table>
         </div>
     </div>
-
+    <div class="my-container">
+        <h1 class="text-2xl font-semibold">Tədarükçülər</h1>
+        <div class="overflow-auto max-h-96">
+            <table class="my-table">
+                <thead>
+                <th>Əməliyyatlar</th>
+                <th>İstifadəçi kodu</th>
+                <th>Ad və soyad</th>
+                <th>Məbləğ</th>
+                </thead>
+                <tbody>
+                @foreach($this->suppliers as $supplier)
+                    <tr>
+                        <td>
+                            <a href=""
+                                class="my-input !p-2 text-sm font-semibold inline-flex items-center gap-2 transition hover:text-blue-700"
+                            >
+                                <svg class="size-6"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="12" cy="12" r="9" />  <line x1="12" y1="8" x2="12.01" y2="8" />  <polyline points="11 12 12 12 12 16 13 16" /></svg>
+                                Ətraflı məlumatlar
+                            </a>
+                        </td>
+                        <td>{{$supplier->pid()}}</td>
+                        <td>{{$supplier->name}}</td>
+                        <td>{{$supplier->remnant}} AZN</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     @script
     <script>
-        document.addEventListener("livewire:initialized",function () {
+        document.addEventListener("livewire:initialized", function () {
             let quantityChart = @json($quantityChart);
             let options = {
                 title: {
@@ -95,8 +124,8 @@
                 chart: {
                     type: 'bar',
                     height: 350,
-                    zoom : {
-                        enabled : true
+                    zoom: {
+                        enabled: true
                     },
 
                 },
@@ -106,9 +135,9 @@
                     tickPlacement: 'on'
 
                 },
-                yaxis : {
-                    labels : {
-                        formatter : function (val) {
+                yaxis: {
+                    labels: {
+                        formatter: function (val) {
                             return val + " ədəd";
                         }
                     }
@@ -127,8 +156,8 @@
                     }
                 },
                 chart: {
-                    zoom : {
-                        enabled : true
+                    zoom: {
+                        enabled: true
                     },
                     type: 'bar',
                     height: 350,
@@ -138,9 +167,9 @@
                     categories: fundsChart.categories,
                     tickPlacement: 'on'
                 },
-                yaxis : {
-                    labels : {
-                        formatter : function (val) {
+                yaxis: {
+                    labels: {
+                        formatter: function (val) {
                             return val + " AZN";
                         }
                     }

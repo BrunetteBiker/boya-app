@@ -7,6 +7,7 @@ use App\Events\AddModifyLog;
 use App\Events\RecordUpdate;
 use App\Models\ModifyLog;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use App\Models\Payment;
 use App\Models\Phone;
 use App\Models\UpdateLog;
@@ -63,7 +64,7 @@ class Details extends Component
                 } else {
                     if ($this->paymentData["amount"] > $this->user->old_debt) {
                         $this->user->old_debt = 0;
-                    }else{
+                    } else {
                         $this->user->decrement("old_debt", $this->paymentData["amount"]);
                     }
                 }
@@ -88,7 +89,7 @@ class Details extends Component
                     if ($this->paymentData["amount"] > $this->user->remnant) {
                         $this->user->remnant = 0;
                         $this->user->save();
-                    }else{
+                    } else {
                         $this->user->decrement("remnant", $this->paymentData["amount"]);
                     }
                 }
@@ -216,7 +217,68 @@ class Details extends Component
 
     }
 
+    #[Computed]
+    function orderSummary()
+    {
 
+        $data = [];
+        $data[] = [
+            "count" => Order::where("customer_id", $this->user->id)->count() . " ədəd",
+            "amount" => round(Order::where("customer_id", $this->user->id)->sum("total"), 2) . " AZN",
+            "name" => "Ümumi sifarişlər"
+        ];
+
+        foreach (OrderStatus::all() as $orderStatus) {
+            $data[] = [
+                "count" => Order::where([
+                        "customer_id"=> $this->user->id,
+                        "status_id"=>$orderStatus->id
+                    ])->count() . " ədəd",
+                "amount" => round(Order::where([
+                        "customer_id"=> $this->user->id,
+                        "status_id"=>$orderStatus->id
+                    ])->sum("total"), 2) . " AZN",
+                "name" => $orderStatus->name
+            ];
+        }
+
+        return $data;
+
+    }
+
+
+    #[Computed]
+    function fundsSummary()
+    {
+        $data[] = [
+            "name"=>"Balans",
+            "amount"=>$this->user->balance . " AZN"
+        ];
+
+        $data[] = [
+            "name"=>"Ümumi borc",
+            "amount"=>$this->user->debt . " AZN"
+        ];
+
+        $data[] = [
+            "name"=>"Öncədən olan borc",
+            "amount"=>$this->user->old_debt . " AZN"
+        ];
+
+        $data[] = [
+            "name"=>"Satışlardan yaranmış borc",
+            "amount"=>$this->user->current_debt . " AZN"
+        ];
+
+        $data[] = [
+            "name"=>"Tədarüçkü borcu",
+            "amount"=>$this->user->remnant . " AZN"
+        ];
+
+
+        return $data;
+
+    }
 
     public function render()
     {

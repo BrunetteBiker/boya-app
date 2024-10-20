@@ -1,6 +1,6 @@
 <div class="flex items-start gap-4">
     <div class="w-80 grid gap-4">
-        <a href="<?php echo e(url("order/create?customer=".$user->id)); ?>" wire:navigate class="my-input bg-white font-semibold inline-flex items-center gap-2">
+        <a href="<?php echo e(url("order/create?customer=".$user->id)); ?>" wire:navigate class="my-input bg-white font-semibold inline-flex items-center gap-2 transition hover:text-green-600">
             <svg class="size-7"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
@@ -51,32 +51,35 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
             </div>
-            <button wire:click="updateUser" class="my-input font-medium">Düzəliş et</button>
+            <button wire:click="updateUser" class="my-input font-medium transition hover:text-blue-600 inline-flex justify-between items-center">
+                <svg class="size-6"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />  <polyline points="17 21 17 13 7 13 7 21" />  <polyline points="7 3 7 8 15 8" /></svg>
+                Düzəliş et
+            </button>
         </div>
     </div>
     <div class="flex-1 grid gap-4">
 
+        <div class="flex flex-wrap gap-3">
+            <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->orderSummary; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $orderSummary): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="my-container min-w-44">
+                    <h1 class="text-2xl text-right font-semibold">
+                        <?php echo e($orderSummary["count"]); ?> | <?php echo e($orderSummary["amount"]); ?>
+
+                    </h1>
+                    <p class="text-sm"><?php echo e($orderSummary["name"]); ?></p>
+                </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+        </div>
+
+        <hr class="border-2 border-black">
+
         <div class="flex flex-wrap gap-4">
-            <div class="my-container  min-w-44">
-                <h1 class="text-2xl text-right font-semibold"><?php echo e($user->balance); ?> AZN</h1>
-                <p class="text-sm">Balans</p>
-            </div>
-            <div class="my-container min-w-44">
-                <h1 class="text-2xl text-right font-semibold"><?php echo e($user->debt); ?> AZN</h1>
-                <p class="text-sm">Ümumi borc</p>
-            </div>
-            <div class="my-container min-w-44">
-                <h1 class="text-2xl text-right font-semibold"><?php echo e($user->old_debt); ?> AZN</h1>
-                <p class="text-sm">Öncəki borc</p>
-            </div>
-            <div class="my-container min-w-44">
-                <h1 class="text-2xl text-right font-semibold"><?php echo e($user->current_debt); ?> AZN</h1>
-                <p class="text-sm">Faktiki borc</p>
-            </div>
-            <div class="my-container min-w-44">
-                <h1 class="text-2xl text-right font-semibold"><?php echo e($user->remnant); ?> AZN</h1>
-                <p class="text-sm">Alış borcu</p>
-            </div>
+            <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->fundsSummary; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $fundsSummary): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <div class="my-container  min-w-44">
+                    <h1 class="text-2xl text-right font-semibold"><?php echo e($fundsSummary["amount"]); ?></h1>
+                    <p class="text-sm"><?php echo e($fundsSummary["name"]); ?></p>
+                </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
         </div>
 
         <div class="my-container grid gap-4">
@@ -154,30 +157,6 @@
                 </table>
             </div>
             <?php echo e($this->payments->links()); ?>
-
-        </div>
-        <div class="my-container grid gap-4">
-            <div class="flex justify-between">
-                <h1 class="text-xl font-bold">Tarixçə</h1>
-            </div>
-            <hr class="border-2 border-black">
-            <div class="grid overflow-auto max-h-96 whitespace-nowrap">
-                <table class="my-table">
-                    <thead>
-                    <th>Fəaliyyət</th>
-                    <th>Tarix</th>
-                    </thead>
-                    <tbody>
-                    <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->updateLogs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $updateLog): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <tr>
-                            <td><?php echo e($updateLog->note); ?></td>
-                            <td><?php echo e($updateLog->created_at->format("d-m-Y h:i:s")); ?></td>
-                        </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
-                    </tbody>
-                </table>
-            </div>
-            <?php echo e($this->updateLogs->links()); ?>
 
         </div>
     </div>

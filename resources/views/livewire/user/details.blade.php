@@ -1,6 +1,6 @@
 <div class="flex items-start gap-4">
     <div class="w-80 grid gap-4">
-        <a href="{{url("order/create?customer=".$user->id)}}" wire:navigate class="my-input bg-white font-semibold inline-flex items-center gap-2">
+        <a href="{{url("order/create?customer=".$user->id)}}" wire:navigate class="my-input bg-white font-semibold inline-flex items-center gap-2 transition hover:text-green-600">
             <svg class="size-7"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
@@ -51,32 +51,34 @@
                     @endforeach
                 </div>
             </div>
-            <button wire:click="updateUser" class="my-input font-medium">Düzəliş et</button>
+            <button wire:click="updateUser" class="my-input font-medium transition hover:text-blue-600 inline-flex justify-between items-center">
+                <svg class="size-6"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />  <polyline points="17 21 17 13 7 13 7 21" />  <polyline points="7 3 7 8 15 8" /></svg>
+                Düzəliş et
+            </button>
         </div>
     </div>
     <div class="flex-1 grid gap-4">
 
+        <div class="flex flex-wrap gap-3">
+            @foreach($this->orderSummary as $orderSummary)
+                <div class="my-container min-w-44">
+                    <h1 class="text-2xl text-right font-semibold">
+                        {{$orderSummary["count"]}} | {{$orderSummary["amount"]}}
+                    </h1>
+                    <p class="text-sm">{{$orderSummary["name"]}}</p>
+                </div>
+            @endforeach
+        </div>
+
+        <hr class="border-2 border-black">
+
         <div class="flex flex-wrap gap-4">
-            <div class="my-container  min-w-44">
-                <h1 class="text-2xl text-right font-semibold">{{$user->balance}} AZN</h1>
-                <p class="text-sm">Balans</p>
-            </div>
-            <div class="my-container min-w-44">
-                <h1 class="text-2xl text-right font-semibold">{{$user->debt}} AZN</h1>
-                <p class="text-sm">Ümumi borc</p>
-            </div>
-            <div class="my-container min-w-44">
-                <h1 class="text-2xl text-right font-semibold">{{$user->old_debt}} AZN</h1>
-                <p class="text-sm">Öncəki borc</p>
-            </div>
-            <div class="my-container min-w-44">
-                <h1 class="text-2xl text-right font-semibold">{{$user->current_debt}} AZN</h1>
-                <p class="text-sm">Faktiki borc</p>
-            </div>
-            <div class="my-container min-w-44">
-                <h1 class="text-2xl text-right font-semibold">{{$user->remnant}} AZN</h1>
-                <p class="text-sm">Alış borcu</p>
-            </div>
+            @foreach($this->fundsSummary as $fundsSummary)
+                <div class="my-container  min-w-44">
+                    <h1 class="text-2xl text-right font-semibold">{{$fundsSummary["amount"]}}</h1>
+                    <p class="text-sm">{{$fundsSummary["name"]}}</p>
+                </div>
+            @endforeach
         </div>
 
         <div class="my-container grid gap-4">
@@ -154,29 +156,6 @@
                 </table>
             </div>
             {{$this->payments->links()}}
-        </div>
-        <div class="my-container grid gap-4">
-            <div class="flex justify-between">
-                <h1 class="text-xl font-bold">Tarixçə</h1>
-            </div>
-            <hr class="border-2 border-black">
-            <div class="grid overflow-auto max-h-96 whitespace-nowrap">
-                <table class="my-table">
-                    <thead>
-                    <th>Fəaliyyət</th>
-                    <th>Tarix</th>
-                    </thead>
-                    <tbody>
-                    @foreach($this->updateLogs as $updateLog)
-                        <tr>
-                            <td>{{$updateLog->note}}</td>
-                            <td>{{$updateLog->created_at->format("d-m-Y h:i:s")}}</td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-            {{$this->updateLogs->links()}}
         </div>
     </div>
 </div>
