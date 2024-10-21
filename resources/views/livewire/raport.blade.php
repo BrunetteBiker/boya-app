@@ -100,7 +100,7 @@
                                 Ətraflı məlumatlar
                             </a>
                         </td>
-                        <td>{{$supplier->pid()}}</td>
+                        <td>{{$supplier->pid}}</td>
                         <td>{{$supplier->name}}</td>
                         <td>{{$supplier->remnant}} AZN</td>
                     </tr>

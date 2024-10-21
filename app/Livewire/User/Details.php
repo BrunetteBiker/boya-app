@@ -12,16 +12,20 @@ use App\Models\Payment;
 use App\Models\Phone;
 use App\Models\UpdateLog;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Title("İstifadəçi məlumatları")]
 class Details extends Component
 {
+    use WithPagination;
 
     public $states = [
         "lastOrders" => true,
@@ -31,6 +35,23 @@ class Details extends Component
 
     public $user;
     public $personalData;
+
+    public $paymentSortings = [
+        "id|desc" => "Öncə yenilər",
+        "id|asc" => "Öncə köhnələr",
+        "amount|asc" => "Məbləğ artan",
+        "amount|desc" => "Məbləğ azalan",
+        "type_id|asc" => "Təsnifat üzrə",
+        "action_id|asc" => "Əməliyyat üzrə",
+    ];
+    public $paymentSearch = [
+        "orderBy" => "id|desc",
+        "pid" => ""
+    ];
+
+    function updatedPaymentSearch(){
+        $this->resetPage(pageName: 'payments');
+    }
 
     public $paymentData = [
         "type" => null,
@@ -111,13 +132,21 @@ class Details extends Component
         if (count($this->personalData["phones"]) == 0) {
             $this->personalData["phones"] = [""];
         }
+
+
     }
 
     #[Computed]
     function payments()
     {
+        $orderBy = Str::of($this->paymentSearch["orderBy"])->explode("|");
+        $pid = $this->paymentSearch["pid"];
         $items = Payment::query();
-        $items = $items->where("customer_id", $this->user->id);
+        $items = $items->orderBy($orderBy->first(), $orderBy->last())->where("customer_id", $this->user->id);
+
+        if (strlen($pid) > 2 && $pid != "") {
+            $items = $items->where("pid", "like", "%$pid%");
+        }
 
         return $items->paginate(pageName: 'payments', perPage: 10);
     }
@@ -152,63 +181,56 @@ class Details extends Component
 
     function removePhone($index)
     {
-        unset($this->personalData["phones"][$index]);
-        $this->personalData["phones"] = array_values($this->personalData["phones"]);
+
+        if (count($this->personalData["phones"]) == 1) {
+            $this->personalData["phones"] = $this->user->phones->pluck("item")->toArray();
+        } else {
+            unset($this->personalData["phones"][$index]);
+            $this->personalData["phones"] = array_values($this->personalData["phones"]);
+        }
 
     }
 
     function updateUser()
     {
 
-        $currentPhones = $this->user->phones->pluck("item");
+        $currentPhones = Phone::query()->where("user_id", $this->user->id)->get()->pluck("item")->toArray();
 
-        $personalData = collect($this->personalData)->filter();
+        $newPhones = array_diff($this->personalData["phones"], $currentPhones);
 
-        $phones = collect($personalData["phones"])->filter();
+        $data = collect($this->personalData)->filter();
 
-        if ($this->user->phones->isEmpty() && $phones->isEmpty()) {
-            $this->dispatch("notify", state: "warning", msg: "Ən az bir ədəd əlaqə nömrəsi daxil edilməlidir");
-            return;
-        } elseif ($phones->isNotEmpty()) {
 
-            if ($currentPhones->isNotEmpty()) {
-                Phone::where("user_id", $this->user->id)->delete();
-            }
+        if ($data->has("name")) {
+            $this->user->name = $data["name"];
+        }
 
-            $validator = Validator::make($phones->toArray(), [
-                "*" => "unique:phones,item"
+        if (count($newPhones) > 0) {
+            $validator = Validator::make(["phones" => $newPhones], [
+                "phones.*" => "unique:phones,item"
             ], [
-                "*.unique" => ":position . sırada daxil edilən əlaqə nömrəsi istifadə edilmişdir"
+                "phones.*.unique" => ":position . sırada olan əlaqə nömrəsi istifadə olunmuşdur."
             ]);
 
             if ($validator->fails()) {
-                if ($currentPhones->isNotEmpty()) {
-                    foreach ($currentPhones as $item) {
-                        Phone::insert([
-                            "user_id" => $this->user->id,
-                            "item" => $item
-                        ]);
-                    }
-                }
                 $this->dispatch("notify", state: "warning", msg: $validator->errors()->first());
                 return;
             }
 
-            foreach ($phones as $phone) {
-                Phone::insert([
-                    "user_id" => $this->user->id,
-                    "item" => $phone
-                ]);
-            }
-
-
         }
 
-        if ($personalData->has("name")) {
-            $this->user->name = $personalData["name"];
+        $currentPhones = array_merge($newPhones, $currentPhones);
+
+
+        Phone::where("user_id", $this->user->id)->delete();
+
+        foreach ($currentPhones as $item) {
+            Phone::insert([
+                "user_id" => $this->user->id,
+                "item" => $item
+            ]);
         }
 
-        $this->user->save();
 
         $this->dispatch("notify", state: "success", msg: "Düzəlişlər qeydə alındı", autoHide: true);
 
@@ -231,12 +253,12 @@ class Details extends Component
         foreach (OrderStatus::all() as $orderStatus) {
             $data[] = [
                 "count" => Order::where([
-                        "customer_id"=> $this->user->id,
-                        "status_id"=>$orderStatus->id
+                        "customer_id" => $this->user->id,
+                        "status_id" => $orderStatus->id
                     ])->count() . " ədəd",
                 "amount" => round(Order::where([
-                        "customer_id"=> $this->user->id,
-                        "status_id"=>$orderStatus->id
+                        "customer_id" => $this->user->id,
+                        "status_id" => $orderStatus->id
                     ])->sum("total"), 2) . " AZN",
                 "name" => $orderStatus->name
             ];
@@ -246,33 +268,32 @@ class Details extends Component
 
     }
 
-
     #[Computed]
     function fundsSummary()
     {
         $data[] = [
-            "name"=>"Balans",
-            "amount"=>$this->user->balance . " AZN"
+            "name" => "Balans",
+            "amount" => $this->user->balance . " AZN"
         ];
 
         $data[] = [
-            "name"=>"Ümumi borc",
-            "amount"=>$this->user->debt . " AZN"
+            "name" => "Ümumi borc",
+            "amount" => $this->user->debt . " AZN"
         ];
 
         $data[] = [
-            "name"=>"Öncədən olan borc",
-            "amount"=>$this->user->old_debt . " AZN"
+            "name" => "Öncədən olan borc",
+            "amount" => $this->user->old_debt . " AZN"
         ];
 
         $data[] = [
-            "name"=>"Satışlardan yaranmış borc",
-            "amount"=>$this->user->current_debt . " AZN"
+            "name" => "Satışlardan yaranmış borc",
+            "amount" => $this->user->current_debt . " AZN"
         ];
 
         $data[] = [
-            "name"=>"Tədarüçkü borcu",
-            "amount"=>$this->user->remnant . " AZN"
+            "name" => "Tədarüçkü borcu",
+            "amount" => $this->user->remnant . " AZN"
         ];
 
 

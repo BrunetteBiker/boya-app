@@ -1,8 +1,10 @@
 <div class="flex items-start gap-4">
     <div class="w-80 grid gap-4">
-        <a href="<?php echo e(url("order/create?customer=".$user->id)); ?>" wire:navigate class="my-input bg-white font-semibold inline-flex items-center gap-2 transition hover:text-green-600">
-            <svg class="size-7"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        <a href="<?php echo e(url("order/create?customer=".$user->id)); ?>" wire:navigate
+           class="my-input bg-white font-semibold inline-flex items-center gap-2 transition hover:text-green-600">
+            <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <span class="text-center flex-1">
             Yeni sifariş
@@ -16,7 +18,7 @@
             <hr class="border-2 border-black">
             <div class="grid gap-1">
                 <div class="my-label">İstifədçi kodu</div>
-                <input type="text" class="my-input w-full" disabled value="<?php echo e($user->pid()); ?>">
+                <input type="text" class="my-input w-full" disabled value="<?php echo e($user->pid); ?>">
             </div>
             <div class="grid gap-1">
                 <div class="my-label">Qeydiyyat tarixi</div>
@@ -39,20 +41,24 @@
                                           d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
                             </button>
-                            <!--[if BLOCK]><![endif]--><?php if(count($personalData["phones"]) > 1): ?>
-                                <button wire:click="removePhone(<?php echo e($index); ?>)">
-                                    <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                </button>
-                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                            <button wire:click="removePhone(<?php echo e($index); ?>)">
+                                <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </button>
                         </div>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
             </div>
-            <button wire:click="updateUser" class="my-input font-medium transition hover:text-blue-600 inline-flex justify-between items-center">
-                <svg class="size-6"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />  <polyline points="17 21 17 13 7 13 7 21" />  <polyline points="7 3 7 8 15 8" /></svg>
+            <button wire:click="updateUser"
+                    class="my-input font-medium transition hover:text-blue-600 inline-flex justify-between items-center">
+                <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                    <polyline points="17 21 17 13 7 13 7 21"/>
+                    <polyline points="7 3 7 8 15 8"/>
+                </svg>
                 Düzəliş et
             </button>
         </div>
@@ -123,6 +129,18 @@
                 <h1 class="text-xl font-bold">Ödənişlər</h1>
             </div>
             <hr class="border-2 border-black">
+            <div class="flex gap-2">
+                <div class="flex items-center gap-1.5">
+                    <div class="my-label">Sıralama</div>
+                    <select class="my-input text-sm !p-2.5" wire:model.live="paymentSearch.orderBy">
+                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $paymentSortings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$paymentSorting): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($key); ?>"><?php echo e($paymentSorting); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                    </select>
+                </div>
+                <input type="text" class="my-input text-sm !p-2.5" placeholder="Ödəniş kodu" wire:model.live="paymentSearch.pid">
+            </div>
+
             <div class="grid overflow-auto max-h-96 whitespace-nowrap">
                 <table class="my-table">
                     <thead>
@@ -143,7 +161,7 @@
                                     <button class="my-input inline-flex gap-1 items-center text-sm">Ləğv et</button>
                                 </div>
                             </td>
-                            <td><?php echo e($payment->pid()); ?></td>
+                            <td><?php echo e($payment->pid); ?></td>
                             <td><?php echo e($payment->type->name); ?></td>
                             <td><?php echo e($payment->action->name); ?></td>
                             <td><?php echo e($payment->amount); ?> AZN</td>

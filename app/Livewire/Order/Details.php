@@ -10,6 +10,7 @@ use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\UpdateLog;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
@@ -94,14 +95,16 @@ class Details extends Component
             $amount = $amount - $reminder;
         }
 
-        $this->order->increment("paid",$amount);
+        $this->order->increment("paid", $amount);
 
         event(new AcceptPayment(order: $this->order->id, customer: $this->order->customer_id, type: 4, amount: $amount, action: 1));
 
         $this->order->debt = $debt;
         $this->order->save();
 
-        $this->order->customer->debt = $this->order->customer->old_debt + Order::where("customer_id", $this->order->customer_id)->sum("debt");
+        $this->order->customer->current_debt = round(Order::where("customer_id", $this->order->customer_id)->sum("debt"), 2);
+        $this->order->customer->debt = $this->order->customer->old_debt + $this->order->customer->current_debt;
+        $this->order->customer->debt = round($this->order->customer->debt, 2);
         $this->order->customer->save();
 
         $this->dispatch("notify", state: "success", msg: "Ödəniş qeydə alındı");
@@ -119,6 +122,7 @@ class Details extends Component
 
         $this->order->status_id = 4;
         $this->order->cancel_explanation = $this->cancelExplanation;
+        $this->order->cancelled_by = Auth::id();
         $this->order->save();
         Payment::where("order_id", $this->order->id)->update(["is_cancelled" => true]);
 

@@ -11,10 +11,7 @@ class Payment extends Model
 {
     use HasFactory;
 
-    function pid()
-    {
-        return "ÖDN" . Carbon::make($this->attributes["created_at"])->format("dmY") . Str::of($this->attributes["id"])->padLeft(6, 0);
-    }
+
 
     function executor()
     {

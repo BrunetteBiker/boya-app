@@ -23,12 +23,22 @@ class Create extends Component
 
     use WithPagination;
 
+    public $receipts = [];
+
+    function searchReceipts($term, $index)
+    {
+        if ($term != "") {
+            $this->receipts[$index] = OrderItem::query()->where("receipt", "like", "%$term%")->distinct()->get()->pluck("receipt")->toArray();
+        } else {
+            $this->receipts[$index] = [];
+        }
+    }
+
     public $customer = [
         "state" => false,
         "id" => null,
         "data" => null
     ];
-
 
     function selectCustomer($id)
     {
@@ -50,9 +60,15 @@ class Create extends Component
         "price" => null,
         "amount" => null,
         "total" => null,
-        "receipt" => ""
+        "receipt" => "",
     ];
     public $orderItems = [];
+
+
+    function updatedOrderItems()
+    {
+        $this->calculate();
+    }
 
     function selectedProduct($index)
     {
@@ -75,13 +91,17 @@ class Create extends Component
     function addOrderItem()
     {
         $this->orderItems[] = $this->orderItemTemplate;
+        $this->receipts[] = [];
     }
 
     function removeOrderItem($index)
     {
         unset($this->orderItems[$index]);
 
+        unset($this->receipts[$index]);
+
         $this->orderItems = array_values($this->orderItems);
+        $this->receipts = array_values($this->receipts);
     }
 
     function mount()
@@ -93,6 +113,8 @@ class Create extends Component
         }
 
         $this->orderItems[] = $this->orderItemTemplate;
+
+        $this->receipts[] = [];
     }
 
     public $searchUser = '';

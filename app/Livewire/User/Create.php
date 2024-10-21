@@ -5,8 +5,10 @@ namespace App\Livewire\User;
 use App\Events\RecordUpdate;
 use App\Models\Phone;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -92,6 +94,9 @@ class Create extends Component
         $user->remnant = $this->data["remnant"];
         $user->save();
 
+        $user->pid = "USR" . $user->created_at->format("dmy") . Str::of($user->pid())->padLeft(6, 0);
+        $user->save();
+
         foreach ($this->data["phones"] as $phone) {
             Phone::insert([
                 "user_id" => $user->id,
@@ -99,7 +104,7 @@ class Create extends Component
             ]);
         }
 
-        event(new RecordUpdate(userId: $user->id,note: Auth::user()->name. " tərəfindən portala əlavə olundu"));
+        event(new RecordUpdate(userId: $user->id, note: Auth::user()->name . " tərəfindən portala əlavə olundu"));
 
 
         $this->state = false;

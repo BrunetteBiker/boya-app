@@ -1,8 +1,10 @@
 <div class="flex items-start gap-4">
     <div class="w-80 grid gap-4">
-        <a href="{{url("order/create?customer=".$user->id)}}" wire:navigate class="my-input bg-white font-semibold inline-flex items-center gap-2 transition hover:text-green-600">
-            <svg class="size-7"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        <a href="{{url("order/create?customer=".$user->id)}}" wire:navigate
+           class="my-input bg-white font-semibold inline-flex items-center gap-2 transition hover:text-green-600">
+            <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             <span class="text-center flex-1">
             Yeni sifariş
@@ -16,7 +18,7 @@
             <hr class="border-2 border-black">
             <div class="grid gap-1">
                 <div class="my-label">İstifədçi kodu</div>
-                <input type="text" class="my-input w-full" disabled value="{{$user->pid()}}">
+                <input type="text" class="my-input w-full" disabled value="{{$user->pid}}">
             </div>
             <div class="grid gap-1">
                 <div class="my-label">Qeydiyyat tarixi</div>
@@ -39,20 +41,24 @@
                                           d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
                             </button>
-                            @if(count($personalData["phones"]) > 1)
-                                <button wire:click="removePhone({{$index}})">
-                                    <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                              d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                    </svg>
-                                </button>
-                            @endif
+                            <button wire:click="removePhone({{$index}})">
+                                <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </button>
                         </div>
                     @endforeach
                 </div>
             </div>
-            <button wire:click="updateUser" class="my-input font-medium transition hover:text-blue-600 inline-flex justify-between items-center">
-                <svg class="size-6"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />  <polyline points="17 21 17 13 7 13 7 21" />  <polyline points="7 3 7 8 15 8" /></svg>
+            <button wire:click="updateUser"
+                    class="my-input font-medium transition hover:text-blue-600 inline-flex justify-between items-center">
+                <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                    <polyline points="17 21 17 13 7 13 7 21"/>
+                    <polyline points="7 3 7 8 15 8"/>
+                </svg>
                 Düzəliş et
             </button>
         </div>
@@ -122,6 +128,18 @@
                 <h1 class="text-xl font-bold">Ödənişlər</h1>
             </div>
             <hr class="border-2 border-black">
+            <div class="flex gap-2">
+                <div class="flex items-center gap-1.5">
+                    <div class="my-label">Sıralama</div>
+                    <select class="my-input text-sm !p-2.5" wire:model.live="paymentSearch.orderBy">
+                        @foreach($paymentSortings as $key=>$paymentSorting)
+                            <option value="{{$key}}">{{$paymentSorting}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <input type="text" class="my-input text-sm !p-2.5" placeholder="Ödəniş kodu" wire:model.live="paymentSearch.pid">
+            </div>
+
             <div class="grid overflow-auto max-h-96 whitespace-nowrap">
                 <table class="my-table">
                     <thead>
@@ -142,7 +160,7 @@
                                     <button class="my-input inline-flex gap-1 items-center text-sm">Ləğv et</button>
                                 </div>
                             </td>
-                            <td>{{$payment->pid()}}</td>
+                            <td>{{$payment->pid}}</td>
                             <td>{{$payment->type->name}}</td>
                             <td>{{$payment->action->name}}</td>
                             <td>{{$payment->amount}} AZN</td>

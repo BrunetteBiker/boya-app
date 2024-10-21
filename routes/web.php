@@ -54,5 +54,6 @@ Route::get("print/{id}", function ($id) {
 
     $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("print.order", $data);
     $pdf->setPaper("A4", "landscape");
-    return $pdf->download("order-$id.pdf");
+    $filename = "sifariş-$order->pid" . " " . now()->format("d-m-Y h-i") . " .pdf";
+    return $pdf->download($filename);
 });

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 18, 2024 at 02:14 PM
+-- Generation Time: Oct 21, 2024 at 02:14 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.23
 
@@ -148,6 +148,7 @@ CREATE TABLE `orders` (
   `debt` float DEFAULT '0',
   `notes` longtext,
   `cancel_explanation` longtext,
+  `cancelled_by` int DEFAULT NULL,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -156,14 +157,17 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `pid`, `customer_id`, `executor_id`, `amount`, `discount`, `total`, `status_id`, `paid`, `debt`, `notes`, `cancel_explanation`, `created_at`, `updated_at`) VALUES
-(1, 'SFR18102024000001', 5, 1, 10.6, 0, 10.6, 4, 10.6, 0, '', 'test ləğv', '2024-10-18 11:07:37', '2024-10-18 11:19:56'),
-(2, 'SFR18102024000002', 4, 1, 0, 0, 0, 1, 0, 0, '', NULL, '2024-10-18 11:56:10', '2024-10-18 11:56:10'),
-(3, 'SFR18102024000003', 3, 1, 60, 0, 60, 4, 28, 0, '', 'test terkib', '2024-10-18 11:59:34', '2024-10-18 12:09:59'),
-(4, 'SFR18102024000004', 5, 1, 48.6, 0, 48.6, 1, 0, 48.6, '', NULL, '2024-10-18 12:12:55', '2024-10-18 12:12:55'),
-(5, 'SFR18102024000005', 5, 1, 48.6, 0, 48.6, 1, 8.6, 0, '', NULL, '2024-10-18 12:13:49', '2024-10-18 12:25:42'),
-(6, 'SFR18102024000006', 4, 1, 10.3, 0, 10.3, 1, 5.3, 0, '', NULL, '2024-10-18 12:28:28', '2024-10-18 12:31:10'),
-(7, 'SFR18102024000007', 4, 1, 30, 0, 30, 1, 30, 0, '', NULL, '2024-10-18 12:32:26', '2024-10-18 12:32:49');
+INSERT INTO `orders` (`id`, `pid`, `customer_id`, `executor_id`, `amount`, `discount`, `total`, `status_id`, `paid`, `debt`, `notes`, `cancel_explanation`, `cancelled_by`, `created_at`, `updated_at`) VALUES
+(1, 'SFR18102024000001', 5, 1, 10.6, 0, 10.6, 4, 10.6, 0, '', 'test ləğv', 1, '2024-10-18 11:07:37', '2024-10-18 11:19:56'),
+(2, 'SFR18102024000002', 4, 1, 0, 0, 0, 1, 0, 0, '', NULL, NULL, '2024-10-07 11:56:10', '2024-10-18 11:56:10'),
+(3, 'SFR18102024000003', 3, 1, 60, 0, 60, 4, 28, 0, '', 'test terkib', 1, '2024-10-18 11:59:34', '2024-10-18 12:09:59'),
+(4, 'SFR18102024000004', 5, 1, 48.6, 0, 48.6, 1, 0, 48.6, '', NULL, NULL, '2024-10-18 12:12:55', '2024-10-18 12:12:55'),
+(5, 'SFR18102024000005', 5, 1, 48.6, 0, 48.6, 1, 8.6, 0, '', NULL, NULL, '2024-10-18 12:13:49', '2024-10-18 12:25:42'),
+(6, 'SFR18102024000006', 4, 1, 10.3, 0, 10.3, 1, 5.3, 0, '', NULL, NULL, '2024-10-18 12:28:28', '2024-10-18 12:31:10'),
+(7, 'SFR18102024000007', 4, 1, 30, 0, 30, 1, 30, 0, '', NULL, NULL, '2024-10-18 12:32:26', '2024-10-18 12:32:49'),
+(8, 'SFR21102024000008', 4, 1, 250, 50, 200, 4, 0, 200, 'test qeyd', 'Voluptatum aliquid rerum ad fuga. Quo esse assumenda assumenda. Quidem necessitatibus veniam explicabo suscipit nesciunt necessitatibus laboriosam cumque.', 1, '2024-10-21 11:33:29', '2024-10-21 11:34:23'),
+(9, 'SFR21102024000009', 5, 1, 150, 10, 140, 4, 100, 40, 'Numquam aspernatur et ratione asperiores aliquid officiis ipsam. Ut tenetur molestiae quis ullam fugiat quaerat maxime. Sint laudantium nostrum occaecati perspiciatis perferendis quis ducimus autem recusandae.', 'Necessitatibus neque veniam natus aliquam distinctio. Minima deleniti quasi ab. Laboriosam facilis ut quam delectus nemo consectetur amet autem.', 1, '2024-10-21 11:35:29', '2024-10-21 11:38:02'),
+(10, 'SFR21102024000010', 5, 1, 100, 0, 100, 4, 100, 0, '', 'Tenetur provident sequi est aliquid. Perferendis labore quam quod inventore temporibus saepe doloremque. Sunt quia ad.', 1, '2024-10-21 12:15:57', '2024-10-21 12:21:05');
 
 -- --------------------------------------------------------
 
@@ -191,7 +195,12 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `amount`, `price`, `t
 (3, 3, 26, 2, 30, 60, NULL),
 (4, 5, 7, 2, 24.3, 48.6, 'test terkib'),
 (5, 6, 7, 1, 10.3, 10.3, 'tets terkib'),
-(6, 7, 26, 1, 30, 30, 'test ');
+(6, 7, 26, 1, 30, 30, 'test '),
+(7, 8, 9, 1, 100, 100, 'test terkib'),
+(8, 8, 7, 1, 150, 150, 'test '),
+(9, 9, 8, 1, 100, 100, 'Jamaica'),
+(10, 9, 20, 1, 50, 50, 'Ghana'),
+(11, 10, 9, 1, 100, 100, 'Jamaica');
 
 -- --------------------------------------------------------
 
@@ -209,7 +218,7 @@ CREATE TABLE `order_status` (
 --
 
 INSERT INTO `order_status` (`id`, `name`) VALUES
-(1, 'Qəbul edildi'),
+(1, 'Hazırlanır'),
 (2, 'Hazırdır'),
 (3, 'Təhvil verildi'),
 (4, 'Ləğv edildi');
@@ -234,6 +243,7 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `payments` (
   `id` int NOT NULL,
+  `pid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `executor_id` int DEFAULT NULL,
   `order_id` int DEFAULT NULL,
   `customer_id` int DEFAULT NULL,
@@ -250,22 +260,41 @@ CREATE TABLE `payments` (
 -- Dumping data for table `payments`
 --
 
-INSERT INTO `payments` (`id`, `executor_id`, `order_id`, `customer_id`, `type_id`, `action_id`, `amount`, `note`, `is_cancelled`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 5, 4, 1, 5, '', 1, '2024-10-18 11:09:35', '2024-10-18 11:19:56'),
-(2, 1, 1, 5, 4, 1, 5.6, '', 1, '2024-10-18 11:10:10', '2024-10-18 11:19:56'),
-(3, 1, 1, 5, 4, 1, 10.6, '', 1, '2024-10-18 11:12:52', '2024-10-18 11:19:56'),
-(4, 1, 3, 3, 4, 1, 60, '', 1, '2024-10-18 12:03:28', '2024-10-18 12:09:59'),
-(5, 1, 3, 3, 4, 1, 28, '', 1, '2024-10-18 12:03:42', '2024-10-18 12:09:59'),
-(6, 1, NULL, 3, 2, 1, 88, 'SFR18102024000003 kodlu sifarişin ləğvindən gələn artım.', 0, '2024-10-18 12:09:59', '2024-10-18 12:09:59'),
-(7, 1, 5, 5, 4, 1, 20, '', 0, '2024-10-18 12:24:23', '2024-10-18 12:24:23'),
-(8, 1, 5, 5, 4, 1, 28.6, '', 0, '2024-10-18 12:25:23', '2024-10-18 12:25:23'),
-(9, 1, 5, 5, 4, 1, 8.6, '', 0, '2024-10-18 12:25:42', '2024-10-18 12:25:42'),
-(10, 1, 6, 4, 4, 1, 5, '', 0, '2024-10-18 12:31:02', '2024-10-18 12:31:02'),
-(11, 1, 6, 4, 4, 1, 5.3, '', 0, '2024-10-18 12:31:10', '2024-10-18 12:31:10'),
-(12, 1, 7, 4, 4, 1, 10, '', 0, '2024-10-18 12:32:41', '2024-10-18 12:32:41'),
-(13, 1, 7, 4, 4, 1, 5, '', 0, '2024-10-18 12:32:44', '2024-10-18 12:32:44'),
-(14, 1, 7, 4, 4, 1, 15, '', 0, '2024-10-18 12:32:49', '2024-10-18 12:32:49'),
-(15, 1, NULL, 4, 3, 2, 600, '', 0, '2024-10-18 14:12:09', '2024-10-18 14:12:09');
+INSERT INTO `payments` (`id`, `pid`, `executor_id`, `order_id`, `customer_id`, `type_id`, `action_id`, `amount`, `note`, `is_cancelled`, `created_at`, `updated_at`) VALUES
+(1, 'ÖDN18102024000001', 1, 1, 5, 4, 1, 5, '', 1, '2024-10-18 11:09:35', '2024-10-21 13:56:22'),
+(2, 'ÖDN18102024000002', 1, 1, 5, 4, 1, 5.6, '', 1, '2024-10-18 11:10:10', '2024-10-21 13:56:22'),
+(3, 'ÖDN18102024000003', 1, 1, 5, 4, 1, 10.6, '', 1, '2024-10-18 11:12:52', '2024-10-21 13:56:22'),
+(4, NULL, 1, 3, 3, 4, 1, 60, '', 1, '2024-10-18 12:03:28', '2024-10-18 12:09:59'),
+(5, NULL, 1, 3, 3, 4, 1, 28, '', 1, '2024-10-18 12:03:42', '2024-10-18 12:09:59'),
+(6, NULL, 1, NULL, 3, 2, 1, 88, 'SFR18102024000003 kodlu sifarişin ləğvindən gələn artım.', 0, '2024-10-18 12:09:59', '2024-10-18 12:09:59'),
+(7, 'ÖDN18102024000007', 1, 5, 5, 4, 1, 20, '', 0, '2024-10-18 12:24:23', '2024-10-21 13:56:22'),
+(8, 'ÖDN18102024000008', 1, 5, 5, 4, 1, 28.6, '', 0, '2024-10-18 12:25:23', '2024-10-21 13:56:22'),
+(9, 'ÖDN18102024000009', 1, 5, 5, 4, 1, 8.6, '', 0, '2024-10-18 12:25:42', '2024-10-21 13:56:22'),
+(10, NULL, 1, 6, 4, 4, 1, 5, '', 0, '2024-10-18 12:31:02', '2024-10-18 12:31:02'),
+(11, NULL, 1, 6, 4, 4, 1, 5.3, '', 0, '2024-10-18 12:31:10', '2024-10-18 12:31:10'),
+(12, NULL, 1, 7, 4, 4, 1, 10, '', 0, '2024-10-18 12:32:41', '2024-10-18 12:32:41'),
+(13, NULL, 1, 7, 4, 4, 1, 5, '', 0, '2024-10-18 12:32:44', '2024-10-18 12:32:44'),
+(14, NULL, 1, 7, 4, 4, 1, 15, '', 0, '2024-10-18 12:32:49', '2024-10-18 12:32:49'),
+(15, NULL, 1, NULL, 4, 3, 2, 600, '', 0, '2024-10-18 14:12:09', '2024-10-18 14:12:09'),
+(16, NULL, 1, NULL, 4, 2, 1, 0, 'SFR21102024000008 kodlu sifarişin ləğvindən gələn artım.', 0, '2024-10-21 11:34:23', '2024-10-21 11:34:23'),
+(17, 'ÖDN21102024000017', 1, 9, 5, 4, 1, 40, '', 1, '2024-10-21 11:36:14', '2024-10-21 13:56:22'),
+(18, 'ÖDN21102024000018', 1, NULL, 5, 2, 1, 100, '', 0, '2024-10-21 11:36:56', '2024-10-21 13:56:22'),
+(19, 'ÖDN21102024000019', 1, 9, 5, 4, 1, 60, '', 1, '2024-10-21 11:37:08', '2024-10-21 13:56:22'),
+(20, 'ÖDN21102024000020', 1, NULL, 5, 2, 1, 100, 'SFR21102024000009 kodlu sifarişin ləğvindən gələn artım.', 0, '2024-10-21 11:38:02', '2024-10-21 13:56:22'),
+(21, 'ÖDN21102024000021', 1, 10, 5, 4, 1, 11.2, '', 1, '2024-10-21 12:16:15', '2024-10-21 13:56:22'),
+(22, 'ÖDN21102024000022', 1, 10, 5, 4, 1, 20, '', 1, '2024-10-21 12:18:56', '2024-10-21 13:56:23'),
+(23, 'ÖDN21102024000023', 1, 10, 5, 4, 1, 10, '', 1, '2024-10-21 12:20:02', '2024-10-21 13:56:23'),
+(24, 'ÖDN21102024000024', 1, 10, 5, 4, 1, 10, '', 1, '2024-10-21 12:20:29', '2024-10-21 13:56:23'),
+(25, 'ÖDN21102024000025', 1, 10, 5, 4, 1, 48.8, '', 1, '2024-10-21 12:20:41', '2024-10-21 13:56:23'),
+(26, 'ÖDN21102024000026', 1, NULL, 5, 2, 1, 100, 'SFR21102024000010 kodlu sifarişin ləğvindən gələn artım.', 0, '2024-10-21 12:21:05', '2024-10-21 13:56:23'),
+(27, 'ÖDN21102024000027', 1, NULL, 5, 2, 1, 20, '', 0, '2024-10-21 13:52:34', '2024-10-21 13:56:23'),
+(28, 'ÖDN21102024000028', 1, NULL, 5, 2, 2, 10, '', 0, '2024-10-21 13:52:41', '2024-10-21 13:56:23'),
+(29, 'ÖDN21102024000029', 1, NULL, 5, 1, 1, 100, '', 0, '2024-10-21 13:52:53', '2024-10-21 13:56:23'),
+(30, 'ÖDN21102024000030', 1, NULL, 5, 1, 1, 50, '', 0, '2024-10-21 13:52:58', '2024-10-21 13:56:23'),
+(31, 'ÖDN21102024000031', 1, NULL, 5, 1, 2, 50, '', 0, '2024-10-21 13:53:01', '2024-10-21 13:56:23'),
+(32, 'ÖDN21102024000032', 1, NULL, 5, 3, 1, 50, '', 0, '2024-10-21 13:53:38', '2024-10-21 13:56:23'),
+(33, 'ÖDN21102024000033', 1, NULL, 5, 3, 1, 20, '', 0, '2024-10-21 13:53:43', '2024-10-21 13:56:23'),
+(34, 'ÖDN21102024000034', 1, NULL, 5, 3, 2, 20, '', 0, '2024-10-21 13:53:46', '2024-10-21 13:56:23');
 
 -- --------------------------------------------------------
 
@@ -303,9 +332,9 @@ CREATE TABLE `payment_types` (
 --
 
 INSERT INTO `payment_types` (`id`, `name`, `is_manual`) VALUES
-(1, 'Öncəki borc', 1),
+(1, 'Öncədən olan borc', 1),
 (2, 'Balans', 1),
-(3, 'Alış borcu', 1),
+(3, 'Tədarükçü borcu', 1),
 (4, 'Satış borcu', 0);
 
 -- --------------------------------------------------------
@@ -329,7 +358,8 @@ INSERT INTO `phones` (`id`, `user_id`, `item`) VALUES
 (23, 3, '090-239-40-29'),
 (24, 4, '044-242-42-44'),
 (25, 4, '070-545-45-45'),
-(27, 5, '054-424-54-57');
+(35, 5, '023-454-54-24'),
+(36, 5, '023-323-44-32');
 
 -- --------------------------------------------------------
 
@@ -416,7 +446,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('habET4aP88ATOa04pmlj6G07SnMNt5ueeXKBFQOi', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRm9aM3QxYUkySmUwbDQzWDVia3BMOGY4T2Zqb1FiUlJGbFNZMzFrTSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9vcmRlci9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1729260821);
+('8hDaOro8N732Rkk7zj3qxwo09RGfqTc7eJ0aW7QK', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNGVRMmxNSk9nNWJ5QUY3bkI0ek5aSklJYkt2YkZDaDNWc1VadmtsUSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozNDoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL29yZGVyL2NyZWF0ZSI7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjUxOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvdXNlci9kYXNoYm9hcmQ/c2VhcmNoS2V5d29yZD0iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1729519975);
 
 -- --------------------------------------------------------
 
@@ -433,6 +463,19 @@ CREATE TABLE `update_logs` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `update_logs`
+--
+
+INSERT INTO `update_logs` (`id`, `user_id`, `order_id`, `payment_id`, `note`, `created_at`) VALUES
+(1, 5, NULL, NULL, 'Ədalət Məmmədli tərəfindən şəxsi məlumatlar üzərində düzəliş edildi.', '2024-10-21 12:56:39'),
+(2, 5, NULL, NULL, 'Ədalət Məmmədli tərəfindən şəxsi məlumatlar üzərində düzəliş edildi.', '2024-10-21 13:47:37'),
+(3, 5, NULL, NULL, 'Ədalət Məmmədli tərəfindən şəxsi məlumatlar üzərində düzəliş edildi.', '2024-10-21 13:47:58'),
+(4, 5, NULL, NULL, 'Ədalət Məmmədli tərəfindən şəxsi məlumatlar üzərində düzəliş edildi.', '2024-10-21 13:48:10'),
+(5, 5, NULL, NULL, 'Ədalət Məmmədli tərəfindən şəxsi məlumatlar üzərində düzəliş edildi.', '2024-10-21 13:48:16'),
+(6, 5, NULL, NULL, 'Ədalət Məmmədli tərəfindən şəxsi məlumatlar üzərində düzəliş edildi.', '2024-10-21 13:49:28'),
+(7, 5, NULL, NULL, 'Ədalət Məmmədli tərəfindən şəxsi məlumatlar üzərində düzəliş edildi.', '2024-10-21 13:52:06');
+
 -- --------------------------------------------------------
 
 --
@@ -441,6 +484,7 @@ CREATE TABLE `update_logs` (
 
 CREATE TABLE `users` (
   `id` int NOT NULL,
+  `pid` varchar(255) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `role_id` int DEFAULT '2',
   `remember_token` varchar(255) DEFAULT NULL,
@@ -457,11 +501,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `role_id`, `remember_token`, `debt`, `current_debt`, `old_debt`, `remnant`, `balance`, `created_at`, `updated_at`) VALUES
-(1, 'Ədalət Məmmədli', 1, NULL, 0, 0, 0, 0, 150, '1976-01-17 20:00:00', '2024-10-18 09:02:04'),
-(3, 'Ülvi Hüseynov', 2, NULL, 300, 0, 300, 0, 253.4, '1998-03-18 20:00:00', '2024-10-18 12:09:59'),
-(4, 'Pərviz Əliyarov', 3, NULL, 0, 30, 0, 300, 20, '1993-01-17 20:00:00', '2024-10-18 14:12:09'),
-(5, 'Elşən Həmidovv', 1, NULL, 48.6, 97.2, 0, 0, 11.2, '1985-04-29 20:00:00', '2024-10-18 12:25:42');
+INSERT INTO `users` (`id`, `pid`, `name`, `role_id`, `remember_token`, `debt`, `current_debt`, `old_debt`, `remnant`, `balance`, `created_at`, `updated_at`) VALUES
+(1, 'USR18011976000001', 'Ədalət Məmmədli', 1, NULL, 0, 0, 0, 0, 150, '1976-01-17 20:00:00', '2024-10-21 12:43:57'),
+(3, 'USR19031998000003', 'Ülvi Hüseynov', 2, NULL, 300, 0, 300, 0, 253.4, '1998-03-18 20:00:00', '2024-10-21 12:43:57'),
+(4, 'USR18011993000004', 'Pərviz Əliyarov', 3, NULL, 0, 0, 0, 300, 20, '1993-01-17 20:00:00', '2024-10-21 12:43:57'),
+(5, 'USR30041985000005', 'Elşən Həmidovv', 1, NULL, 148.6, 48.6, 100, 50, 261.2, '1985-04-29 20:00:00', '2024-10-21 13:53:46');
 
 --
 -- Indexes for dumped tables
@@ -624,13 +668,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `order_status`
@@ -642,7 +686,7 @@ ALTER TABLE `order_status`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `payment_actions`
@@ -660,7 +704,7 @@ ALTER TABLE `payment_types`
 -- AUTO_INCREMENT for table `phones`
 --
 ALTER TABLE `phones`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -678,7 +722,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `update_logs`
 --
 ALTER TABLE `update_logs`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -1,5 +1,7 @@
 <div class="grid gap-4" x-data="{state : $wire.entangle('searchState')}">
 
+    <livewire:user.create/>
+
     <div class="my-container flex gap-4">
         <select class="my-input w-44 !p-2 text-sm" wire:model.live="currentSorting">
             @foreach($sortings as $key=>$sorting)
@@ -13,7 +15,7 @@
             </button>
         </div>
         <button wire:click="$dispatch('create-user')"
-                class="my-input font-semibold !p-2 text-sm inline-flex items-center gap-1 ml-auto">
+                class="my-input font-semibold !p-2 text-sm inline-flex items-center gap-1 ml-auto transition hover:text-blue-600">
             <svg class="size-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                  fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z"/>
@@ -35,7 +37,7 @@
                     <th>Əlaqə nömrəsi</th>
                     <th>Balans</th>
                     <th>Borc</th>
-                    <th>Kəsir</th>
+                    <th>Tədarükçü borcu</th>
                     <th>Vəzifə</th>
                     <th>Qeydiyyat tarixi</th>
                     </thead>
@@ -54,7 +56,7 @@
                                     Düzəliş et
                                 </a>
                             </td>
-                            <td>{{$user->pid()}}</td>
+                            <td>{{$user->pid}}</td>
                             <td>
                                 <p>
                                     {{$user->name}}
@@ -151,7 +153,7 @@
                 </div>
             </div>
             <div class="grid gap-1">
-                <div class="my-label">Kəsir</div>
+                <div class="my-label">Tədarükçü borcu</div>
                 <div class="grid grid-cols-2 gap-3">
                     <input type="number" step="0.01" class="my-input w-full !p-2.5" placeholder="Min."
                            wire:model="filters.remnant.min">

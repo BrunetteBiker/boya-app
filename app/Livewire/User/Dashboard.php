@@ -34,7 +34,6 @@ class Dashboard extends Component
     public $currentSorting = "id|desc";
     public $searchState = false;
 
-    #[Url(except: "")]
     public $filters = [
         "pid" => "",
         "name" => "",
@@ -127,7 +126,7 @@ class Dashboard extends Component
 
         } else {
             if ($filters->has("pid")) {
-                $items = $items->where("id", "like", "%" . $filters["pid"] . "%");
+                $items = $items->where("pid", "like", "%" . $filters["pid"] . "%");
             }
             if ($filters->has("name")) {
                 $items = $items->where("name", "like", "%" . $filters["name"] . "%");
@@ -202,7 +201,7 @@ class Dashboard extends Component
         }
 
 
-        $items = $items->paginate(10);
+        $items = $items->paginate(2);
 
         return $items;
     }

@@ -1,7 +1,14 @@
 <div class="grid gap-4">
     <div class="flex justify-end gap-4">
-        <a href="<?php echo e(url("print/$order->id")); ?>" class="my-container inline-flex items-center gap-2 font-medium !p-2.5 text-sm">
-            <svg class="size-7"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />  <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />  <rect x="7" y="13" width="10" height="8" rx="2" /></svg>
+        <a href="<?php echo e(url("print/$order->id")); ?>"
+           class="my-container inline-flex items-center gap-2 font-medium !p-2.5 text-sm">
+            <svg class="size-7" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                 fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z"/>
+                <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"/>
+                <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"/>
+                <rect x="7" y="13" width="10" height="8" rx="2"/>
+            </svg>
             Qaiməni çap et
         </a>
     </div>
@@ -21,9 +28,11 @@
                     <hr class="border-2 border-black">
                     <ul class="grid gap-2">
                         <li>Sifariş kodu : <span class="font-semibold"><?php echo e($order->pid); ?></span></li>
-                        <li>Qeydiyyat tarixi : <span class="font-semibold"><?php echo e($order->created_at->format("d-m-Y h:i:s")); ?></span></li>
+                        <li>Qeydiyyat tarixi : <span
+                                class="font-semibold"><?php echo e($order->created_at->format("d-m-Y h:i:s")); ?></span></li>
                         <li>Status : <span class="font-semibold"><?php echo e($order->status->name); ?></span></li>
                         <!--[if BLOCK]><![endif]--><?php if($order->status_id == 4): ?>
+                            <li>Ləğv edən : <span class="font-semibold"><?php echo e($order->cancelledBy->name); ?></span></li>
                             <li>Ləğv səbəbi : <span class="font-semibold"><?php echo e($order->cancel_explanation); ?></span></li>
                         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                         <li>Ümumi cəm : <span class="font-semibold"><?php echo e($order->amount); ?> AZN</span></li>
@@ -31,6 +40,7 @@
                         <li>Yekun : <span class="font-semibold"><?php echo e($order->total); ?> AZN</span></li>
                         <li>Ödənilib : <span class="font-semibold"><?php echo e($order->paid); ?> AZN</span></li>
                         <li>Borc : <span class="font-semibold"><?php echo e($order->debt); ?> AZN</span></li>
+                        <li>İcraçı : <span class="font-semibold"><?php echo e($order->executor->name); ?></span></li>
                     </ul>
                 </div>
             </div>
@@ -39,7 +49,8 @@
                     <div class="flex justify-between items-center">
                         <h1 class="text-xl font-bold">Sifarişin ləğvi</h1>
                         <button wire:click="$toggle('state.cancel')">
-                            <svg class="size-7 transition" :class="{'-rotate-180' : state}" viewBox="0 0 24 24" fill="none"
+                            <svg class="size-7 transition" :class="{'-rotate-180' : state}" viewBox="0 0 24 24"
+                                 fill="none"
                                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="6 9 12 15 18 9"/>
                             </svg>
@@ -49,10 +60,13 @@
                         <hr class="border-2 border-black">
                         <div class="grid gap-1">
                             <div class="my-label">Ləğv səbəbi</div>
-                            <textarea class="my-input" rows="3" wire:model="cancelExplanation" <?php echo e($order->status_id == 4 ? "disabled" : ""); ?>></textarea>
+                            <textarea class="my-input" rows="3"
+                                      wire:model="cancelExplanation" <?php echo e($order->status_id == 4 ? "disabled" : ""); ?>></textarea>
                         </div>
                         <!--[if BLOCK]><![endif]--><?php if($order->status_id != 4): ?>
-                            <button wire:click="cancelOrder" class="my-input ml-auto font-semibold transition hover:text-red-600">Təsdiqlə</button>
+                            <button wire:click="cancelOrder"
+                                    class="my-input ml-auto font-semibold transition hover:text-red-600">Təsdiqlə
+                            </button>
                         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
                     </div>
@@ -73,20 +87,38 @@
             <div x-transition x-show="state" class="grid gap-4">
                 <hr class="border-2 border-black">
                 <ul class="grid gap-2">
-                    <li>Müştəri kodu : <span class="font-semibold"><?php echo e($order->customer->pid()); ?></span></li>
-                    <li>Qeydiyyat tarixi : <span class="font-semibold"><?php echo e($order->customer->created_at->format("d-m-Y")); ?></span></li>
+                    <li>Müştəri kodu : <span class="font-semibold"><?php echo e($order->customer->pid); ?></span></li>
+                    <li>Ad və soyad : <span class="font-semibold"><?php echo e($order->customer->name); ?></span></li>
+                    <li>Əlaqə nömrəsi : <span class="font-semibold"><?php echo e($order->customer->phone()); ?></span></li>
+                    <li>Qeydiyyat tarixi : <span
+                            class="font-semibold"><?php echo e($order->customer->created_at->format("d-m-Y")); ?></span></li>
                     <li>Vəzifə : <span class="font-semibold"><?php echo e($order->customer->role->name); ?></span></li>
                     <li>Balans : <span class="font-semibold"><?php echo e($order->customer->balance); ?> AZN</span></li>
                     <li>Ümumi borc : <span class="font-semibold"><?php echo e($order->customer->debt); ?> AZN</span></li>
                     <li>Satış borcu : <span class="font-semibold"><?php echo e($order->customer->current_debt); ?> AZN</span></li>
                     <li>Köhnə borc : <span class="font-semibold"><?php echo e($order->customer->old_debt); ?> AZN</span></li>
-
                 </ul>
-
+                <div class="flex gap-2 justify-self-start">
+                    <a href="<?php echo e(url("user/details/$order->customer_id")); ?>" target="_blank"
+                       class="my-input text-sm !p-2.5 transition hover:text-sky-600 hover:font-medium inline-flex items-center gap-1.5">
+                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        Ətraflı məlumat
+                    </a>
+                    <a href="<?php echo e(url("order/create?customer=$order->customer_id")); ?>" target="_blank"
+                       class="my-input text-sm !p-2.5 transition hover:text-green-600 hover:font-medium inline-flex items-center gap-1.5">
+                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Yeni sifariş
+                    </a>
+                </div>
 
             </div>
         </div>
-
 
 
     </div>
@@ -136,7 +168,7 @@
                         </tbody>
                     </table>
                 </div>
-                <!--[if BLOCK]><![endif]--><?php if($order->debt > 0): ?>
+                <!--[if BLOCK]><![endif]--><?php if($order->debt > 0 && $order->status_id != 4): ?>
                     <div class="my-container w-80">
                         <form action="" class="grid gap-4">
                             <div class="grid gap-1">

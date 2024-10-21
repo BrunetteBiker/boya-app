@@ -34,22 +34,6 @@ if (isset($__slots)) unset($__slots);
 <div class="grid gap-4 p-4 bg-gray-200 min-h-dvh content-start">
     <?php if(auth()->check()): ?>
 
-        <?php
-$__split = function ($name, $params = []) {
-    return [$name, $params];
-};
-[$__name, $__params] = $__split('user.create', []);
-
-$__html = app('livewire')->mount($__name, $__params, 'lw-2629578069-1', $__slots ?? [], get_defined_vars());
-
-echo $__html;
-
-unset($__html);
-unset($__name);
-unset($__params);
-unset($__split);
-if (isset($__slots)) unset($__slots);
-?>
 
         <div class="my-container flex justify-between items-center sticky top-0 bg-white z-20">
             <div class="text-sm">İcraçı : <span class="font-bold"><?php echo e(auth()->user()->name); ?></span></div>

@@ -46,13 +46,12 @@ $scrollIntoViewJsSnippet = ($scrollTo !== false)
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                     <p class="text-sm text-gray-700 leading-5 dark:text-gray-400">
-                        <span><?php echo __('Showing'); ?></span>
+                        <span>Tapıldı : <?php echo e($paginator->total()); ?> ədəd.</span>
+                        <span>Göstərilir : </span>
                         <span class="font-medium"><?php echo e($paginator->firstItem()); ?></span>
-                        <span><?php echo __('to'); ?></span>
+                        <span>-</span>
                         <span class="font-medium"><?php echo e($paginator->lastItem()); ?></span>
-                        <span><?php echo __('of'); ?></span>
-                        <span class="font-medium"><?php echo e($paginator->total()); ?></span>
-                        <span><?php echo __('results'); ?></span>
+                        <span>aralığında.</span>
                     </p>
                 </div>
 

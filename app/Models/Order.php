@@ -42,4 +42,8 @@ class Order extends Model
         return $this->hasMany(Payment::class);
     }
 
+    function cancelledBy()
+    {
+        return $this->hasOne(User::class,"id","cancelled_by");
+    }
 }

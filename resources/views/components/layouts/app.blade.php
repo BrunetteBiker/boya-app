@@ -18,7 +18,6 @@
 <div class="grid gap-4 p-4 bg-gray-200 min-h-dvh content-start">
     @if(auth()->check())
 
-        <livewire:user.create/>
 
         <div class="my-container flex justify-between items-center sticky top-0 bg-white z-20">
             <div class="text-sm">İcraçı : <span class="font-bold">{{auth()->user()->name}}</span></div>

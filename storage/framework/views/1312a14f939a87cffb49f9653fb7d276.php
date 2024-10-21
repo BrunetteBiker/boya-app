@@ -104,7 +104,7 @@
                                 Ətraflı məlumatlar
                             </a>
                         </td>
-                        <td><?php echo e($supplier->pid()); ?></td>
+                        <td><?php echo e($supplier->pid); ?></td>
                         <td><?php echo e($supplier->name); ?></td>
                         <td><?php echo e($supplier->remnant); ?> AZN</td>
                     </tr>

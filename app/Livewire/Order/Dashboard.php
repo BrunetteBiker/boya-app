@@ -36,7 +36,6 @@ class Dashboard extends Component
     #[Url]
     public $orderBy = "id|desc";
 
-    #[Url]
     public $filters = [
         'pid' => '',
         'customer' => '',
@@ -135,10 +134,10 @@ class Dashboard extends Component
         if ($createdAt->isNotEmpty()) {
 
             if ($createdAt->count() == 1) {
-                $items = $items->whereDate("created_at", $createdAt->first());
+                $items = $items->whereDate("created_at", Carbon::make($createdAt->first())->format("Y-m-d"));
             } else {
-                $items = $items->whereDate("created_at", ">=", $createdAt->first());
-                $items = $items->whereDate("created_at", "<=", $createdAt->last());
+                $items = $items->whereDate("created_at", ">=", Carbon::make($createdAt->first())->format("Y-m-d"));
+                $items = $items->whereDate("created_at", "<=", Carbon::make($createdAt->last())->format("Y-m-d"));
             }
         }
 
@@ -157,7 +156,7 @@ class Dashboard extends Component
             if ($discount->has("min")) {
                 $items = $items->where("discount", ">=", $total["min"]);
             }
-            if ($discount->has("max")){
+            if ($discount->has("max")) {
                 $items = $items->where("discount", "<=", $total["max"]);
             }
         }
@@ -166,7 +165,8 @@ class Dashboard extends Component
 
             if ($paid->has("min")) {
                 $items = $items->where("paid", ">=", $paid["min"]);
-            } if ($paid->has("max")) {
+            }
+            if ($paid->has("max")) {
                 $items = $items->where("paid", "<=", $paid["max"]);
             }
         }
@@ -181,23 +181,13 @@ class Dashboard extends Component
             }
         }
 
-        if ($createdAt->isNotEmpty()) {
 
-            if ($createdAt->count() == 1) {
-                $date = Carbon::make($createdAt->first())->format("Y-m-d");
-                $items = $items->whereDate("created_at",$date);
-            }else{
-                $min = Carbon::make($createdAt->get("min"))->format("Y-m-d");
-                $max = Carbon::make($createdAt->get("max"))->format("Y-m-d");
-                $items = $items->whereDate("created_at",">=",$min)
-                ->where("created_at","<=",$max);
-            }
-        }
+
 
 
 
         $items = $items->orderBy($orderBy->first(), $orderBy->last());
-        $items = $items->paginate(10);
+        $items = $items->paginate(3);
 
         return $items;
     }

@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Models\Payment;
+use Carbon\Carbon;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,6 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use const http\Client\Curl\AUTH_ANY;
 
 class AcceptPayment
@@ -30,6 +32,9 @@ class AcceptPayment
         $payment->action_id = $action;
         $payment->amount = $amount;
         $payment->note = $note;
+        $payment->save();
+
+        $payment->pid = "ÖDN" . Carbon::make($payment->created_at)->format("dmY") . Str::of($payment->id)->padLeft(6, 0);
         $payment->save();
 
     }

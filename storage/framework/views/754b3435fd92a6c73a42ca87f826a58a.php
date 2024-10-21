@@ -1,5 +1,22 @@
 <div class="grid gap-4" x-data="{state : $wire.entangle('searchState')}">
 
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('user.create', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-137497998-0', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+
     <div class="my-container flex gap-4">
         <select class="my-input w-44 !p-2 text-sm" wire:model.live="currentSorting">
             <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $sortings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$sorting): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -13,7 +30,7 @@
             </button>
         </div>
         <button wire:click="$dispatch('create-user')"
-                class="my-input font-semibold !p-2 text-sm inline-flex items-center gap-1 ml-auto">
+                class="my-input font-semibold !p-2 text-sm inline-flex items-center gap-1 ml-auto transition hover:text-blue-600">
             <svg class="size-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                  fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z"/>
@@ -35,7 +52,7 @@
                     <th>Əlaqə nömrəsi</th>
                     <th>Balans</th>
                     <th>Borc</th>
-                    <th>Kəsir</th>
+                    <th>Tədarükçü borcu</th>
                     <th>Vəzifə</th>
                     <th>Qeydiyyat tarixi</th>
                     </thead>
@@ -54,7 +71,7 @@
                                     Düzəliş et
                                 </a>
                             </td>
-                            <td><?php echo e($user->pid()); ?></td>
+                            <td><?php echo e($user->pid); ?></td>
                             <td>
                                 <p>
                                     <?php echo e($user->name); ?>
@@ -154,7 +171,7 @@
                 </div>
             </div>
             <div class="grid gap-1">
-                <div class="my-label">Kəsir</div>
+                <div class="my-label">Tədarükçü borcu</div>
                 <div class="grid grid-cols-2 gap-3">
                     <input type="number" step="0.01" class="my-input w-full !p-2.5" placeholder="Min."
                            wire:model="filters.remnant.min">

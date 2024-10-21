@@ -5,31 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e1262d2-7c91-4ffb-aa0f-6d02a9d350ad" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/livewire/order/create/customer-selection.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/livewire/order/create/product-section.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/84243601-9f7e-498e-9dc5-9ab5410ee348.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/84243601-9f7e-498e-9dc5-9ab5410ee348.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Customer/Dashboard.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Customer/Details.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Login.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Events/AcceptPayment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Events/AcceptPayment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Livewire/Order/Create.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Order/Create.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Livewire/Order/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Order/Dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Payment/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Payment/Dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Product/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Product/Dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Livewire/Raport.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Raport.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Livewire/Order/Details.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/Order/Details.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Livewire/User/Create.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/User/Create.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Livewire/User/Dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/User/Dashboard.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Livewire/User/Details.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Livewire/User/Details.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Payment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Payment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/components/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/components/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/livewire/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/order/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/order/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order/dashboard.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/order/details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/order/details.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/livewire/raport.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/raport.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/user/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/user/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/livewire/user/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/user/dashboard.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/livewire/user/details.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/livewire/user/details.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/1312a14f939a87cffb49f9653fb7d276.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/1312a14f939a87cffb49f9653fb7d276.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/vendor/livewire/tailwind.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/vendor/livewire/tailwind.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/0907edef129edc5e6a7e41e0c43406be.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/0907edef129edc5e6a7e41e0c43406be.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/2b04adcaca2229713288ad26dc07d5c3.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/2b04adcaca2229713288ad26dc07d5c3.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/34437b441b804b4cb6e29d38c5f0bbc4.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/34437b441b804b4cb6e29d38c5f0bbc4.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/36ab886cdc4c0111e0e00b02c71a0a44.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/36ab886cdc4c0111e0e00b02c71a0a44.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/framework/views/754b3435fd92a6c73a42ca87f826a58a.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/754b3435fd92a6c73a42ca87f826a58a.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/77292fa25f673778f36b2045da04fa0f.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/77292fa25f673778f36b2045da04fa0f.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/862fd445fa415bdf99cb3f21a6acc8e8.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/862fd445fa415bdf99cb3f21a6acc8e8.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/96ae916f0d14f1456d983a0dfac3305f.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/96ae916f0d14f1456d983a0dfac3305f.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/framework/views/a741bc547714a58f6ff92ec98e83b803.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/a741bc547714a58f6ff92ec98e83b803.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/c60b0300de896a91aefb1fb6ebbf6fbc.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c60b0300de896a91aefb1fb6ebbf6fbc.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" afterPath="$PROJECT_DIR$/storage/logs/laravel.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -184,30 +191,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
-      "MySQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
+      &quot;MySQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
@@ -232,6 +239,7 @@
       <workItem from="1729228655219" duration="22819000" />
       <workItem from="1729322260362" duration="9376000" />
       <workItem from="1729427276138" duration="7831000" />
+      <workItem from="1729488884747" duration="21652000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,55 @@
 <div class="flex items-start gap-4" x-data="{state : $wire.entangle('searchState')}">
     <div class="flex-1 grid gap-4">
+        <div class="flex flex-wrap gap-3">
+            <div class="my-container min-w-44 grid gap-2">
+                <p class="text-xl font-bold">
+                    <span><?php echo e(\App\Models\Order::count()); ?> ədəd</span>
+                    |
+                    <span><?php echo e(round(\App\Models\Order::sum("total"),2)); ?> AZN</span>
+                </p>
+                <p class="text-sm font-light">Bütün sifarişlər</p>
+            </div>
+            <div class="my-container min-w-44 grid gap-2">
+                <p class="text-xl font-bold">
+                    <span><?php echo e(\App\Models\Order::query()->where("debt",">",0)->count()); ?> ədəd</span>
+                    |
+                    <span><?php echo e(round(\App\Models\Order::sum("debt"),2)); ?> AZN</span>
+                </p>
+                <p class="text-sm font-light">Borc olan</p>
+            </div>
+            <div class="my-container min-w-44 grid gap-2">
+                <p class="text-xl font-bold">
+                    <span><?php echo e(\App\Models\Order::query()->where("status_id",4)->count()); ?> ədəd</span>
+                    |
+                    <span><?php echo e(round(\App\Models\Order::query()->where("status_id",4)->sum("total"),2)); ?> AZN</span>
+                </p>
+                <p class="text-sm font-light">Ləğv edilən</p>
+            </div>
+            <div class="my-container min-w-44 grid gap-2">
+                <p class="text-xl font-bold">
+                    <span><?php echo e(\App\Models\Order::query()->where("status_id",1)->count()); ?> ədəd</span>
+                    |
+                    <span><?php echo e(round(\App\Models\Order::query()->where("status_id",1)->sum("total"),2)); ?> AZN</span>
+                </p>
+                <p class="text-sm font-light">Hazırlanır</p>
+            </div>
+            <div class="my-container min-w-44 grid gap-2">
+                <p class="text-xl font-bold">
+                    <span><?php echo e(\App\Models\Order::query()->where("status_id",2)->count()); ?> ədəd</span>
+                    |
+                    <span><?php echo e(round(\App\Models\Order::query()->where("status_id",2)->sum("total"),2)); ?> AZN</span>
+                </p>
+                <p class="text-sm font-light">Anbarda</p>
+            </div>
+            <div class="my-container min-w-44 grid gap-2">
+                <p class="text-xl font-bold">
+                    <span><?php echo e(\App\Models\Order::query()->where("status_id",3)->count()); ?> ədəd</span>
+                    |
+                    <span><?php echo e(round(\App\Models\Order::query()->where("status_id",3)->sum("total"),2)); ?> AZN</span>
+                </p>
+                <p class="text-sm font-light">Təhvil verilib</p>
+            </div>
+        </div>
         <div class="my-container flex gap-8">
             <div class="inline-flex gap-1.5 items-center">
                 <div class="text-sm font-medium">Sıralama</div>
@@ -72,14 +122,13 @@
             <button wire:click="$toggle('searchState')" class="my-input !p-1.5 text-xs ml-auto">Gizlə</button>
         </div>
         <hr class="border-2 border-black">
-
         <div class="grid gap-1">
             <div class="text-sm font-medium">Sifariş kodu</div>
-            <input type="text" class="border border-black text-sm p-3" placeholder="Sifariş kodu" wire:model="filters.pid">
+            <input type="text" class="border border-black text-sm p-3" wire:model="filters.pid">
         </div>
         <div class="grid gap-1">
             <div class="text-sm font-medium">Müştəri</div>
-            <input type="text" class="border border-black text-sm p-3" placeholder="Sifariş kodu" wire:model="filters.customer">
+            <input type="text" class="border border-black text-sm p-3" wire:model="filters.customer">
         </div>
         <div class="grid gap-1">
             <div class="text-sm font-medium">İcraçı</div>
@@ -128,11 +177,16 @@
         <div class="grid gap-1">
             <div class="text-sm font-medium">Tarix</div>
             <div class="grid grid-cols-2 gap-2">
-                <input type="text" class="border border-black text-sm p-3 w-full" placeholder="gün-ay-il" wire:model="filters.createdAt.min" x-mask="99-99-9999">
-                <input type="text" class="border border-black text-sm p-3 w-full" placeholder="gün-ay-il" wire:model="filters.createdAt.max" x-mask="99-99-9999">
+                <div class="grid gap-1">
+                    <input type="text" class="my-input w-full !p-2.5 text-sm" placeholder="gün-ay-il" wire:model="filters.createdAt.min" x-mask="99-99-9999">
+                    <span class="text-sm">Tarixdən</span>
+                </div>
+                <div class="grid gap-1">
+                    <input type="text" class="my-input w-full !p-2.5 text-sm" placeholder="gün-ay-il" wire:model="filters.createdAt.max" x-mask="99-99-9999">
+                    <span class="text-sm">Tarixə</span>
+                </div>
             </div>
         </div>
-        <?php echo json_encode($filters["createdAt"], 15, 512) ?>
         <div class="flex items-center justify-end gap-2">
             <button type="button" wire:click="search" class="leading-none p-3 rounded border border-black">Axtar</button>
             <button type="button" wire:click="search('true')" class="leading-none p-3 rounded border border-black">Sıfırla</button>
