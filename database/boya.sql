@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 21, 2024 at 02:14 PM
+-- Generation Time: Oct 22, 2024 at 02:10 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.23
 
@@ -294,7 +294,8 @@ INSERT INTO `payments` (`id`, `pid`, `executor_id`, `order_id`, `customer_id`, `
 (31, 'ÖDN21102024000031', 1, NULL, 5, 1, 2, 50, '', 0, '2024-10-21 13:53:01', '2024-10-21 13:56:23'),
 (32, 'ÖDN21102024000032', 1, NULL, 5, 3, 1, 50, '', 0, '2024-10-21 13:53:38', '2024-10-21 13:56:23'),
 (33, 'ÖDN21102024000033', 1, NULL, 5, 3, 1, 20, '', 0, '2024-10-21 13:53:43', '2024-10-21 13:56:23'),
-(34, 'ÖDN21102024000034', 1, NULL, 5, 3, 2, 20, '', 0, '2024-10-21 13:53:46', '2024-10-21 13:56:23');
+(34, 'ÖDN21102024000034', 1, NULL, 5, 3, 2, 20, '', 0, '2024-10-21 13:53:46', '2024-10-21 13:56:23'),
+(35, 'ÖDN22102024000035', 5, NULL, 3, 2, 1, 150, '', 0, '2024-10-22 13:18:41', '2024-10-22 13:18:41');
 
 -- --------------------------------------------------------
 
@@ -404,7 +405,9 @@ INSERT INTO `products` (`id`, `name`, `note`, `visible`) VALUES
 (23, 'Su tut 18 lt', '', 1),
 (24, 'Naturel parlaq fasad 18 lt', '', 1),
 (25, 'Naturel parlaq fasad 7.5 lt', '', 1),
-(26, 'Naturel parlaq fasad 2.5 lt', '', 1);
+(26, 'Naturel parlaq fasad 2.5 lt', '', 1),
+(27, 'Test məhsul', 'Suscipit quia vero voluptas doloribus illo exercitationem deleniti aut. Voluptatum consequuntur deserunt sapiente cumque. Odit natus et repellendus animi placeat fugit.', 1),
+(28, 'Test məhsul', 'Asperiores maxime minima enim. Laborum temporibus laborum. Numquam molestias eaque quas laboriosam rem doloribus dignissimos.', 0);
 
 -- --------------------------------------------------------
 
@@ -446,7 +449,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('8hDaOro8N732Rkk7zj3qxwo09RGfqTc7eJ0aW7QK', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNGVRMmxNSk9nNWJ5QUY3bkI0ek5aSklJYkt2YkZDaDNWc1VadmtsUSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozNDoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL29yZGVyL2NyZWF0ZSI7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjUxOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvdXNlci9kYXNoYm9hcmQ/c2VhcmNoS2V5d29yZD0iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1729519975);
+('Cohvse2iimXO9Yd5bLM6A1LONIZILQC0ekMuBBAi', 5, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiT3F4VlNVejcxRXZmNVN4UzVBVmNjMVBBOXlmU2c3QnpkZWc4aGJzNCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9wYXltZW50L2Rhc2hib2FyZD9wYWdlPTEiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo1O30=', 1729605674),
+('fFnlnSQTDszTrwCimma50vLJ55OANmbkp3ph8vJO', 5, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSGVaZjNzYWN3Sm1NVmJlZWdGWjdwc29mZ2J0M0R4ekphR3lmbllvSyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzg6Imh0dHA6Ly9ib3lhLWFwcC50ZXN0L3BheW1lbnQvZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6NTt9', 1729605674);
 
 -- --------------------------------------------------------
 
@@ -503,7 +507,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `pid`, `name`, `role_id`, `remember_token`, `debt`, `current_debt`, `old_debt`, `remnant`, `balance`, `created_at`, `updated_at`) VALUES
 (1, 'USR18011976000001', 'Ədalət Məmmədli', 1, NULL, 0, 0, 0, 0, 150, '1976-01-17 20:00:00', '2024-10-21 12:43:57'),
-(3, 'USR19031998000003', 'Ülvi Hüseynov', 2, NULL, 300, 0, 300, 0, 253.4, '1998-03-18 20:00:00', '2024-10-21 12:43:57'),
+(3, 'USR19031998000003', 'Ülvi Hüseynov', 2, NULL, 300, 0, 300, 0, 403.4, '1998-03-18 20:00:00', '2024-10-22 13:18:41'),
 (4, 'USR18011993000004', 'Pərviz Əliyarov', 3, NULL, 0, 0, 0, 300, 20, '1993-01-17 20:00:00', '2024-10-21 12:43:57'),
 (5, 'USR30041985000005', 'Elşən Həmidovv', 1, NULL, 148.6, 48.6, 100, 50, 261.2, '1985-04-29 20:00:00', '2024-10-21 13:53:46');
 
@@ -686,7 +690,7 @@ ALTER TABLE `order_status`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `payment_actions`
@@ -710,7 +714,7 @@ ALTER TABLE `phones`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `roles`

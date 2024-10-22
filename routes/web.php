@@ -41,6 +41,11 @@ Route::middleware("auth")->group(function () {
 
     });
 
+    Route::prefix("payment")->group(function () {
+
+        Route::get("dashboard",\App\Livewire\Payment\Dashboard::class);
+
+    });
 
     Route::get("raport", \App\Livewire\Raport::class);
 

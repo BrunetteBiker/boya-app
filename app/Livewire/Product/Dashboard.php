@@ -4,6 +4,7 @@ namespace App\Livewire\Product;
 
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -14,13 +15,11 @@ use Livewire\WithPagination;
 class Dashboard extends Component
 {
     use WithPagination;
-
-
     public $newProduct = [
         "state" => false,
         'name' => '',
         'note' => '',
-        "status" => true
+        "visible" => 1
     ];
     public $selectedId;
     public $selectedProduct = [
@@ -56,39 +55,55 @@ class Dashboard extends Component
         'visible' => ''
     ];
 
-    function search()
+    function search($reset = false)
     {
+        if ($reset) {
+            $this->reset("filters");
+        }
         $this->resetPage();
         $this->products();
     }
 
-    function resetSearch()
-    {
-        $this->resetPage();
-        $this->reset('filters');
-    }
-
     function create()
     {
+
         $validator = Validator::make($this->newProduct, [
             'name' => "required",
-            'min' => 'required',
-            'max' => 'required'
         ], [
             'name.required' => 'Məhsulun adı daxil edilməlidir',
-            'min.required' => 'Minimal məbləğ daxil edilməlidir',
-            'max.required' => 'Maksimal məbləğ daxil edilməlidir',
         ]);
+
         if ($validator->fails()) {
             $this->dispatch('notify', state: 'danger', msg: $validator->errors()->first(), autoHide: true);
+            return;
         }
+
         Product::insert([
             "name" => $this->newProduct["name"],
-            "note"=>$this->newProduct["note"]
+            "visible" => $this->newProduct["visible"],
+            "note" => $this->newProduct["note"]
         ]);
 
         $this->dispatch('notify', state: "info", msg: "Yeni məhsul əlavə edildi", autoHide: true);
+        $this->reset("newProduct");
 
+    }
+
+    public $sortings = [
+        "name|asc" => "Məhsul adı üzrə (A-Z)",
+        "name|desc" => "Məhsul adı üzrə (Z-A)",
+        "visible|desc" => "Status üzrə",
+    ];
+
+    public $orderBy = "name|asc";
+
+    function updated($prop)
+    {
+        switch ($prop) {
+            case "orderBy":
+                $this->resetPage();
+                break;
+        }
     }
 
     #[Computed]
@@ -98,9 +113,11 @@ class Dashboard extends Component
             return $value != '';
         });
 
-        $orderBy = collect(['name', 'desc']);
+        $orderBy = Str::of($this->orderBy)->explode("|");
 
         $items = Product::query();
+
+        $items = $items->orderBy($orderBy->first(), $orderBy->last());
 
         if ($filters->has('name')) {
             $items = $items->where('name', 'like', "%" . $filters->get("name") . "%");
@@ -111,8 +128,8 @@ class Dashboard extends Component
 
         }
 
+        $items = $items->paginate(10);
 
-        $items = $items->orderBy($orderBy->first(), $orderBy->last())->paginate(10);
         return $items;
     }
 

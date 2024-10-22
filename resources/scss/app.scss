@@ -30,7 +30,7 @@
 }
 
 .notification {
-    @apply fixed bottom-4 right-4 p-3 text-white max-w-96 flex items-center gap-3 z-10 font-medium text-sm min-w-72;
+    @apply fixed bottom-4 right-4 p-3 text-white max-w-96 flex items-center gap-3 z-50 font-medium text-sm min-w-72;
 
     &-msg {
         @apply flex-1 font-medium;
@@ -75,4 +75,8 @@
 
 .my-input {
     @apply border border-black p-3 outline-0;
+
+    &:focus{
+        @apply border-0 outline-2 outline-blue-400;
+    }
 }

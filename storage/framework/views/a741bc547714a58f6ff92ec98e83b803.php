@@ -40,6 +40,8 @@ if (isset($__slots)) unset($__slots);
             <div class="flex gap-2 font-medium">
                 <a href="<?php echo e(url('order/dashboard')); ?>" wire:navigate
                    class="border border-black p-2 text-sm">Sifarişlər</a>
+                <a href="<?php echo e(url('payment/dashboard')); ?>" wire:navigate
+                   class="border border-black p-2 text-sm">Ödənişlər</a>
                 <a href="<?php echo e(url('user/dashboard')); ?>" wire:navigate class="border border-black p-2 text-sm">İstifadəçilər</a>
                 <a href="<?php echo e(url("product/dashboard")); ?>" wire:navigate
                    class="border border-black p-2 text-sm">Məhsullar</a>

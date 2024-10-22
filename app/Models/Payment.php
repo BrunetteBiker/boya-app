@@ -18,6 +18,11 @@ class Payment extends Model
         return $this->hasOne(User::class, "id", "executor_id");
     }
 
+    function customer()
+    {
+        return $this->hasOne(User::class, "id", "customer_id");
+    }
+
     function type()
     {
         return $this->hasOne(PaymentType::class, "id", "type_id");

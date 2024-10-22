@@ -1,66 +1,10 @@
 <div class="grid gap-4">
     @if($selectedId)
-        <div
-            class="fixed top-0 left-0 w-full h-dvh bg-black/70 backdrop-blur z-10 p-8 grid items-center justify-items-center">
-            <form wire:submit="create" class="my-container grid gap-4 w-1/4">
-                <div class="grid gap-1">
-                    <div class="text-sm font-medium">Məhsulun adı</div>
-                    <input type="text" class="border border-black p-3 flex-1" placeholder="Daxil edin"
-                           wire:model="selectedProduct.name">
-                </div>
-                <div class="grid gap-1">
-                    <div class="text-sm font-medium">Qeyd</div>
-                    <textarea class="my-input" rows="3" wire:model="selectedProduct.note"></textarea>
-                </div>
-                <div class="grid gap-1">
-                    <div class="text-sm font-medium">Status</div>
-                    <select class="my-input" wire:model="selectedProduct.visible">
-                        <option value="1">Aktiv</option>
-                        <option value="0">Deaktiv</option>
-                    </select>
-                </div>
-                <div class="flex gap-2 justify-end">
-                    <button wire:click="modify" type="button" class="border border-black leading-none font-medium p-3">
-                        Düzəliş et
-                    </button>
-                    <button wire:click="$set('selectedId','')" type="button"
-                            class="border border-black leading-none font-medium p-3">Gizlə
-                    </button>
-                </div>
-            </form>
-        </div>
+        @include("livewire.product.edit")
     @endif
 
     @if($newProduct["state"])
-        <div
-            class="fixed top-0 left-0 w-full h-dvh bg-black/70 backdrop-blur grid justify-items-center content-start p-8 z-20">
-            <div class="my-container grid gap-4 w-1/3">
-                <div class="grid gap-1">
-                    <div class="text-sm font-medium">Məhsulun adı</div>
-                    <input type="text" class="border border-black p-3 flex-1" placeholder="Daxil edin"
-                           wire:model="newProduct.name">
-                </div>
-                <div class="grid gap-1">
-                    <div class="text-sm font-medium">Qeyd</div>
-                    <textarea class="my-input" rows="3" wire:model="newProduct.note"></textarea>
-                </div>
-                <div class="grid gap-1">
-                    <div class="text-sm font-medium">Status</div>
-                    <select class="my-input" wire:model="newProduct.status">
-                        <option value="1">Satışdadır</option>
-                        <option value="0">Satışda deyil</option>
-                    </select>
-                </div>
-                <div class="flex justify-end gap-2">
-                    <button wire:click="create" type="submit"
-                            class="my-input font-medium transition hover:text-green-600">Yadda saxla
-                    </button>
-                    <button wire:click="$toggle('newProduct.state')" type="submit"
-                            class="my-input font-medium transition hover:text-red-600">Ləğv et
-                    </button>
-                </div>
-            </div>
-        </div>
+        @include("livewire.product.create")
     @endif
 
     <div class="flex gap-4 items-start">
@@ -108,7 +52,7 @@
                             </td>
                             <td>{{$product->name}}</td>
                             <td>
-                                <p class="line-clamp-1 transition hover:line-clamp-none">
+                                <p class="whitespace-normal w-72 line-clamp-1 transition hover:line-clamp-none">
                                     {{$product->note}}
                                 </p>
                             </td>
@@ -134,9 +78,10 @@
             <div class="my-container grid gap-4">
                 <div class="grid gap-1">
                     <div class="my-label">Sıralama</div>
-                    <select class="my-input">
-                        <option value="">Məhsulun adı (A-Z)</option>
-                        <option value="">Məhsulun adı (Z-A)</option>
+                    <select class="my-input" wire:model.live="orderBy">
+                        @foreach($sortings as $key=>$sorting)
+                            <option value="{{$key}}">{{$sorting}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="grid gap-1">
@@ -152,10 +97,15 @@
                     </select>
 
                 </div>
-                <div class="flex gap-3">
-                    <button wire:click="search" class="p-4 leading-none border border-black font-medium flex-1">Axtar
+                <div class="flex justify-end gap-3">
+                    <button wire:click="search" class="my-input inline-flex items-center gap-1.5 !p-2 text-sm hover:text-blue-600">
+                        <svg class="size-6"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        Axtar
                     </button>
-                    <button wire:click="resetSearch" class="p-4 leading-none border border-black font-medium flex-1">
+                    <button wire:click="search(true)" class="my-input inline-flex items-center gap-1.5 !p-2 text-sm hover:text-gray-600">
+                        <svg class="size-6"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M19 19h-11l-4 -4a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9 9" />  <path d="M18 12.3l-6.3 -6.3" /></svg>
                         Sıfırla
                     </button>
                 </div>

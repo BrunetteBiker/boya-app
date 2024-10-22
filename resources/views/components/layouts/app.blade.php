@@ -24,6 +24,8 @@
             <div class="flex gap-2 font-medium">
                 <a href="{{url('order/dashboard')}}" wire:navigate
                    class="border border-black p-2 text-sm">Sifarişlər</a>
+                <a href="{{url('payment/dashboard')}}" wire:navigate
+                   class="border border-black p-2 text-sm">Ödənişlər</a>
                 <a href="{{url('user/dashboard')}}" wire:navigate class="border border-black p-2 text-sm">İstifadəçilər</a>
                 <a href="{{url("product/dashboard")}}" wire:navigate
                    class="border border-black p-2 text-sm">Məhsullar</a>
