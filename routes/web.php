@@ -27,10 +27,8 @@ Route::middleware("auth")->group(function () {
         Route::get("dashboard", \App\Livewire\Order\Dashboard::class);
         Route::get("create", \App\Livewire\Order\Create::class);
         Route::get("details/{id}", \App\Livewire\Order\Details::class);
-        Route::get("export", function () {
-
-            return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\Orders(), "orders.xlsx");
-
+        Route::get("excel", function () {
+            return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\Orders(),"file.xlsx");
         });
     });
 

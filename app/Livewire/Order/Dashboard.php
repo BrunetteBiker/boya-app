@@ -183,11 +183,6 @@ class Dashboard extends Component
             }
         }
 
-
-
-
-
-
         $items = $items->orderBy($orderBy->first(), $orderBy->last());
         $items = $items->paginate();
 
@@ -197,7 +192,7 @@ class Dashboard extends Component
 
     function export()
     {
-        return \Maatwebsite\Excel\Facades\Excel::download(new Orders(),"orders.xlsx");
+        return \Maatwebsite\Excel\Facades\Excel::download(new Orders($this->filters), "sifarişlər-".now()->format("d-m-y-h-i").".xlsx");
     }
 
     public function render()

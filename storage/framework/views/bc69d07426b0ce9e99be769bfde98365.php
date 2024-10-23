@@ -1,1 +1,0 @@
-<?php /**PATH C:\laragon\www\boya\resources\views/welcome.blade.php ENDPATH**/ ?>
