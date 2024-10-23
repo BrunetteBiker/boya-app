@@ -7,6 +7,7 @@ use App\Models\PaymentType;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -63,29 +64,10 @@ class Dashboard extends Component
         $this->resetPage();
     }
 
-    public $cancelData = [
-        "state" => false,
-        "id" => null,
-        "payment" => null,
-        "explanation" => null
-    ];
-
-    function updatedCancelData($val, $prop)
+    #[On("payment.dashboard.refresh")]
+    function resetCurrentPayments()
     {
-        if ($prop == "id") {
-            if ($val != "") {
-                $this->cancelData["state"] = true;
-
-            } else {
-                $this->reset("cancelData");
-            }
-        }
-    }
-
-    function cancel($paymentId)
-    {
-        $this->cancelData["id"] = $paymentId;
-        $this->cancelData["payment"] = Payment::find($paymentId);
+        $this->payments();
     }
 
     #[Computed]

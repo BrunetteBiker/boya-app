@@ -55,7 +55,7 @@
                                 </a>
                             </div>
                         </td>
-                        <td><?php echo e($user->pid()); ?></td>
+                        <td><?php echo e($user->pid); ?></td>
                         <td><?php echo e($user->name); ?></td>
                         <td><?php echo e($user->phone()); ?></td>
                         <td><?php echo e($user->role->name); ?></td>

@@ -66,7 +66,7 @@ class Dashboard extends Component
     ];
 
     #[Url(except: "")]
-    public $searchKeyword;
+    public $searchKeyword = "";
 
     function mount()
     {
@@ -201,7 +201,7 @@ class Dashboard extends Component
         }
 
 
-        $items = $items->paginate(2);
+        $items = $items->paginate();
 
         return $items;
     }

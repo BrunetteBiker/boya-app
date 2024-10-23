@@ -27,9 +27,13 @@ Route::middleware("auth")->group(function () {
         Route::get("dashboard", \App\Livewire\Order\Dashboard::class);
         Route::get("create", \App\Livewire\Order\Create::class);
         Route::get("details/{id}", \App\Livewire\Order\Details::class);
+        Route::get("export", function () {
 
+            return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\Orders(), "orders.xlsx");
 
+        });
     });
+
     Route::prefix("user")->group(function () {
         Route::get("dashboard", \App\Livewire\User\Dashboard::class);
         Route::get("details/{id}", \App\Livewire\User\Details::class);
@@ -43,7 +47,14 @@ Route::middleware("auth")->group(function () {
 
     Route::prefix("payment")->group(function () {
 
-        Route::get("dashboard",\App\Livewire\Payment\Dashboard::class);
+        Route::get("dashboard", \App\Livewire\Payment\Dashboard::class);
+        Route::get("print/{id}", function ($id) {
+            $payment = \App\Models\Payment::find($id);
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView("print.payment", compact("payment"));
+            $pdf->setPaper("A5");
+            $filename = "ödəniş-qəbzi-" . $payment->pid . "-" . now()->format("d-m-y h-i") . ".pdf";
+            return $pdf->download($filename);
+        });
 
     });
 

@@ -152,7 +152,7 @@
                                         <a href="" class="my-input inline-flex items-center gap-1.5 text-sm !p-2.5">Qəbz
                                             çap et</a>
                                     </td>
-                                    <td><?php echo e($payment->pid()); ?></td>
+                                    <td><?php echo e($payment->pid); ?></td>
                                     <td><?php echo e($payment->amount); ?> AZN</td>
                                     <td><?php echo e($payment->executor->name); ?></td>
                                     <td><?php echo e($payment->created_at->format("d-m-Y h:i:s")); ?></td>

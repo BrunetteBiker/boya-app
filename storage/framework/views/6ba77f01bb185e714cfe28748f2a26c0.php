@@ -1,6 +1,37 @@
 <div class="flex items-start gap-4">
 
-    <?php echo $__env->make("livewire.payment.dashboard.cancel", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('payment.cancel', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-1423118070-0', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('payment.details', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-1423118070-1', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
 
     <div class="grid gap-4 flex-1">
         <div class="flex flex-wrap gap-3">
@@ -50,8 +81,16 @@
                     <tr class="<?php echo \Illuminate\Support\Arr::toCssClasses(["bg-red-50" => $payment->is_cancelled]); ?>">
                         <td>
                             <div class="flex gap-2 text-sm leading-none">
-                                <button class="my-input !p-2">Detallar</button>
-                                <button wire:click="$set('cancelData.state','true')" class="my-input !p-2">Ləğv et</button>
+                                <button wire:click="$dispatch('payment.details.changeState',{id : '<?php echo e($payment->id); ?>'})" class="my-input !p-2">Detallar</button>
+                                <!--[if BLOCK]><![endif]--><?php if($payment->type_id == 4 && $payment->is_cancelled == false): ?>
+                                    <button wire:click="$dispatch('cancel-payment-change-state',{id : '<?php echo e($payment->id); ?>'})"
+                                            class="my-input !p-2">Ləğv et
+                                    </button>
+                                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                <a href="<?php echo e(url("payment/print/$payment->id")); ?>" class="inline-flex gap-1 items-center !p-2 my-container">
+                                    <svg class="size-4"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />  <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />  <rect x="7" y="13" width="10" height="8" rx="2" /></svg>
+                                    Qəbz çap et
+                                </a>
                             </div>
                         </td>
                         <td><?php echo e($payment->pid); ?></td>
@@ -64,7 +103,12 @@
                                     class="inline-block p-2 text-sm font-medium animate-pulse bg-green-600 text-white rounded-full">Aktivdir</span>
                             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                         </td>
-                        <td><?php echo e($payment->customer->name); ?></td>
+                        <td>
+                            <a href="<?php echo e(url("user/details/$payment->customer_id")); ?>" class="underline" wire:navigate>
+                                <?php echo e($payment->customer->name); ?>
+
+                            </a>
+                        </td>
                         <td><?php echo e($payment->executor->name); ?></td>
                         <td><?php echo e($payment->type->name); ?></td>
                         <td><?php echo e($payment->action->name); ?></td>

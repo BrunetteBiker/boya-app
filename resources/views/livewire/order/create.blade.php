@@ -19,7 +19,7 @@
                     <h1 class="text-xl font-bold">Müştəri məlumatları</h1>
                     <div class="flex items-center gap-1.5">
                         <div class="my-label">İstifadəçi kodu</div>
-                        <input type="text" class="my-input flex-1" disabled value="{{$customer["data"]->pid()}}">
+                        <input type="text" class="my-input flex-1" disabled value="{{$customer["data"]->pid}}">
                     </div>
                     <div class="flex items-center gap-1.5">
                         <div class="my-label">Ad və soyad</div>

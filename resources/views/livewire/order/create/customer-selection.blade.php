@@ -55,7 +55,7 @@
                                 </a>
                             </div>
                         </td>
-                        <td>{{$user->pid()}}</td>
+                        <td>{{$user->pid}}</td>
                         <td>{{$user->name}}</td>
                         <td>{{$user->phone()}}</td>
                         <td>{{$user->role->name}}</td>

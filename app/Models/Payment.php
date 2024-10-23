@@ -11,8 +11,6 @@ class Payment extends Model
 {
     use HasFactory;
 
-
-
     function executor()
     {
         return $this->hasOne(User::class, "id", "executor_id");
@@ -32,4 +30,16 @@ class Payment extends Model
     {
         return $this->hasOne(Action::class, "id", "action_id");
     }
+
+    function cancelledUser()
+    {
+        return $this->hasOne(User::class, "id", "cancelled_by");
+    }
+
+    function order()
+    {
+        return $this->hasOne(Order::class, "id", "order_id");
+    }
+
+
 }

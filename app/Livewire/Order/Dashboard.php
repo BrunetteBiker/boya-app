@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Order;
 
+use App\Exports\Orders;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -14,6 +15,7 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Excel;
 
 #[Title("Sifarişlər")]
 class Dashboard extends Component
@@ -187,9 +189,15 @@ class Dashboard extends Component
 
 
         $items = $items->orderBy($orderBy->first(), $orderBy->last());
-        $items = $items->paginate(3);
+        $items = $items->paginate();
 
         return $items;
+    }
+
+
+    function export()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new Orders(),"orders.xlsx");
     }
 
     public function render()

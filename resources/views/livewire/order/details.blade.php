@@ -152,7 +152,7 @@
                                         <a href="" class="my-input inline-flex items-center gap-1.5 text-sm !p-2.5">Qəbz
                                             çap et</a>
                                     </td>
-                                    <td>{{$payment->pid()}}</td>
+                                    <td>{{$payment->pid}}</td>
                                     <td>{{$payment->amount}} AZN</td>
                                     <td>{{$payment->executor->name}}</td>
                                     <td>{{$payment->created_at->format("d-m-Y h:i:s")}}</td>
