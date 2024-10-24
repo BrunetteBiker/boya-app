@@ -32,7 +32,7 @@ class Login extends Component
     {
 
         if (is_null($this->executorId)) {
-            $this->dispatch("notify", state: "warning", msg: "İcraçı seçilməlidir");
+            $this->dispatch("notify", state: "warning", msg: "İcraçı seçilməlidir", autoHide: true);
             return;
         }
 

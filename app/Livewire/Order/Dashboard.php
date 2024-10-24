@@ -23,7 +23,6 @@ class Dashboard extends Component
 
     use WithPagination;
 
-
     public $searchState = false;
 
     public $sortings = [
@@ -39,6 +38,7 @@ class Dashboard extends Component
     public $orderBy = "id|desc";
 
     public $filters = [
+        "receipt"=>"",
         'pid' => '',
         'customer' => '',
         'executor' => '',
@@ -117,6 +117,12 @@ class Dashboard extends Component
             $items = $items->where("pid", "like", "%" . $filters["pid"] . "%");
         }
 
+        if ($filters->has("receipt")) {
+            $items = $items->whereHas("items",function ($query) use ($filters){
+                $query->where("receipt","like","%".$filters["receipt"]."%");
+            });
+        }
+
         if ($filters->has("customer")) {
             $items = $items->whereHas("customer", function ($query) use ($filters) {
                 $query->where("name", "like", "%" . $filters["customer"] . "%");
@@ -189,6 +195,65 @@ class Dashboard extends Component
         return $items;
     }
 
+    #[Computed]
+    function summary()
+    {
+        $count = Order::query()->count();
+        $funds = Order::query()->sum("total");
+        $funds = round($funds,2);
+        $data["all"] = [
+            "name"=>"Bütün sifarişlər",
+            "count"=>$count . " ədəd",
+            "funds"=>$funds . " AZN"
+        ];
+
+        $count = Order::query()->where("debt",">",0)->count();
+        $funds = Order::query()->where("debt",">",0)->sum("total");
+        $funds = round($funds,2);
+        $data["hasDebt"] = [
+            "name"=>"Borc olan sifarişlər",
+            "count"=>$count . " ədəd",
+            "funds"=>$funds . " AZN"
+        ];
+
+        $count = Order::query()->where("status_id",4)->count();
+        $funds = Order::query()->where("status_id",4)->sum("total");
+        $funds = round($funds,2);
+        $data["cancelled"] = [
+            "name"=>"Ləğv olunan sifarişlər",
+            "count"=>$count . " ədəd",
+            "funds"=>$funds . " AZN"
+        ];
+
+        $count = Order::query()->where("status_id",1)->count();
+        $funds = Order::query()->where("status_id",1)->sum("total");
+        $funds = round($funds,2);
+        $data["inProgress"] = [
+            "name"=>"İcrada olan sifarişlər",
+            "count"=>$count . " ədəd",
+            "funds"=>$funds . " AZN"
+        ];
+
+        $count = Order::query()->where("status_id",2)->count();
+        $funds = Order::query()->where("status_id",2)->sum("total");
+        $funds = round($funds,2);
+        $data["completed"] = [
+            "name"=>"Hazır olan sifarişlər",
+            "count"=>$count . " ədəd",
+            "funds"=>$funds . " AZN"
+        ];
+
+        $count = Order::query()->where("status_id",3)->count();
+        $funds = Order::query()->where("status_id",3)->sum("total");
+        $funds = round($funds,2);
+        $data["delivered"] = [
+            "name"=>"Hazır olan sifarişlər",
+            "count"=>$count . " ədəd",
+            "funds"=>$funds . " AZN"
+        ];
+
+        return $data;
+    }
 
     function export()
     {

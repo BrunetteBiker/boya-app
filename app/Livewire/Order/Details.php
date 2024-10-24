@@ -159,7 +159,7 @@ class Details extends Component
     #[Computed]
     function payments()
     {
-        $items = Payment::where("order_id", $this->order->id)->where("type_id", 4)->orderBy("id", "desc");
+        $items = Payment::where("order_id", $this->order->id)->where("type_id", 4)->where("is_cancelled",false)->orderBy("id", "desc");
 
         $items = $items->paginate(10);
 

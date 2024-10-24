@@ -106,7 +106,6 @@
 <h1>Məhsullar</h1>
 <table id="items">
     <thead>
-    <th>Məhsul kodu</th>
     <th>Çeşid</th>
     <th>Tərkib</th>
     <th>Miqdar</th>
@@ -116,7 +115,6 @@
     <tbody>
     @foreach($order->items as $item)
         <tr>
-            <td>{{$item->pid()}}</td>
             <td>{{$item->product->name}}</td>
             <td>{{$item->receipt}}</td>
             <td>{{$item->amount}} ədəd</td>
@@ -140,7 +138,7 @@
         <tbody>
         @foreach($order->payments as $payment)
             <tr>
-                <td>{{$payment->pid()}}</td>
+                <td>{{$payment->pid}}</td>
                 <td>{{$payment->executor->name}}</td>
                 <td>{{$payment->amount}} AZN</td>
                 <td>{{$payment->created_at->format("d-m-Y h:i:s")}}</td>

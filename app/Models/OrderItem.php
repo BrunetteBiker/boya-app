@@ -13,10 +13,6 @@ class OrderItem extends Model
     public const UPDATED_AT = null;
     public const CREATED_AT = null;
 
-    function pid()
-    {
-        return "PRD-" . Str::of($this->attributes["id"])->padLeft(6, 0);
-    }
 
     function product()
     {

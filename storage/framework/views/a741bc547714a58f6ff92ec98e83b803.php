@@ -31,33 +31,71 @@ unset($__params);
 unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
+
 <div class="grid gap-4 p-4 bg-gray-200 min-h-dvh content-start">
     <?php if(auth()->check()): ?>
+        <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('payment.details', []);
 
+$__html = app('livewire')->mount($__name, $__params, 'lw-2629578069-1', $__slots ?? [], get_defined_vars());
 
-        <div class="my-container flex justify-between items-center sticky top-0 bg-white z-20">
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+
+        <div x-data="navbar" @scroll.window="checkScroll" class="bg-white p-4 rounded-lg flex justify-between items-center" :class="isScrolled ? 'fixed rounded-none left-0 top-0 border-b-4 border-blue-700 w-full z-10' : ''" x-transition>
             <div class="text-sm">İcraçı : <span class="font-bold"><?php echo e(auth()->user()->name); ?></span></div>
-            <div class="flex gap-2 font-medium">
-                <a href="<?php echo e(url('order/dashboard')); ?>" wire:navigate
-                   class="border border-black p-2 text-sm">Sifarişlər</a>
-                <a href="<?php echo e(url('payment/dashboard')); ?>" wire:navigate
-                   class="border border-black p-2 text-sm">Ödənişlər</a>
-                <a href="<?php echo e(url('user/dashboard')); ?>" wire:navigate class="border border-black p-2 text-sm">İstifadəçilər</a>
-                <a href="<?php echo e(url("product/dashboard")); ?>" wire:navigate
-                   class="border border-black p-2 text-sm">Məhsullar</a>
-                <a href="<?php echo e(url("raport")); ?>"
-                   class="border border-black p-2 text-sm">Hesabat</a>
-                <a href="<?php echo e(url("logout")); ?>" class="border border-black p-2 text-sm">Çıxış</a>
-            </div>
+
+            <?php if (isset($component)) { $__componentOriginala591787d01fe92c5706972626cdf7231 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginala591787d01fe92c5706972626cdf7231 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.navbar','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('navbar'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginala591787d01fe92c5706972626cdf7231)): ?>
+<?php $attributes = $__attributesOriginala591787d01fe92c5706972626cdf7231; ?>
+<?php unset($__attributesOriginala591787d01fe92c5706972626cdf7231); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginala591787d01fe92c5706972626cdf7231)): ?>
+<?php $component = $__componentOriginala591787d01fe92c5706972626cdf7231; ?>
+<?php unset($__componentOriginala591787d01fe92c5706972626cdf7231); ?>
+<?php endif; ?>
         </div>
     <?php endif; ?>
     <?php echo e($slot); ?>
 
 
 </div>
+
 <?php echo \Livewire\Mechanisms\FrontendAssets\FrontendAssets::scripts(); ?>
 
-
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('navbar', function () {
+            return {
+                isScrolled: false,
+                checkScroll() {
+                    console.log(window.scrollY)
+                    this.isScrolled = window.scrollY > 100; // Change this value as needed
+                }
+            }
+        })
+    })
+</script>
 </body>
 </html>
 <?php /**PATH C:\laragon\www\boya-app\resources\views/components/layouts/app.blade.php ENDPATH**/ ?>

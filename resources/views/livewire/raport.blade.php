@@ -12,15 +12,15 @@
             <div class="flex gap-3 items-end">
                 <div class="grid gap-1">
                     <div class="my-label">Başlanğıc tarix</div>
-                    <input type="text" class="my-input !p-2.5 text-sm w-full" placeholder="gün-ay-il"
+                    <input type="text" class="input w-full" placeholder="gün-ay-il"
                            x-mask="99-99-9999" wire:model="countByStatusWithIntervalSearch.min">
                 </div>
                 <div class="grid gap-1">
                     <div class="my-label">Bitiş tarixi</div>
-                    <input type="text" class="my-input !p-2.5 text-sm w-full" placeholder="gün-ay-il"
+                    <input type="text" class="input w-full" placeholder="gün-ay-il"
                            x-mask="99-99-9999" wire:model="countByStatusWithIntervalSearch.max">
                 </div>
-                <button class="my-input !p-2.5 text-sm inline-flex items-center gap-1"
+                <button class="btn btn-outline btn-outline-primary"
                         wire:click="countByStatusWithIntervalExecute">
                     <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -29,8 +29,8 @@
                     Axtar
                 </button>
             </div>
-            <hr class="border-2 border-black">
-            <table class="my-table">
+            <hr class="border-2 border-zinc-100">
+            <table class="custom-table">
                 <thead>
                 <th>Status</th>
                 <th>Miqdar</th>
@@ -48,14 +48,14 @@
             </table>
         </div>
         <div class="flex-1 my-container grid gap-4">
-            <select class="my-input !p-2.5 text-sm justify-self-start" wire:model.live="selectedYear">
+            <select class="input justify-self-start" wire:model.live="selectedYear">
                 @foreach($years as $year)
                     <option value="{{$year}}">{{$year}}</option>
                 @endforeach
             </select>
-            <hr class="border-2 border-black">
+            <hr class="border-2 border-zinc-100">
             <div class="max-h-96 overflow-auto">
-                <table class="my-table">
+                <table class="custom-table">
                     <thead>
                     <th>Aylar</th>
                     <th>CƏM</th>
@@ -106,18 +106,19 @@
         <div class="flex gap-3">
             <div class="inline-flex items-center gap-1">
                 <div class="my-label">Sıralama</div>
-                <select class="my-input text-sm !p-2" wire:model.live="suppliersFilter.orderBy">
+                <select class="input" wire:model.live="suppliersFilter.orderBy">
                     @foreach($supplierSortings as $key=>$val)
                         <option value="{{$key}}">{{$val}}</option>
                     @endforeach
                 </select>
             </div>
-            <input type="text" class="my-input text-sm !p-2" placeholder="Sürətli axtarış" wire:model.live="suppliersFilter.term">
+            <input type="text" class="input" placeholder="Sürətli axtarış"
+                   wire:model.live="suppliersFilter.term">
         </div>
-        <hr class="border-2 border-black">
+        <hr class="border-2 border-zinc-100">
         <div class="flex gap-4 items-start">
             <div class="my-container flex-1 overflow-auto max-h-96">
-                <table class="my-table">
+                <table class="custom-table">
                     <thead>
                     <th>Əməliyyatlar</th>
                     <th>İstifadəçi kodu</th>
@@ -129,10 +130,11 @@
                         <tr>
                             <td>
                                 <a href=""
-                                   class="my-input !p-2 text-sm font-semibold inline-flex items-center gap-2 transition hover:text-blue-700"
+                                   class="btn btn-outline btn-small"
                                 >
                                     <svg class="size-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                                         stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                         stroke="currentColor" fill="none" stroke-linecap="round"
+                                         stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z"/>
                                         <circle cx="12" cy="12" r="9"/>
                                         <line x1="12" y1="8" x2="12.01" y2="8"/>
@@ -152,32 +154,44 @@
             <div class="my-container grid gap-4 w-80">
                 <div class="grid gap-1">
                     <div class="my-label">İstifadəçi kodu</div>
-                    <input type="text" class="my-input" wire:model="suppliersFilter.pid">
+                    <input type="text" class="input w-full" wire:model="suppliersFilter.pid">
                 </div>
                 <div class="grid gap-1">
                     <div class="my-label">İstifadəçi kodu</div>
-                    <input type="text" class="my-input" wire:model="suppliersFilter.name">
+                    <input type="text" class="input w-full" wire:model="suppliersFilter.name">
                 </div>
                 <div class="grid gap-1">
                     <div class="my-label">Borc</div>
                     <div class="grid grid-cols-2 gap-3">
-                        <input type="text" class="my-input w-full" wire:model="suppliersFilter.remnant.min" placeholder="Min.">
-                        <input type="text" class="my-input w-full" wire:model="suppliersFilter.remnant.max" placeholder="Maks.">
+                        <input type="text" class="input w-full" wire:model="suppliersFilter.remnant.min"
+                               placeholder="Min.">
+                        <input type="text" class="input w-full" wire:model="suppliersFilter.remnant.max"
+                               placeholder="Maks.">
                     </div>
                 </div>
                 <div wire:loading.class="hidden" class="flex gap-2 justify-end">
-                    <button wire:click="searchSupplier" class="my-input !p-2 text-sm font-medium inline-flex items-center gap-1 focus:ring">
-                        <svg class="size-4"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    <button wire:click="searchSupplier"
+                            class="btn btn-primary">
+                        <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                         </svg>
                         Axtar
                     </button>
-                    <button wire:click="searchSupplier('true')" class="my-input !p-2 text-sm font-medium inline-flex items-center gap-1 focus:ring">
-                        <svg class="4"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M19 19h-11l-4 -4a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9 9" />  <path d="M18 12.3l-6.3 -6.3" /></svg>
+                    <button wire:click="searchSupplier('true')"
+                            class="btn btn-disabled !cursor-pointer">
+                        <svg class="4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                             fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z"/>
+                            <path
+                                d="M19 19h-11l-4 -4a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9 9"/>
+                            <path d="M18 12.3l-6.3 -6.3"/>
+                        </svg>
                         Sıfırla
                     </button>
                 </div>
-                <p wire:loading wire:target="searchSupplier" class="text-sm font-semibold animate-pulse">Sorğunuz icra olunur...</p>
+                <p wire:loading wire:target="searchSupplier" class="loading-text">Sorğunuz icra
+                    olunur...</p>
             </div>
         </div>
     </div>

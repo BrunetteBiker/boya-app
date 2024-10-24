@@ -1,0 +1,376 @@
+<div class="flex items-start gap-4">
+
+    <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('payment.cancel', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-1423118070-0', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+
+    <div class="grid gap-4 flex-1">
+        <div class="flex flex-wrap gap-3">
+            <div class="p-4 rounded-lg shadow-lg bg-white flex items-center space-x-4">
+                <svg class="w-10 h-10 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     x="0px" y="0px" viewBox="0 0 122.88 90.82" style="enable-background:new 0 0 122.88 90.82"
+                     xml:space="preserve"><style type="text/css">.st0 {
+                            fill-rule: evenodd;
+                            clip-rule: evenodd;
+                        }</style>
+                    <g>
+                        <path class="st0"
+                              d="M121.57,40.15c0.85,1.42,1.31,2.94,1.31,4.51c0,8.34-12.9,15.1-28.8,15.1c-15.9,0-28.8-6.76-28.8-15.1 c0-1.57,0.46-3.09,1.31-4.51c3.66,6.13,14.58,10.59,27.49,10.59C106.99,50.74,117.91,46.29,121.57,40.15L121.57,40.15z M56.29,62.64c0.85,1.43,1.31,2.94,1.31,4.51c0,8.34-12.9,15.1-28.8,15.1C12.9,82.25,0,75.49,0,67.15c0-1.57,0.46-3.09,1.31-4.51 c3.66,6.13,14.59,10.59,27.49,10.59C41.71,73.23,52.63,68.78,56.29,62.64L56.29,62.64z M32.98,40.56l-0.06-3.74 c0.85-0.03,1.54-0.29,2.07-0.77c0.54-0.48,0.83-1.06,0.89-1.74c0.07-0.78-0.19-1.46-0.77-2.06c-0.58-0.59-1.52-0.95-2.79-1.06 c-1.19-0.1-2.11,0.09-2.75,0.57c-0.64,0.48-1,1.15-1.07,2.01c-0.09,1.07,0.3,2.07,1.17,3l-0.7,2.98l-9.94-2.79l0.85-9.84l3.48,0.3 l-0.61,7.02l3.25,0.87c-0.34-0.87-0.48-1.73-0.4-2.6c0.14-1.65,0.87-3,2.16-4.04c1.3-1.04,2.91-1.48,4.83-1.31 c1.6,0.14,2.98,0.72,4.15,1.76c1.6,1.41,2.31,3.24,2.11,5.48c-0.16,1.79-0.76,3.21-1.82,4.26C35.98,39.92,34.63,40.49,32.98,40.56 L32.98,40.56z M28.8,25.56c13.07,0,23.67,4.16,23.67,9.28c0,5.13-10.6,9.28-23.67,9.28S5.13,39.98,5.13,34.85 C5.13,29.72,15.73,25.56,28.8,25.56L28.8,25.56L28.8,25.56z M28.8,22.49c15.9,0,28.8,6.76,28.8,15.1c0,8.34-12.9,15.1-28.8,15.1 C12.9,52.68,0,45.92,0,37.59C0,29.25,12.9,22.49,28.8,22.49L28.8,22.49z M56.39,47.65c0.78,1.37,1.21,2.83,1.21,4.33 c0,8.34-12.9,15.1-28.8,15.1C12.9,67.08,0,60.32,0,51.99c0-1.51,0.42-2.96,1.21-4.33c3.56,6.22,14.56,10.76,27.59,10.76 C41.83,58.41,52.84,53.88,56.39,47.65L56.39,47.65L56.39,47.65z M104.48,8.95l-0.33,3.75l-14.14-1.23 c1.17,1.48,1.97,3.18,2.42,5.09l-3.4-0.3c-0.23-1-0.75-2.12-1.54-3.34c-0.8-1.23-1.77-2.1-2.93-2.63l0.27-3.04L104.48,8.95 L104.48,8.95L104.48,8.95z M94.08,3.08c13.07,0,23.67,4.16,23.67,9.28c0,5.13-10.6,9.28-23.67,9.28c-13.07,0-23.67-4.16-23.67-9.28 C70.41,7.23,81.01,3.08,94.08,3.08L94.08,3.08z M94.08,0c15.9,0,28.8,6.76,28.8,15.1c0,8.34-12.9,15.1-28.8,15.1 c-15.9,0-28.8-6.76-28.8-15.1C65.28,6.76,78.18,0,94.08,0L94.08,0z M121.67,25.16c0.78,1.37,1.21,2.83,1.21,4.33 c0,8.34-12.9,15.1-28.8,15.1c-15.9,0-28.8-6.76-28.8-15.1c0-1.51,0.42-2.96,1.21-4.33c3.55,6.22,14.56,10.76,27.59,10.76 C107.11,35.93,118.12,31.39,121.67,25.16L121.67,25.16L121.67,25.16z M121.39,70.92c0.96,1.51,1.49,3.12,1.49,4.8 c0,8.34-12.9,15.1-28.8,15.1c-15.9,0-28.8-6.76-28.8-15.1c0-1.68,0.52-3.29,1.49-4.8c3.83,5.98,14.61,10.3,27.31,10.3 C106.78,81.22,117.57,76.91,121.39,70.92L121.39,70.92z M121.53,55.39c0.88,1.45,1.35,2.98,1.35,4.58c0,8.34-12.9,15.1-28.8,15.1 c-15.9,0-28.8-6.76-28.8-15.1c0-1.6,0.48-3.14,1.35-4.58c3.7,6.1,14.59,10.51,27.45,10.51S117.82,61.49,121.53,55.39L121.53,55.39 L121.53,55.39z"/>
+                    </g></svg>
+                <div>
+                    <p class="text-gray-800 text-lg font-semibold">
+                        <span><?php echo e($this->summary["all"]["count"]); ?></span> |
+                        <span><?php echo e($this->summary["all"]["fund"]); ?></span>
+                    </p>
+                    <p class="text-gray-600 text-sm"><?php echo e($this->summary["all"]["name"]); ?></p>
+                </div>
+            </div>
+            <div class="p-4 rounded-lg shadow-lg bg-white flex items-center space-x-4">
+                <svg class="w-10 h-10 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 88.47 122.88"
+                     style="enable-background:new 0 0 88.47 122.88" xml:space="preserve"><g>
+                        <path
+                            d="M11.86,68.08L7.62,92.09c-0.07,0.33-0.2,0.63-0.4,0.86c-1.51,1.95-2.46,3.62-2.74,4.97c-0.2,1,0,1.8,0.67,2.43l16.56,16.56 c1.05,1.01,2.28,1.65,3.74,1.91c1.6,0.3,3.46,0.13,5.6-0.45c0.03,0,0.08-0.02,0.12-0.02c0.81-0.22,1.88-0.48,2.89-0.73 c4.44-1.08,8.31-2.03,11.91-5.29l4.62-4.82c0.05-0.08,0.12-0.15,0.18-0.22c0.07-0.07,0.52-0.52,1.13-1.1 c3.16-3.09,7.07-6.9,4.69-10.24l-1.85-1.85c-0.9,0.86-1.85,1.71-2.76,2.53c-0.83,0.73-1.61,1.41-2.33,2.13 c-0.76,0.76-2,0.76-2.76,0c-0.76-0.77-0.76-2,0-2.76c0.71-0.72,1.6-1.5,2.51-2.31c3.13-2.76,6.72-5.92,4.79-8.68l-1.83-1.83 c-0.1-0.1-0.18-0.22-0.27-0.33c-1.05,1.08-2.21,2.11-3.34,3.11c-0.83,0.73-1.61,1.41-2.33,2.13c-0.77,0.77-2,0.77-2.76,0 c-0.77-0.76-0.77-2,0-2.76c0.71-0.71,1.6-1.5,2.51-2.31c3.13-2.76,6.72-5.92,4.79-8.68l-1.83-1.83c-0.13-0.13-0.23-0.27-0.32-0.42 l-5.37,5.37c-0.77,0.76-2,0.76-2.76,0c-0.76-0.77-0.76-2,0-2.76l10.07-10.07c2.41-2.41,2.96-4.92,2.33-6.82 c-0.23-0.7-0.62-1.31-1.1-1.8c-0.25-0.25-0.53-0.47-0.84-0.66l-0.01,0c-0.15,0.07-0.26-0.08-0.4-0.22 c-0.17-0.08-0.36-0.16-0.54-0.22c-1.67-0.55-3.84-0.16-6.04,1.69c-0.03,0.03-0.06,0.06-0.09,0.08c-0.24,0.2-0.48,0.42-0.72,0.66 L22.44,78.27c-0.76,0.76-2,0.76-2.76,0c-0.7-0.7-0.76-1.78-0.18-2.55L11.86,68.08L11.86,68.08z M25.08,70.11l0.67-0.67l13.79-13.79 c-1.43-0.66-2.76-1.59-3.94-2.77c-5.25-5.25-5.25-13.73,0-18.98c5.25-5.25,13.73-5.25,18.98,0c5.25,5.25,5.25,13.73,0,18.98 c-0.04,0.04-0.09,0.09-0.13,0.13c0.1,0.09,0.21,0.19,0.31,0.29c0.43,0.43,0.8,0.9,1.13,1.4l17.1-17.1c-2.62-2.62-2.62-6.9,0-9.53 L60.25,15.33c-2.62,2.62-6.9,2.62-9.53,0L15.28,50.77c2.62,2.62,2.62,6.9,0,9.53L25.08,70.11L25.08,70.11z M55.14,65.57 c-0.46,0.64-0.99,1.28-1.62,1.9l-2,2l-0.02-0.05c0.15,0.08,0.28,0.18,0.42,0.32l1.91,1.91c0.1,0.1,0.2,0.23,0.28,0.35 c2.15,2.94,1.81,5.57,0.35,7.97c0.27,0.1,0.52,0.25,0.71,0.45l1.91,1.91c0.1,0.1,0.2,0.23,0.28,0.35c2.31,3.18,1.73,5.95,0,8.48 c0.08,0.05,0.15,0.12,0.23,0.2l1.91,1.91c0.1,0.1,0.2,0.23,0.28,0.35c4.44,6.07-0.85,11.22-5.1,15.38l-1.1,1.1l-4.74,4.97 l-0.15,0.15c-4.34,3.94-8.65,4.99-13.62,6.2c-0.83,0.2-1.68,0.42-2.84,0.71c-0.03,0-0.05,0.02-0.08,0.02 c-2.69,0.73-5.14,0.91-7.33,0.52c-2.23-0.4-4.16-1.4-5.77-2.98L2.52,103.15c-1.68-1.61-2.24-3.61-1.78-5.97 c0.37-1.9,1.46-3.99,3.19-6.25l4.42-25.04v-0.1c0.04-0.31,0.1-0.66,0.17-1.04L0,56.23L56.23,0l32.24,32.24L55.14,65.57L55.14,65.57 z"/>
+                    </g></svg>
+                <div>
+                    <p class="text-gray-800 text-lg font-semibold">
+                        <span><?php echo e($this->summary["cancelled"]["count"]); ?></span> |
+                        <span><?php echo e($this->summary["cancelled"]["fund"]); ?></span>
+                    </p>
+                    <p class="text-gray-600 text-sm"><?php echo e($this->summary["cancelled"]["name"]); ?></p>
+                </div>
+            </div>
+            <div class="p-4 rounded-lg shadow-lg bg-white flex items-center space-x-4">
+                <svg class="w-10 h-10 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 86.53 122.88"
+                     style="enable-background:new 0 0 86.53 122.88" xml:space="preserve"><style type="text/css">.st0 {
+                            fill-rule: evenodd;
+                            clip-rule: evenodd;
+                        }</style>
+                    <g>
+                        <path class="st0"
+                              d="M64.94,23.79c-3.03-1.49-6.62-1.82-10.06-0.64c-3.44,1.18-6.08,3.64-7.57,6.67 c-1.49,3.03-1.82,6.62-0.64,10.06c1.18,3.44,3.64,6.08,6.67,7.57c3.03,1.49,6.62,1.82,10.06,0.64c3.44-1.18,6.08-3.64,7.57-6.67 c1.48-3.03,1.82-6.62,0.64-10.06C70.43,27.92,67.97,25.28,64.94,23.79L64.94,23.79L64.94,23.79z M20.7,25.5l0.24,1.44 c0.96-0.06,1.81,0,2.54,0.18c0.73,0.18,1.39,0.53,2,1.04c0.47,0.39,0.86,0.8,1.16,1.24c0.3,0.44,0.48,0.86,0.54,1.26 c0.07,0.44-0.03,0.86-0.3,1.23c-0.27,0.38-0.64,0.6-1.1,0.68c-0.87,0.14-1.52-0.24-1.92-1.13c-0.48-1.06-1.3-1.68-2.48-1.86 l0.91,5.53c1.15,0.12,2.07,0.25,2.76,0.39c0.69,0.14,1.34,0.4,1.93,0.79c0.63,0.4,1.15,0.91,1.56,1.54 c0.41,0.63,0.68,1.35,0.81,2.15c0.17,1.01,0.09,1.99-0.25,2.95c-0.33,0.96-0.91,1.79-1.74,2.51c-0.83,0.71-1.87,1.22-3.13,1.53 l0.54,3.31c0.09,0.52,0.1,0.91,0.03,1.17c-0.06,0.26-0.26,0.41-0.61,0.47c-0.32,0.05-0.56-0.01-0.72-0.18 c-0.16-0.17-0.27-0.47-0.34-0.88l-0.59-3.59c-1.05,0.06-2-0.04-2.84-0.28c-0.84-0.24-1.56-0.6-2.17-1.07 c-0.61-0.47-1.09-0.99-1.43-1.54c-0.35-0.56-0.57-1.13-0.66-1.7c-0.07-0.42,0.03-0.83,0.31-1.23c0.28-0.39,0.66-0.63,1.15-0.72 c0.4-0.07,0.75-0.03,1.06,0.11c0.3,0.14,0.54,0.37,0.7,0.69c0.36,0.69,0.66,1.21,0.9,1.57c0.24,0.36,0.57,0.67,0.98,0.92 c0.41,0.26,0.93,0.43,1.55,0.5l-1.02-6.18c-1.24-0.14-2.29-0.34-3.16-0.61c-0.86-0.27-1.61-0.74-2.22-1.4 c-0.62-0.66-1.02-1.58-1.22-2.75c-0.25-1.52,0.03-2.86,0.84-3.99c0.81-1.13,2.12-1.93,3.93-2.39l-0.23-1.41 c-0.12-0.74,0.1-1.16,0.66-1.25C20.24,24.46,20.58,24.78,20.7,25.5L20.7,25.5z M20.51,34.9l-0.84-5.09 c-0.71,0.34-1.24,0.73-1.6,1.16c-0.36,0.43-0.48,1.02-0.35,1.75c0.11,0.7,0.4,1.2,0.85,1.49C19.02,34.51,19.66,34.74,20.51,34.9 L20.51,34.9z M22.85,38.57l0.96,5.82c0.86-0.32,1.5-0.8,1.9-1.42c0.4-0.62,0.54-1.29,0.42-2.01c-0.13-0.77-0.46-1.33-1.01-1.67 C24.57,38.95,23.81,38.71,22.85,38.57L22.85,38.57z M13.35,10.27c-1.23-2.31-2.39-4.67-3.43-7.08C11.85,0.22,21-0.93,23.98,0.84 L22.5,6.99c1.02-1.93,1.34-2.7,1.96-3.78c0.36,0.16,0.71,0.35,1.04,0.56c0.79,0.51,1.52,1.1,1.8,2.04 c0.18,0.61,0.11,1.27-0.34,2.01l-4.49,7.39c-0.73,0-1.46-0.06-2.18-0.19c0.19-0.79,0.44-1.67,0.63-2.47l-1.66,2.52 c-2.18-0.1-3.83,0.45-5.27,1.54l-6.75-5.84c-0.4-0.35-0.62-0.73-0.68-1.13C6.3,8.02,8.5,6.21,9.69,5.46L13.35,10.27L13.35,10.27z M22.59,21.3l-1.93-4.85c4.86,0.1,13.98,8.44,17.14,12.4c1.61,2.02,3.11,4.29,4.45,6.88c1.69,3.73,2.14,7.5,0.82,10.52 c8.56,1.41,12.89,6.26,16.31,10.12c1.31,1.47,2.93,4.72,5.18,4.31c4.23-0.76,16.87-1.46,18.11-1.9l3.86,11.12 c-3.67,1.13-25.92,4.67-28.14,3.95c-3.82-1.47-6.09-3.4-8.06-5.38l-7.32,10.95c2.24,1.35,4.48,2.39,6.6,3.38l0,0 c7.44,3.47,13.56,6.33,14.89,18.15c0.12,1.04,0.15,2.07,0.13,3.12c-0.01,1.06-0.07,2.02-0.12,3.02l0,0.03 c-0.02,0.33-0.04,0.68-0.07,1.37l-0.33,9.91l-14.78,0.04c0.27-8.49,0.22-3.68,0.22-12.14c0.06-1.13,0.12-2.18,0.06-3.13 c-0.05-0.84-0.2-1.62-0.53-2.34l-0.1-0.23c-0.36-0.78-0.68-1.5-0.93-1.62c-1.16-0.54-3.05-1.23-5.23-1.94 c-2.18-0.72-4.56-1.44-6.73-2.06c-3.89,12.7-3.91,15.99-10.04,27.8l-15.55,0.09c5.96-14.65,6.73-20.11,11.32-35.26 c-6.49-9.25,4.51-15.32,6.82-27.27c-1.96-0.18-6.76-0.27-10.9,0.93c-5.16,1.49-8.97,4.14-12.13,8.32L0,59.18 c0.34-0.04,0.99-1.23,7.23-4.67C5.9,53.95,4.78,53.09,4,51.8c-4.71-7.9-0.28-18.95,4.26-26.02c0.6-0.93,1.23-1.81,1.9-2.63 c1.73-2.11,3.56-4.58,6.01-5.88l-1.74,5.09l2.85-5.43l1.92-0.32L22.59,21.3L22.59,21.3z"/>
+                    </g></svg>
+                <div>
+                    <p class="text-gray-800 text-lg font-semibold">
+                        <span><?php echo e($this->summary["oldDebt"]["count"]); ?></span> |
+                        <span><?php echo e($this->summary["oldDebt"]["fund"]); ?></span>
+                    </p>
+                    <p class="text-gray-600 text-sm"><?php echo e($this->summary["oldDebt"]["name"]); ?></p>
+                </div>
+            </div>
+            <div class="p-4 rounded-lg shadow-lg bg-white flex items-center space-x-4">
+                <svg class="w-10 h-10 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                     shape-rendering="geometricPrecision"
+                     text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd"
+                     clip-rule="evenodd" viewBox="0 0 474 512.27">
+                    <path
+                        d="M352.84 253.82h67.5v-13.06c-3.86-14.29-10-23.98-17.97-29.88-7.94-5.88-18.27-8.4-30.38-8.31l-283.53.06c-6.81 0-12.33-5.52-12.33-12.34 0-6.81 5.52-12.33 12.33-12.33l39.5.01c-4.21-6.56-7.76-13.57-10.59-20.95-1.57-4.17-2.93-8.39-4.05-12.72H66.73c-11.55 0-22.07 4.74-29.7 12.37-7.62 7.62-12.36 18.14-12.36 29.7v259.16c0 11.54 4.75 22.06 12.38 29.68 7.6 7.66 18.13 12.39 29.68 12.39h311.54c11.54 0 22.06-4.75 29.7-12.37 7.62-7.64 12.37-18.17 12.37-29.7v-36.97h-67.5c-20.85 0-39.8-8.53-53.5-22.24l-1.29-1.4c-12.96-13.64-20.95-32.01-20.95-52.1v-3.26c0-20.75 8.52-39.67 22.24-53.42l.13-.13c13.75-13.69 32.64-22.19 53.37-22.19zm92.17.7c7.11 1.42 13.48 4.94 18.42 9.88 6.51 6.51 10.57 15.53 10.57 25.46v81.12c0 10.27-4.23 19.66-11.07 26.51a37.281 37.281 0 0 1-17.92 10.07v37.97c0 18.29-7.54 34.97-19.63 47.06l-.05.05c-12.09 12.09-28.77 19.63-47.06 19.63H66.73c-18.28 0-34.98-7.53-47.1-19.64C7.52 480.57 0 463.89 0 445.53V186.37c0-18.37 7.51-35.06 19.59-47.15 12.08-12.08 28.77-19.59 47.14-19.59h43.08c-.05-1.32-.07-2.65-.07-3.99 0-31.9 12.96-60.83 34-81.91 45.05-44.92 118.69-45.02 163.72 0l1.11 1.21c20.31 20.9 32.82 49.37 32.82 80.7 0 1.34-.03 2.67-.07 3.99h36.95c18.31 0 34.99 7.53 47.09 19.63 12.12 12.07 19.65 28.78 19.65 47.11v68.15zm-121.85-76.53h48.5c17.41-.16 32.75 3.8 45.36 13.15 1.13.84 2.24 1.72 3.32 2.64v-7.41c0-11.52-4.75-22.05-12.39-29.69-7.59-7.65-18.1-12.38-29.68-12.38H337.8c-1.1 4.34-2.46 8.59-4.04 12.72-2.82 7.4-6.38 14.4-10.6 20.97zM206.69 64.7c-.04-4.81-.49-8.26 5.49-8.17l24.46.23c6.23-.03 7.89 1.95 7.82 7.79v23.16h23.01c4.81-.03 8.25-.48 8.16 5.49l-.23 24.46c.03 6.24-1.94 7.9-7.79 7.83h-23.15v23.14c.07 5.85-1.59 7.83-7.82 7.79l-24.46.23c-5.98.09-5.53-3.35-5.49-8.16v-23h-23.16c-5.85.07-7.83-1.6-7.79-7.83l-.23-24.46c-.1-5.97 3.35-5.52 8.16-5.49h23.02V64.7zm18.88-45.25c53.12 0 96.18 43.06 96.18 96.19 0 24.7-9.32 47.23-24.63 64.26H154c-15.31-17.03-24.62-39.56-24.62-64.26 0-53.13 43.06-96.19 96.19-96.19zm133.52 280.81c8.13 0 15.51 3.31 20.85 8.66 5.38 5.38 8.69 12.76 8.69 20.89 0 8.12-3.31 15.5-8.65 20.85-5.38 5.38-12.76 8.69-20.89 8.69-8.12 0-15.49-3.31-20.85-8.65l-.06-.06c-5.34-5.36-8.63-12.73-8.63-20.83 0-8.12 3.31-15.5 8.65-20.85l.06-.06c5.35-5.33 12.72-8.64 20.83-8.64z"/>
+                </svg>
+                <div>
+                    <p class="text-gray-800 text-lg font-semibold">
+                        <span><?php echo e($this->summary["balance"]["count"]); ?></span> |
+                        <span><?php echo e($this->summary["balance"]["fund"]); ?></span>
+                    </p>
+                    <p class="text-gray-600 text-sm"><?php echo e($this->summary["balance"]["name"]); ?></p>
+                </div>
+            </div>
+            <div class="p-4 rounded-lg shadow-lg bg-white flex items-center space-x-4">
+                <svg class="w-10 h-10 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     viewBox="0 0 85.79 122.88" style="enable-background:new 0 0 85.79 122.88" xml:space="preserve"><style
+                        type="text/css">.st0 {
+                            fill-rule: evenodd;
+                            clip-rule: evenodd;
+                        }</style>
+                    <g>
+                        <path class="st0"
+                              d="M60.47,89.65l3.89-19.79l3.95,5.95c8.5-3.41,13.28-9.04,13.99-17.71c6.98,12.21,2.74,23.16-6.11,29.57 l4.03,6.07L60.47,89.65L60.47,89.65L60.47,89.65L60.47,89.65z M9.74,77.85L6.26,97.58c-0.05,0.27-0.16,0.52-0.33,0.71 c-1.24,1.6-2.02,2.98-2.25,4.09c-0.16,0.82,0,1.48,0.55,2l13.61,13.61c0.86,0.83,1.87,1.35,3.07,1.57c1.31,0.25,2.84,0.11,4.6-0.37 c0.03,0,0.07-0.01,0.1-0.01c0.67-0.18,1.54-0.4,2.38-0.6c3.65-0.89,6.83-1.67,9.78-4.34l3.8-3.96c0.04-0.07,0.1-0.12,0.15-0.18 c0.05-0.05,0.42-0.42,0.93-0.9c2.6-2.54,5.81-5.67,3.85-8.42l-1.52-1.52c-0.74,0.71-1.52,1.41-2.27,2.08 c-0.68,0.6-1.33,1.16-1.91,1.75c-0.63,0.63-1.64,0.63-2.27,0c-0.63-0.63-0.63-1.64,0-2.27c0.59-0.59,1.31-1.23,2.06-1.9 c2.57-2.27,5.52-4.86,3.93-7.13l-1.5-1.5c-0.08-0.08-0.15-0.18-0.22-0.27c-0.86,0.89-1.82,1.74-2.75,2.55 c-0.68,0.6-1.33,1.16-1.91,1.75c-0.63,0.63-1.64,0.63-2.27,0c-0.63-0.63-0.63-1.64,0-2.27c0.59-0.59,1.31-1.23,2.06-1.9 c2.57-2.27,5.52-4.86,3.94-7.13l-1.5-1.5c-0.11-0.11-0.19-0.22-0.26-0.34l-4.41,4.41c-0.63,0.63-1.64,0.63-2.27,0 c-0.63-0.63-0.63-1.64,0-2.27l8.27-8.27c1.98-1.98,2.43-4.04,1.91-5.6c-0.19-0.57-0.51-1.08-0.9-1.48c-0.2-0.2-0.44-0.39-0.69-0.54 l-0.01,0c-0.12,0.06-0.21-0.07-0.33-0.18c-0.14-0.07-0.29-0.13-0.45-0.18c-1.38-0.45-3.15-0.13-4.97,1.39 c-0.02,0.03-0.05,0.05-0.08,0.06c-0.2,0.17-0.39,0.35-0.59,0.54L18.44,86.23c-0.63,0.63-1.64,0.63-2.27,0 c-0.57-0.57-0.62-1.47-0.15-2.1L9.74,77.85L9.74,77.85L9.74,77.85z M20.61,79.52l0.55-0.55l11.33-11.33 c-1.17-0.54-2.27-1.31-3.23-2.27c-4.31-4.31-4.31-11.28,0-15.59c4.31-4.31,11.28-4.31,15.59,0c4.31,4.31,4.31,11.28,0,15.59 c-0.04,0.04-0.07,0.07-0.11,0.11c0.09,0.08,0.17,0.16,0.25,0.24c0.35,0.35,0.66,0.74,0.93,1.15l14.05-14.05 c-2.16-2.16-2.16-5.67,0-7.83L49.5,34.51c-2.16,2.16-5.67,2.16-7.83,0L12.55,63.63c2.16,2.16,2.16,5.67,0,7.83L20.61,79.52 L20.61,79.52L20.61,79.52z M45.31,75.79c-0.38,0.53-0.82,1.05-1.33,1.56L42.33,79l-0.01-0.04c0.12,0.07,0.23,0.15,0.34,0.26 l1.57,1.57c0.08,0.08,0.16,0.19,0.23,0.29c1.76,2.42,1.49,4.58,0.29,6.54c0.22,0.08,0.42,0.2,0.59,0.37l1.57,1.57 c0.08,0.08,0.16,0.19,0.23,0.29c1.9,2.61,1.42,4.89,0,6.97c0.07,0.04,0.12,0.1,0.19,0.16l1.57,1.57c0.08,0.08,0.16,0.19,0.23,0.29 c3.65,4.99-0.7,9.22-4.19,12.64l-0.9,0.9l-3.89,4.09l-0.12,0.12c-3.57,3.24-7.11,4.1-11.19,5.1c-0.68,0.16-1.38,0.34-2.34,0.59 c-0.03,0-0.04,0.01-0.07,0.01c-2.21,0.6-4.22,0.75-6.03,0.42c-1.83-0.33-3.42-1.15-4.74-2.45L2.07,106.67 c-1.38-1.33-1.84-2.97-1.46-4.91c0.3-1.56,1.2-3.28,2.62-5.14l3.63-20.58v-0.08C6.9,75.71,6.95,75.42,7,75.12l-7-7l46.2-46.2 l26.49,26.49L45.31,75.79L45.31,75.79L45.31,75.79z M35.85,4.09l-3.89,19.79l-3.95-5.95c-8.5,3.41-13.28,9.04-13.99,17.7 c-6.99-12.21-2.74-23.16,6.11-29.57L16.1,0L35.85,4.09L35.85,4.09L35.85,4.09L35.85,4.09z"/>
+                    </g></svg>
+                <div>
+                    <p class="text-gray-800 text-lg font-semibold">
+                        <span><?php echo e($this->summary["supplierDebt"]["count"]); ?></span> |
+                        <span><?php echo e($this->summary["supplierDebt"]["fund"]); ?></span>
+                    </p>
+                    <p class="text-gray-600 text-sm"><?php echo e($this->summary["supplierDebt"]["name"]); ?></p>
+                </div>
+            </div>
+            <div class="p-4 rounded-lg shadow-lg bg-white flex items-center space-x-4">
+
+                <svg class="w-10 h-10 text-gray-500" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 111.09"
+                     style="enable-background:new 0 0 122.88 111.09" xml:space="preserve"><style type="text/css">.st0 {
+                            fill-rule: evenodd;
+                            clip-rule: evenodd;
+                        }</style>
+                    <g>
+                        <path class="st0"
+                              d="M36.25,39.13c-1.13,0.05-1.99,0.28-2.57,0.67c-0.33,0.22-0.58,0.51-0.74,0.85c-0.17,0.38-0.26,0.84-0.24,1.37 c0.05,1.55,0.85,3.58,2.43,5.92l0.02,0.04l0,0l5.11,8.1c2.05,3.25,4.19,6.57,6.86,9.01c2.56,2.34,5.67,3.92,9.78,3.94 c4.45,0.01,7.71-1.64,10.35-4.11c2.75-2.57,4.92-6.1,7.06-9.62l5.74-9.47c1.08-2.44,1.46-4.08,1.21-5.04 c-0.15-0.57-0.77-0.86-1.85-0.9c-0.23-0.01-0.46-0.02-0.7-0.01c-0.26,0.01-0.52,0.03-0.8,0.05c-0.16,0.02-0.3,0-0.44-0.03 c-0.51,0.03-1.04-0.01-1.57-0.08l1.97-8.71c-14.61,2.3-25.53-8.55-40.97-2.17l1.11,10.27C37.38,39.23,36.79,39.21,36.25,39.13 L36.25,39.13L36.25,39.13L36.25,39.13z M122.09,90.14c0.51,0.85,0.79,1.76,0.79,2.71c0,5-7.74,9.06-17.28,9.06 c-9.54,0-17.28-4.06-17.28-9.06c0-0.94,0.28-1.85,0.79-2.71c2.2,3.68,8.75,6.35,16.49,6.35C113.35,96.49,119.9,93.82,122.09,90.14 L122.09,90.14L122.09,90.14z M111.84,71.42l-0.2,2.25l-8.48-0.74c0.7,0.89,1.18,1.91,1.45,3.05l-2.04-0.18 c-0.14-0.6-0.45-1.27-0.92-2c-0.48-0.74-1.06-1.26-1.76-1.58l0.16-1.82L111.84,71.42L111.84,71.42L111.84,71.42L111.84,71.42z M105.6,67.9c7.84,0,14.2,2.5,14.2,5.57c0,3.08-6.36,5.57-14.2,5.57c-7.84,0-14.2-2.5-14.2-5.57C91.4,70.39,97.76,67.9,105.6,67.9 L105.6,67.9L105.6,67.9z M105.6,66.05c9.54,0,17.28,4.06,17.28,9.06c0,5-7.74,9.06-17.28,9.06c-9.54,0-17.28-4.06-17.28-9.06 S96.06,66.05,105.6,66.05L105.6,66.05L105.6,66.05z M122.15,81.15c0.47,0.82,0.73,1.7,0.73,2.6c0,5-7.74,9.06-17.28,9.06 c-9.54,0-17.28-4.06-17.28-9.06c0-0.91,0.25-1.78,0.73-2.6c2.13,3.73,8.73,6.46,16.55,6.46C113.42,87.61,120.02,84.88,122.15,81.15 L122.15,81.15L122.15,81.15L122.15,81.15z M122.07,99.28c0.53,0.87,0.81,1.79,0.81,2.75c0,5-7.74,9.06-17.28,9.06 c-9.54,0-17.28-4.06-17.28-9.06c0-0.96,0.29-1.88,0.81-2.75c2.22,3.66,8.75,6.31,16.47,6.31 C113.32,105.59,119.84,102.94,122.07,99.28L122.07,99.28L122.07,99.28L122.07,99.28z M60.04,83.04l4.5,15.63 c3.48-7.32,7.11-14.59,7.93-22.9c-1.38-1.62-2.84-3.76-4.11-5.62c-0.38-0.55-0.73-1.07-1.07-1.55c-2.79,2.04-6.13,3.32-10.41,3.3 c-4.61-0.01-8.15-1.65-11.09-4.14c-0.02,0.03-0.04,0.06-0.06,0.09c-0.48,0.66-1.01,1.44-1.59,2.29c-1.08,1.59-2.3,3.37-3.49,4.87 c1.54,9.63,5.24,16.41,8.59,23.64l4.5-15.63C48.08,73.64,65.2,73.1,60.04,83.04L60.04,83.04z M69.08,67.14 c0.36,0.51,0.76,1.1,1.19,1.72c0.79,1.16,1.66,2.44,2.53,3.6c1.68,1.45,4.25,2.58,7.22,3.53C78.08,80.39,77,85.24,77,90.35 c0,7.4,2.26,14.28,6.13,19.98H56.9H6.19c-3.88-0.29-5.85-2.3-6.19-5.78l1.34-6c0.38-4.92,1.76-8.79,4-11.76 c1.48-1.96,3.32-3.4,5.36-4.53c6.07-3.38,21.77-4.51,28.47-9.04c1.05-1.35,2.12-2.94,3.1-4.36c0.6-0.88,1.16-1.7,1.63-2.34 c0.08-0.11,0.17-0.2,0.29-0.28c-2.47-2.54-4.46-5.61-6.35-8.62l-5.1-8.12c-1.87-2.79-2.83-5.32-2.9-7.41 c-0.03-0.98,0.14-1.87,0.5-2.66c0.38-0.82,0.96-1.51,1.76-2.04c0.37-0.25,0.78-0.46,1.24-0.63c-0.33-4.4-0.45-9.95-0.24-14.59 c0.11-1.1,0.32-2.21,0.63-3.3c1.31-4.66,4.58-8.41,8.62-10.98c1.42-0.91,2.99-1.66,4.64-2.26C49.9,4.56,48.48,0.08,51.73,0 c7.62-0.17,20.1,6.27,24.97,11.54c2.83,3.07,4.61,7.12,4.99,12.5l-0.32,13.24l0,0c1.42,0.43,2.32,1.32,2.69,2.78 c0.41,1.61-0.04,3.88-1.4,6.97l0,0c-0.03,0.05-0.05,0.11-0.08,0.17l-5.82,9.58c-2.24,3.69-4.51,7.39-7.56,10.23L69.08,67.14 L69.08,67.14L69.08,67.14z"/>
+                    </g></svg>
+
+                <div>
+                    <p class="text-gray-800 text-lg font-semibold">
+                        <span><?php echo e($this->summary["salesDebt"]["count"]); ?></span> |
+                        <span><?php echo e($this->summary["salesDebt"]["fund"]); ?></span>
+                    </p>
+                    <p class="text-gray-600 text-sm"><?php echo e($this->summary["salesDebt"]["name"]); ?></p>
+                </div>
+            </div>
+
+        </div>
+        <div class="my-container flex items-center gap-3">
+            <div class="inline-flex gap-1.5 items-center">
+                <div class="my-label">Sıralama</div>
+                <select class="input" wire:model.live="filters.orderBy">
+                    <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $orderBy; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key=>$val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($key); ?>"><?php echo e($val); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                </select>
+            </div>
+            <input type="text" class="input" placeholder="Ödəniş kodu" wire:model.live="filters.term">
+            <button x-data="{state : $wire.entangle('searchState')}" x-transition wire:click="$toggle('searchState')"
+                    class="link link-primary link-small">
+                <span x-show="state">Gizlə</span>
+                <span x-show="!state">Ətraflı axtarış</span>
+            </button>
+
+            <button wire:click="export"
+                    class="btn btn-outline btn-outline-primary ml-auto">
+
+                <svg class="size-4" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                    <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M64 0C28.7 0 0 28.7 0 64L0 448c0 35.3 28.7 64 64 64l256 0c35.3 0 64-28.7 64-64l0-288-128 0c-17.7 0-32-14.3-32-32L224 0 64 0zM256 0l0 128 128 0L256 0zM155.7 250.2L192 302.1l36.3-51.9c7.6-10.9 22.6-13.5 33.4-5.9s13.5 22.6 5.9 33.4L221.3 344l46.4 66.2c7.6 10.9 5 25.8-5.9 33.4s-25.8 5-33.4-5.9L192 385.8l-36.3 51.9c-7.6 10.9-22.6 13.5-33.4 5.9s-13.5-22.6-5.9-33.4L162.7 344l-46.4-66.2c-7.6-10.9-5-25.8 5.9-33.4s25.8-5 33.4 5.9z"/>
+                </svg>
+
+                <span wire:loading wire:target="export"
+                      class="animate-pulse font-light">Məlumat emal olunur...</span>
+                <span wire:target="export" wire:loading.class="hidden">
+                        Excel faylı
+                    </span>
+            </button>
+
+        </div>
+        <div class="my-container grid overflow-auto">
+            <table class="custom-table">
+                <thead>
+                <th>Əməliyyatlar</th>
+                <th>Ödəniş kodu</th>
+                <th>Status</th>
+                <th>Ödəyici</th>
+                <th>Qəbul edən</th>
+                <th>Təsnifat</th>
+                <th>Əməliyyat</th>
+                <th>Məbləğ</th>
+                <th>Tarix</th>
+                </thead>
+                <tbody>
+                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr class="<?php echo \Illuminate\Support\Arr::toCssClasses(["bg-red-50" => $payment->is_cancelled]); ?>">
+                        <td>
+                            <div class="flex gap-2 text-sm leading-none">
+                                <button wire:click="$dispatch('payment.details.changeState',{id : '<?php echo e($payment->id); ?>'})"
+                                        class="btn btn-outline btn-outline-primary btn-small">
+                                    <svg class="size-5"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                    Detallar
+                                </button>
+                                <!--[if BLOCK]><![endif]--><?php if($payment->type_id == 4 && $payment->is_cancelled == false): ?>
+                                    <button
+                                        wire:click="$dispatch('cancel-payment-change-state',{id : '<?php echo e($payment->id); ?>'})"
+                                        class="my-input !p-2">Ləğv et
+                                    </button>
+                                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                                <a href="<?php echo e(url("payment/print/$payment->id")); ?>"
+                                   class="btn btn-outline btn-small">
+                                    <svg class="size-4" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
+                                         stroke="currentColor" fill="none" stroke-linecap="round"
+                                         stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z"/>
+                                        <path
+                                            d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"/>
+                                        <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"/>
+                                        <rect x="7" y="13" width="10" height="8" rx="2"/>
+                                    </svg>
+                                    Qəbz çap et
+                                </a>
+                            </div>
+                        </td>
+                        <td><?php echo e($payment->pid); ?></td>
+                        <td>
+                            <!--[if BLOCK]><![endif]--><?php if($payment->is_cancelled): ?>
+                                <span
+                                    class="inline-block p-2 text-sm font-medium animate-pulse bg-red-600 text-white rounded-full">Ləğv edilib</span>
+                            <?php else: ?>
+                                <span
+                                    class="inline-block p-2 text-sm font-medium animate-pulse bg-green-600 text-white rounded-full">Aktivdir</span>
+                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                        </td>
+                        <td>
+                            <a href="<?php echo e(url("user/details/$payment->customer_id")); ?>" class="underline" wire:navigate>
+                                <?php echo e($payment->customer->name); ?>
+
+                            </a>
+                        </td>
+                        <td><?php echo e($payment->executor->name); ?></td>
+                        <td><?php echo e($payment->type->name); ?></td>
+                        <td><?php echo e($payment->action->name); ?></td>
+                        <td><?php echo e($payment->amount); ?> AZN</td>
+                        <td><?php echo e($payment->created_at->format("d-m-Y h:i:s")); ?></td>
+                    </tr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                </tbody>
+            </table>
+        </div>
+        <!--[if BLOCK]><![endif]--><?php if($this->payments->hasPages()): ?>
+            <div class="my-container">
+                <?php echo e($this->payments->links()); ?>
+
+            </div>
+        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+    </div>
+
+    <div x-data="{state : $wire.entangle('searchState')}" x-show="state" x-transition
+         class="my-container z-10 w-80 grid gap-3" wire:keyup.enter="search" wire:click.outside="search(true)">
+        <div class="flex justify-between gap-4 items-center text-blue-700">
+            <h1 class="text-2xl font-semibold">Ətraflı axtarış</h1>
+            <button>
+                <svg class="size-6"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </button>
+        </div>
+        <hr class="border-2 border-zinc-100">
+        <div class="grid gap-1">
+            <div class="my-label">Ödəniş kodu</div>
+            <input type="text" class="input w-full" wire:model="filters.pid">
+        </div>
+
+        <div class="grid gap-1">
+            <div class="my-label">Ödəyici</div>
+            <input type="text" class="input w-full" wire:model="filters.customer">
+        </div>
+
+        <div class="grid gap-1">
+            <div class="my-label">Qəbul edən</div>
+            <input type="text" class="input w-full" wire:model="filters.executor">
+        </div>
+
+        <div class="grid gap-1">
+            <div class="my-label">Ləğv edən</div>
+            <input type="text" class="input w-full" wire:model="filters.cancelledBy">
+        </div>
+
+        <div class="grid gap-1">
+            <div class="my-label">Təsnifat</div>
+            <div class="grid gap-1.5">
+                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = \App\Models\PaymentType::orderBy("name","asc")->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <label for="pt-<?php echo e($pt->id); ?>" class="input cursor-pointer">
+                        <input class="outline-0" type="checkbox" value="<?php echo e($pt->id); ?>" id="pt-<?php echo e($pt->id); ?>"
+                               wire:model="filters.types">
+                        <span><?php echo e($pt->name); ?></span>
+                    </label>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+            </div>
+        </div>
+
+        <div class="grid gap-1">
+            <div class="my-label">Əməliyyat</div>
+            <div class="grid gap-1.5">
+                <label for="pt-all" class="input cursor-pointer">
+                    <input class="outline-0" type="radio" value="" id="pt-all" wire:model="filters.action">
+                    <span>Ümumi</span>
+                </label>
+                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = \App\Models\Action::orderBy("name","asc")->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pa): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <label for="pa-<?php echo e($pa->id); ?>" class="input cursor-pointer">
+                        <input class="outline-0" type="radio" value="<?php echo e($pa->id); ?>" id="pa-<?php echo e($pa->id); ?>"
+                               wire:model="filters.action">
+                        <span><?php echo e($pa->name); ?></span>
+                    </label>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+            </div>
+        </div>
+
+        <div class="grid gap-1">
+            <div class="my-label">Status</div>
+            <div class="grid gap-1.5">
+                <label for="ps-all" class="input cursor-pointer">
+                    <input class="outline-0" type="radio" value="" id="ps-all" wire:model="filters.isCancelled">
+                    <span>Ümumi</span>
+                </label>
+                <label for="ps-0" class="input cursor-pointer">
+                    <input class="outline-0" type="radio" value="1" id="ps-0" wire:model="filters.isCancelled">
+                    <span>Ləğv edilib</span>
+                </label>
+                <label for="ps-1" class="input cursor-pointer">
+                    <input class="outline-0" type="radio" value="-1" id="ps-1" wire:model="filters.isCancelled">
+                    <span>Aktivdir</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="grid gap-1">
+            <div class="my-label">Məbləğ</div>
+            <div class="grid grid-cols-2 gap-2">
+                <input type="number" step="0.01" class="input w-full" placeholder="Min."
+                       wire:model="filters.amount.min">
+                <input type="number" step="0.01" class="input w-full" placeholder="Maks."
+                       wire:model="filters.amount.max">
+            </div>
+        </div>
+
+        <div class="grid gap-1">
+            <div class="my-label">Tarix</div>
+            <div class="grid grid-cols-2 gap-2">
+                <div class="grid gap-1">
+                    <input type="text" class="input w-full" placeholder="Min." wire:model="filters.createdAt.min"
+                           x-mask="99-99-9999">
+                    <small class="text-xs">Tarixdən</small>
+                </div>
+                <div class="grid gap-1">
+                    <input type="text" class="input w-full" placeholder="Maks." wire:model="filters.createdAt.max"
+                           x-mask="99-99-9999">
+                    <small class="text-xs">Tarixə</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-end gap-3 text-sm">
+            <button type="button" wire:click="search"
+                    class="btn btn-primary">
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                Axtar
+            </button>
+            <button type="button" wire:click="search('true')"
+                    class="btn btn-disabled !cursor-pointer">
+                <svg class="size-6" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                     fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z"/>
+                    <path d="M19 19h-11l-4 -4a1 1 0 0 1 0 -1.41l10 -10a1 1 0 0 1 1.41 0l5 5a1 1 0 0 1 0 1.41l-9 9"/>
+                    <path d="M18 12.3l-6.3 -6.3"/>
+                </svg>
+                Sıfırla
+            </button>
+        </div>
+
+    </div>
+</div>
+<?php /**PATH C:\laragon\www\boya-app\resources\views/livewire/payment/dashboard.blade.php ENDPATH**/ ?>

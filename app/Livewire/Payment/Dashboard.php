@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Payment;
 
+use App\Exports\Orders;
+use App\Exports\Payments;
 use App\Models\Payment;
 use App\Models\PaymentType;
 use Carbon\Carbon;
@@ -74,25 +76,41 @@ class Dashboard extends Component
     function summary()
     {
 
-        $data[] = [
+        $data["all"] = [
             "name" => "Bütün ödənişlər",
             "count" => Payment::query()->count() . " ədəd",
             "fund" => round(Payment::query()->sum("amount"), 2) . " AZN",
         ];
 
-        $data[] = [
+        $data["cancelled"] = [
             "name" => "Ləğv edilən ödənişlər",
             "count" => Payment::query()->where("is_cancelled", true)->count() . " ədəd",
             "fund" => round(Payment::query()->where("is_cancelled", true)->sum("amount"), 2) . " AZN",
         ];
 
-        foreach (PaymentType::query()->orderBy("name", "asc")->get() as $pt) {
-            $data[] = [
-                "name" => $pt->name,
-                "count" => Payment::query()->where("type_id", $pt->id)->count() . " ədəd",
-                "fund" => round(Payment::query()->where("type_id", $pt->id)->sum("amount"), 2) . " AZN",
-            ];
-        }
+        $data["oldDebt"] = [
+            "name" => "Öncədən olan borc",
+            "count" => Payment::query()->where("type_id", 1)->count() . " ədəd",
+            "fund" => round(Payment::query()->where("type_id", 1)->sum("amount"), 2) . " AZN",
+        ];
+
+        $data["balance"] = [
+            "name" => "Müştərilərin balansı",
+            "count" => Payment::query()->where("type_id", 2)->count() . " ədəd",
+            "fund" => round(Payment::query()->where("type_id", 2)->sum("amount"), 2) . " AZN",
+        ];
+
+        $data["supplierDebt"] = [
+            "name" => "Tədarüçklərin ödənişi",
+            "count" => Payment::query()->where("type_id", 3)->count() . " ədəd",
+            "fund" => round(Payment::query()->where("type_id", 3)->sum("amount"), 2) . " AZN",
+        ];
+
+        $data["salesDebt"] = [
+            "name" => "Satışlardan yaranmış borc",
+            "count" => Payment::query()->where("type_id", 4)->count() . " ədəd",
+            "fund" => round(Payment::query()->where("type_id", 4)->sum("amount"), 2) . " AZN",
+        ];
 
         return $data;
 
@@ -187,6 +205,12 @@ class Dashboard extends Component
 
         return $items;
     }
+
+    function export()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new Payments($this->filters), "ödənişlər-".now()->format("d-m-y-h-i").".xlsx");
+    }
+
 
     public function render()
     {

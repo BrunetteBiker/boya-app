@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Product;
 
+use App\Exports\Products;
 use App\Models\Product;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -10,6 +11,7 @@ use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 #[Title("Məhsullar")]
 class Dashboard extends Component
@@ -55,6 +57,26 @@ class Dashboard extends Component
         'visible' => ''
     ];
 
+
+    #[Computed]
+    function summary()
+    {
+        $data["all"] = [
+            "name"=>"Bütün məhsullar",
+            "count"=>Product::query()->count(). " ədəd",
+        ];
+        $data["active"] = [
+            "name"=>"Aktiv məhsullar",
+            "count"=>Product::query()->where("visible",true)->count(). " ədəd"
+        ];
+        $data["passive"] = [
+            "name"=>"Deaktiv məhsullar",
+            "count"=>Product::query()->where("visible",false)->count(). " ədəd"
+        ];
+
+        return $data;
+    }
+
     function search($reset = false)
     {
         if ($reset) {
@@ -81,7 +103,9 @@ class Dashboard extends Component
         Product::insert([
             "name" => $this->newProduct["name"],
             "visible" => $this->newProduct["visible"],
-            "note" => $this->newProduct["note"]
+            "note" => $this->newProduct["note"],
+            "created_at"=>now(),
+            "updated_at"=>now(),
         ]);
 
         $this->dispatch('notify', state: "info", msg: "Yeni məhsul əlavə edildi", autoHide: true);
@@ -130,11 +154,20 @@ class Dashboard extends Component
 
         $items = $items->paginate(10);
 
+
+
         return $items;
+    }
+
+    function export()
+    {
+        $filename = "məhsullar-".now()->format("d-m-y-h-i").".xlsx";
+        return Excel::download(new Products(Product::orderBy("name","asc")->get()),$filename);
     }
 
     function mount()
     {
+
     }
 
     public function render()

@@ -94,7 +94,7 @@ class Create extends Component
         $user->remnant = $this->data["remnant"];
         $user->save();
 
-        $user->pid = "USR" . $user->created_at->format("dmy") . Str::of($user->pid())->padLeft(6, 0);
+        $user->pid = "USR" . $user->created_at->format("dmy") . Str::of($user->id)->padLeft(6, 0);
         $user->save();
 
         foreach ($this->data["phones"] as $phone) {
