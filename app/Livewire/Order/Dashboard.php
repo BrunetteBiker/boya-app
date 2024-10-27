@@ -11,12 +11,14 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Excel;
 
+#[Lazy]
 #[Title("Sifarişlər")]
 class Dashboard extends Component
 {
@@ -259,6 +261,7 @@ class Dashboard extends Component
     {
         return \Maatwebsite\Excel\Facades\Excel::download(new Orders($this->filters), "sifarişlər-".now()->format("d-m-y-h-i").".xlsx");
     }
+
 
     public function render()
     {

@@ -18,10 +18,12 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Lazy]
 #[Title("İstifadəçi məlumatları")]
 class Details extends Component
 {
@@ -49,7 +51,8 @@ class Details extends Component
         "pid" => ""
     ];
 
-    function updatedPaymentSearch(){
+    function updatedPaymentSearch()
+    {
         $this->resetPage(pageName: 'payments');
     }
 
@@ -119,7 +122,7 @@ class Details extends Component
 
         event(new AcceptPayment(order: null, customer: $this->user->id, amount: $this->paymentData["amount"], type: $this->paymentData["type"], action: $this->paymentData["action"], note: ""));
 
-        $this->dispatch("notify", state: "success", msg: "Sorğunuz qeydə alındı");
+        $this->dispatch("notify", state: "success", msg: "Sorğunuz qeydə alındı", reload: true);
 
 
     }

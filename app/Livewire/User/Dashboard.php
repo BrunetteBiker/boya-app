@@ -9,12 +9,14 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Lazy]
 #[Title("İstifadəçilər")]
 class Dashboard extends Component
 {
@@ -204,6 +206,39 @@ class Dashboard extends Component
         $items = $items->paginate();
 
         return $items;
+    }
+
+    #[Computed]
+    function summary()
+    {
+        $count = User::query()->count() . " ədəd";
+        $data["all"]= [
+            "name"=>"Bütün istifadəçilər",
+            "count"=>$count,
+        ];
+
+        $count = User::query()->where("role_id",2)->count() . " ədəd";
+
+        $data["customers"]= [
+            "name"=>"Müştərilər",
+            "count"=>$count,
+        ];
+
+        $count = User::query()->where("role_id",3)->count() . " ədəd";
+
+        $data["suppliers"]= [
+            "name"=>"Tədarükçülər",
+            "count"=>$count,
+        ];
+
+        $count = User::query()->where("role_id",1)->count() . " ədəd";
+
+        $data["employees"]= [
+            "name"=>"İcraçılar",
+            "count"=>$count,
+        ];
+
+        return $data;
     }
 
 

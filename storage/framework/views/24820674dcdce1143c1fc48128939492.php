@@ -1,0 +1,1 @@
+ <div class="opacity-0"></div><?php /**PATH C:\laragon\www\boya-app\storage\framework\views/848655c56256c2efc7f1c5a0969c426f.blade.php ENDPATH**/ ?>

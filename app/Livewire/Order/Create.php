@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Lazy]
 #[Title("Yeni sifariş blankı")]
 class Create extends Component
 {
@@ -34,6 +36,8 @@ class Create extends Component
         }
     }
 
+    #[Url(except: "" , as: "customer")]
+    public $customerId = "";
     public $customer = [
         "state" => false,
         "id" => null,
@@ -106,9 +110,8 @@ class Create extends Component
 
     function mount()
     {
-        if (request()->has("customer")) {
-            $this->customer["id"] = request()->get("customer");
-            $this->selectCustomer(request()->get("customer"));
+        if ($this->customerId != "") {
+            $this->selectCustomer($this->customerId);
             $this->customer["state"] = false;
         }
 
@@ -147,7 +150,7 @@ class Create extends Component
     #[Computed]
     function products()
     {
-        return Product::query()->orderBy("name", "asc")->get();
+        return Product::query()->where("visible",true)->orderBy("name", "asc")->get();
     }
 
     function save()

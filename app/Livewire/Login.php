@@ -6,9 +6,11 @@ use App\Models\Phone;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Lazy]
 #[Title("Portala giriş")]
 class Login extends Component
 {

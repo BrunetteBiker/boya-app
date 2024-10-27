@@ -5,6 +5,7 @@ namespace App\Livewire\Payment;
 use App\Events\AcceptPayment;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\On;
 use Livewire\Component;
 

@@ -30,7 +30,9 @@ Route::middleware("auth")->group(function () {
         Route::get("excel", function () {
             return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\Orders(),"file.xlsx");
         });
-    });
+        Route::get("logs",\App\Livewire\Order\Logs::class);
+
+    })->name("order");
 
     Route::prefix("user")->group(function () {
         Route::get("dashboard", \App\Livewire\User\Dashboard::class);

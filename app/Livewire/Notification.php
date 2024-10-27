@@ -11,8 +11,8 @@ class Notification extends Component
     public $state = '';
     public $msg;
     public $autoHide = false;
-
     public $redirectUrl;
+    public $reload = false;
 
     function resetNotify()
     {
@@ -29,9 +29,14 @@ class Notification extends Component
             $this->dispatch('autoHide');
         }
 
+        if ($this->reload){
+            $this->dispatch("reload");
+        }
         if ($redirect != "") {
             $this->dispatch("redirect", url: $redirect);
         }
+
+
     }
 
 

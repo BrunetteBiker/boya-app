@@ -9,11 +9,13 @@ use App\Models\PaymentType;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Lazy]
 #[Title("Ödənişlər")]
 class Dashboard extends Component
 {

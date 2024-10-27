@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 25, 2024 at 01:17 PM
+-- Host: localhost:3306
+-- Generation Time: Oct 27, 2024 at 07:08 PM
 -- Server version: 8.0.30
--- PHP Version: 8.2.23
+-- PHP Version: 8.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -168,7 +168,13 @@ INSERT INTO `orders` (`id`, `pid`, `customer_id`, `executor_id`, `amount`, `disc
 (8, 'SFR21102024000008', 4, 1, 250, 50, 200, 4, 0, 200, 'test qeyd', 'Voluptatum aliquid rerum ad fuga. Quo esse assumenda assumenda. Quidem necessitatibus veniam explicabo suscipit nesciunt necessitatibus laboriosam cumque.', 1, '2024-10-21 11:33:29', '2024-10-21 11:34:23'),
 (9, 'SFR21102024000009', 5, 1, 150, 10, 140, 4, 100, 40, 'Numquam aspernatur et ratione asperiores aliquid officiis ipsam. Ut tenetur molestiae quis ullam fugiat quaerat maxime. Sint laudantium nostrum occaecati perspiciatis perferendis quis ducimus autem recusandae.', 'Necessitatibus neque veniam natus aliquam distinctio. Minima deleniti quasi ab. Laboriosam facilis ut quam delectus nemo consectetur amet autem.', 1, '2024-10-21 11:35:29', '2024-10-21 11:38:02'),
 (10, 'SFR21102024000010', 5, 1, 100, 0, 100, 4, 100, 0, '', 'Tenetur provident sequi est aliquid. Perferendis labore quam quod inventore temporibus saepe doloremque. Sunt quia ad.', 1, '2024-10-21 12:15:57', '2024-10-21 12:21:05'),
-(11, 'SFR23102024000011', 3, 1, 38.4, 0, 38.4, 1, 15, 23.4, '', NULL, NULL, '2024-10-23 10:17:21', '2024-10-23 10:19:04');
+(11, 'SFR23102024000011', 3, 1, 38.4, 0, 38.4, 4, 15, 23.4, '', NULL, NULL, '2024-10-23 10:17:21', '2024-10-26 18:53:12'),
+(12, 'SFR26102024000012', 4, 5, 48, 8, 40, 4, 20, 20, '', NULL, NULL, '2024-10-26 19:02:06', '2024-10-26 19:03:51'),
+(13, 'SFR26102024000013', 4, 5, 120, 0, 120, 4, 110, 10, '', NULL, NULL, '2024-10-26 19:06:23', '2024-10-26 20:02:47'),
+(14, 'SFR27102024000014', 3, 5, 60, 0, 60, 4, 0, 60, '', NULL, NULL, '2024-10-26 20:06:36', '2024-10-26 20:07:06'),
+(15, 'SFR27102024000015', 3, 5, 20, 0, 20, 1, 20, 0, '', NULL, NULL, '2024-10-26 20:08:59', '2024-10-26 20:09:34'),
+(16, 'SFR27102024000016', 3, 5, 10, 0, 10, 1, 10, 0, '', NULL, NULL, '2024-10-26 20:11:01', '2024-10-26 20:11:15'),
+(17, 'SFR27102024000017', 3, 5, 40, 0, 40, 4, 0, 40, '', NULL, NULL, '2024-10-26 20:12:49', '2024-10-27 18:27:54');
 
 -- --------------------------------------------------------
 
@@ -202,7 +208,41 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `amount`, `price`, `t
 (9, 9, 8, 1, 100, 100, 'Jamaica'),
 (10, 9, 20, 1, 50, 50, 'Ghana'),
 (11, 10, 9, 1, 100, 100, 'Jamaica'),
-(12, 11, 9, 2, 24, 38.4, 'magnam corporis aliquid');
+(12, 11, 9, 2, 24, 38.4, 'magnam corporis aliquid'),
+(13, 12, 8, 2, 24, 48, 'Neque sint nisi facere aperiam id. Veritatis reprehenderit at harum assumenda temporibus necessitatibus. Voluptatibus adipisci voluptatem quisquam necessitatibus culpa dignissimos.'),
+(14, 13, 9, 2, 60, 120, 'Deserunt temporibus magni ea. Fuga provident quos temporibus sint quia maiores necessitatibus. Sit velit sit.'),
+(15, 14, 9, 2, 30, 60, 'Ireland'),
+(16, 15, 25, 2, 10, 20, 'Redondo Beach'),
+(17, 16, 26, 1, 10, 10, 'Roberts - Luettgen'),
+(18, 17, 9, 2, 20, 40, 'International Applications Strategist');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_logs`
+--
+
+CREATE TABLE `order_logs` (
+  `id` int NOT NULL,
+  `order_id` int NOT NULL,
+  `executor_id` int NOT NULL,
+  `info` longtext COLLATE utf8mb4_unicode_ci,
+  `note` longtext COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_logs`
+--
+
+INSERT INTO `order_logs` (`id`, `order_id`, `executor_id`, `info`, `note`, `created_at`) VALUES
+(1, 11, 5, 'Sifarişin statusu hazırlandı olaraq dəyişdirildi', '', '2024-10-26 18:25:21'),
+(2, 11, 5, 'Sifarişin statusu TƏHVİL VERİLDİ olaraq dəyişdirildi', '', '2024-10-26 18:33:59'),
+(3, 11, 5, 'Sifarişin statusu LƏĞV EDİLDİ olaraq dəyişdirildi', 'Cumque esse nisi est. Labore at suscipit itaque animi qui possimus soluta velit atque. Dolorem accusamus quis vitae cumque odio fugiat non reprehenderit iste.', '2024-10-26 18:53:13'),
+(4, 12, 5, 'Sifarişin statusu LƏĞV EDİLDİ olaraq dəyişdirildi', 'Consequuntur minus ea temporibus asperiores in ut. Voluptatum maiores numquam consequuntur architecto nam corporis eligendi. Magni a ipsa nihil fugiat eveniet adipisci reiciendis vero.', '2024-10-26 19:03:51'),
+(5, 13, 5, 'Sifarişin statusu LƏĞV EDİLDİ olaraq dəyişdirildi', 'Exercitationem aspernatur minus at deleniti excepturi repudiandae suscipit. Corporis inventore amet libero provident tempora deleniti iste at. Velit recusandae vero veritatis modi voluptates laboriosam cum nobis.', '2024-10-26 20:03:08'),
+(6, 14, 5, 'Sifarişin statusu LƏĞV EDİLDİ olaraq dəyişdirildi', 'Ipsam doloremque saepe totam iste corrupti. Eum quo sequi modi occaecati amet iusto deserunt impedit. Omnis eius consequuntur quidem sint possimus quisquam ducimus tempore ducimus.', '2024-10-26 20:07:06'),
+(7, 17, 5, 'Sifarişin statusu LƏĞV EDİLDİ olaraq dəyişdirildi', 'Cupiditate nam corporis fuga. Sequi harum temporibus totam numquam atque. Ut laboriosam maiores.', '2024-10-27 18:27:55');
 
 -- --------------------------------------------------------
 
@@ -245,7 +285,7 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `payments` (
   `id` int NOT NULL,
-  `pid` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `executor_id` int DEFAULT NULL,
   `order_id` int DEFAULT NULL,
   `customer_id` int DEFAULT NULL,
@@ -255,7 +295,7 @@ CREATE TABLE `payments` (
   `note` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `is_cancelled` int DEFAULT '0',
   `cancelled_by` int DEFAULT NULL,
-  `explanation` longtext COLLATE utf8mb4_unicode_ci,
+  `explanation` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -303,10 +343,29 @@ INSERT INTO `payments` (`id`, `pid`, `executor_id`, `order_id`, `customer_id`, `
 (36, 'ÖDN23102024000036', 1, NULL, 4, 2, 1, 5, ' kodlu ödənişin ləğvindən gələn artım', 0, NULL, NULL, '2024-10-23 05:39:00', '2024-10-23 05:39:01'),
 (37, 'ÖDN23102024000037', 1, NULL, 4, 2, 2, 5, '', 0, NULL, NULL, '2024-10-23 05:39:55', '2024-10-23 05:39:55'),
 (38, 'ÖDN23102024000038', 1, NULL, 5, 2, 1, 20, 'ÖDN18102024000007 kodlu ödənişin ləğvindən gələn artım', 0, NULL, NULL, '2024-10-23 10:13:10', '2024-10-23 10:13:10'),
-(39, 'ÖDN23102024000039', 1, 11, 3, 4, 1, 10, '', 1, 1, 'Aut delectus voluptas corrupti aperiam dignissimos. Alias nisi tempore nam. Quibusdam assumenda enim.', '2024-10-23 10:17:31', '2024-10-23 10:17:53'),
+(39, 'ÖDN23102024000039', 1, 11, 3, 4, 1, 10, '', 1, 1, 'Aut delectus voluptas corrupti aperiam dignissimos. Alias nisi tempore nam. Quibusdam assumenda enim.', '2024-10-23 10:17:31', '2024-10-26 18:53:12'),
 (40, 'ÖDN23102024000040', 1, NULL, 3, 2, 1, 10, 'ÖDN23102024000039 kodlu ödənişin ləğvindən gələn artım', 0, NULL, NULL, '2024-10-23 10:17:53', '2024-10-23 10:17:53'),
-(41, 'ÖDN23102024000041', 1, 11, 3, 4, 1, 5, '', 1, 1, 'Eligendi dolores suscipit ab at animi fugiat doloremque. Consequatur delectus minima fugit aliquid alias aliquid odio. Consequatur quam perferendis ut vero natus fugit deserunt commodi.', '2024-10-23 10:19:04', '2024-10-23 10:19:18'),
-(42, 'ÖDN23102024000042', 1, NULL, 3, 2, 1, 5, 'ÖDN23102024000041 kodlu ödənişin ləğvindən gələn artım', 0, NULL, NULL, '2024-10-23 10:19:18', '2024-10-23 10:19:18');
+(41, 'ÖDN23102024000041', 1, 11, 3, 4, 1, 5, '', 1, 1, 'Eligendi dolores suscipit ab at animi fugiat doloremque. Consequatur delectus minima fugit aliquid alias aliquid odio. Consequatur quam perferendis ut vero natus fugit deserunt commodi.', '2024-10-23 10:19:04', '2024-10-26 18:53:12'),
+(42, 'ÖDN23102024000042', 1, NULL, 3, 2, 1, 5, 'ÖDN23102024000041 kodlu ödənişin ləğvindən gələn artım', 0, NULL, NULL, '2024-10-23 10:19:18', '2024-10-23 10:19:18'),
+(43, 'ÖDN26102024000043', 5, NULL, 3, 2, 1, 15, 'SFR23102024000011 kodlu sifarişin ləğvindən gələn artım.', 0, NULL, NULL, '2024-10-26 18:53:12', '2024-10-26 18:53:13'),
+(44, 'ÖDN26102024000044', 5, 12, 4, 4, 1, 20, '', 1, NULL, NULL, '2024-10-26 19:03:17', '2024-10-26 19:03:51'),
+(45, 'ÖDN26102024000045', 5, NULL, 4, 2, 1, 20, 'SFR26102024000012 kodlu sifarişin ləğvindən gələn artım.', 0, NULL, NULL, '2024-10-26 19:03:51', '2024-10-26 19:03:51'),
+(46, 'ÖDN26102024000046', 5, 13, 4, 4, 1, 50, '', 1, NULL, NULL, '2024-10-26 19:06:44', '2024-10-26 20:03:08'),
+(47, 'ÖDN26102024000047', 5, 13, 4, 4, 1, 30, '', 1, NULL, NULL, '2024-10-26 19:06:52', '2024-10-26 20:03:08'),
+(48, 'ÖDN26102024000048', 5, 13, 4, 4, 1, 30, '', 1, NULL, NULL, '2024-10-26 19:07:05', '2024-10-26 20:03:08'),
+(49, 'ÖDN27102024000049', 5, NULL, 4, 2, 1, 110, 'SFR26102024000013 kodlu sifarişin ləğvindən gələn artım.', 0, NULL, NULL, '2024-10-26 20:02:47', '2024-10-26 20:02:47'),
+(50, 'ÖDN27102024000050', 5, NULL, 4, 2, 1, 110, 'SFR26102024000013 kodlu sifarişin ləğvindən gələn artım.', 0, NULL, NULL, '2024-10-26 20:03:08', '2024-10-26 20:03:08'),
+(51, 'ÖDN27102024000051', 5, 14, 3, 4, 1, 10, '', 1, NULL, NULL, '2024-10-26 20:06:50', '2024-10-26 20:07:06'),
+(52, 'ÖDN27102024000052', 5, NULL, 3, 2, 1, 10, 'SFR27102024000014 kodlu sifarişin ləğvindən gələn artım.', 0, NULL, NULL, '2024-10-26 20:07:06', '2024-10-26 20:07:06'),
+(53, 'ÖDN27102024000053', 5, 15, 3, 4, 1, 10, '', 0, NULL, NULL, '2024-10-26 20:09:13', '2024-10-26 20:09:13'),
+(54, 'ÖDN27102024000054', 5, 15, 3, 4, 1, 5, '', 0, NULL, NULL, '2024-10-26 20:09:25', '2024-10-26 20:09:25'),
+(55, 'ÖDN27102024000055', 5, 15, 3, 4, 1, 5, '', 0, NULL, NULL, '2024-10-26 20:09:34', '2024-10-26 20:09:34'),
+(56, 'ÖDN27102024000056', 5, 16, 3, 4, 1, 10, '', 1, 1, 'Accusamus consectetur sequi soluta ipsam fuga nobis ipsa libero. Nostrum laudantium nisi. Ducimus qui inventore quibusdam optio harum debitis sapiente beatae.', '2024-10-26 20:11:15', '2024-10-27 07:27:40'),
+(57, 'ÖDN27102024000057', 5, 17, 3, 4, 1, 40, '', 1, 1, 'Praesentium alias aut expedita quis. Hic animi animi quas nobis vitae labore provident unde ab. Itaque accusamus odit sed nostrum.', '2024-10-26 20:13:24', '2024-10-27 18:27:54'),
+(58, 'ÖDN27102024000058', 1, NULL, 3, 2, 1, 40, 'ÖDN27102024000057 kodlu ödənişin ləğvindən yaranmış artım.', 0, NULL, NULL, '2024-10-27 07:25:16', '2024-10-27 07:25:16'),
+(59, 'ÖDN27102024000059', 1, NULL, 3, 2, 1, 1.6, '', 0, NULL, NULL, '2024-10-27 07:26:47', '2024-10-27 07:26:47'),
+(60, 'ÖDN27102024000060', 1, NULL, 3, 2, 1, 10, 'ÖDN27102024000056 kodlu ödənişin ləğvindən yaranmış artım.', 0, NULL, NULL, '2024-10-27 07:27:40', '2024-10-27 07:27:40'),
+(61, 'ÖDN27102024000061', 5, NULL, 3, 2, 1, 40, 'SFR27102024000017 kodlu sifarişin ləğvindən gələn artım.', 0, NULL, NULL, '2024-10-27 18:27:54', '2024-10-27 18:27:54');
 
 -- --------------------------------------------------------
 
@@ -394,32 +453,33 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `pid`, `name`, `note`, `created_at`, `updated_at`, `visible`) VALUES
-(1, 'PROD-24102024000001', 'Sun emulsiya daxili 18 lt', 'Minimal satış qiyməti 30 AZN', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(2, 'PROD-24102024000002', 'Sun emulsiya daxili 7.5 lt', 'Minimal satış qiyməti 13 AZN', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(3, 'PROD-24102024000003', 'Sun emulsiya daxili 2.5 lt', 'Minimal satış qiyməti 7 AZN', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(4, 'PROD-24102024000004', 'Sun emulsiya fasad 18 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(5, 'PROD-24102024000005', 'Sun emulsiya fasad 7.5 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(6, 'PROD-24102024000006', 'Sun emulsiya fasad 2.5 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(7, 'PROD-24102024000007', 'Naturel super fasad 18 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(8, 'PROD-24102024000008', 'Naturel super fasad 7.5 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(9, 'PROD-24102024000009', 'Naturel super fasad 2.5 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(10, 'PROD-24102024000010', 'Akerlik macun 4 kq', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(11, 'PROD-24102024000011', 'Akerlik macun 10 kq', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(12, 'PROD-24102024000012', 'Akerlik macun 22 kq', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(13, 'PROD-24102024000013', 'Torsovka 4 kq', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(14, 'PROD-24102024000014', 'Torsovka 10 kq', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(15, 'PROD-24102024000015', 'Torsovka 22 kq', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(16, 'PROD-24102024000016', 'Binder 1 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(17, 'PROD-24102024000017', 'Binder 4 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(18, 'PROD-24102024000018', 'Naturel moy 18 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(19, 'PROD-24102024000019', 'Naturel moy 7.5 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(20, 'PROD-24102024000020', 'Naturel moy 2.5 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(21, 'PROD-24102024000021', 'Astar 18 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(22, 'PROD-24102024000022', 'Astar silikonlu 18 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(23, 'PROD-24102024000023', 'Su tut 18 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(24, 'PROD-24102024000024', 'Naturel parlaq fasad 18 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(25, 'PROD-24102024000025', 'Naturel parlaq fasad 7.5 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1),
-(26, 'PROD-24102024000026', 'Naturel parlaq fasad 2.5 lt', '', '2024-10-24 13:05:17', '2024-10-24 13:05:17', 1);
+(1, 'PROD00000127102024', 'Sun emulsiya daxili 18 lt', 'Minimal satış qiyməti 30 AZN', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(2, 'PROD00000227102024', 'Sun emulsiya daxili 7.5 lt', 'Minimal satış qiyməti 13 AZN', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(3, 'PROD00000327102024', 'Sun emulsiya daxili 2.5 lt', 'Minimal satış qiyməti 7 AZN', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(4, 'PROD00000427102024', 'Sun emulsiya fasad 18 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(5, 'PROD00000527102024', 'Sun emulsiya fasad 7.5 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(6, 'PROD00000627102024', 'Sun emulsiya fasad 2.5 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(7, 'PROD00000727102024', 'Naturel super fasad 18 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(8, 'PROD00000827102024', 'Naturel super fasad 7.5 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(9, 'PROD00000927102024', 'Naturel super fasad 2.5 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(10, 'PROD00001027102024', 'Akerlik macun 4 kq', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(11, 'PROD00001127102024', 'Akerlik macun 10 kq', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(12, 'PROD00001227102024', 'Akerlik macun 22 kq', 'Sint tenetur omnis ullam facere esse et quisquam. Quae vero repellendus temporibus ducimus sapiente eveniet omnis. Molestiae corrupti dignissimos recusandae dicta est.', '2024-10-24 13:05:17', '2024-10-27 10:38:49', 1),
+(13, 'PROD00001327102024', 'Torsovka 4 kq', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(14, 'PROD00001427102024', 'Torsovka 10 kq', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(15, 'PROD00001527102024', 'Torsovka 22 kq', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(16, 'PROD00001627102024', 'Binder 1 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(17, 'PROD00001727102024', 'Binder 4 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(18, 'PROD00001827102024', 'Naturel moy 18 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(19, 'PROD00001927102024', 'Naturel moy 7.5 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(20, 'PROD00002027102024', 'Naturel moy 2.5 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(21, 'PROD00002127102024', 'Astar 18 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(22, 'PROD00002227102024', 'Astar silikonlu 18 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(23, 'PROD00002327102024', 'Su tut 18 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(24, 'PROD00002427102024', 'Naturel parlaq fasad 18 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(25, 'PROD00002527102024', 'Naturel parlaq fasad 7.5 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(26, 'PROD00002627102024', 'Naturel parlaq fasad 2.5 lt', '', '2024-10-24 13:05:17', '2024-10-27 08:39:52', 1),
+(29, 'PROD00002927102024', 'Test məhsul', NULL, '2024-10-27 08:33:56', '2024-10-27 10:39:14', 0);
 
 -- --------------------------------------------------------
 
@@ -461,7 +521,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('leWaahz2s8XZ6KiDRpQPOK97UZ1QIIddzsckYubo', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoic1RDd1B6aFFBcTh2U1A3YUlGUHc5NklHckVJelJjRkJiTzFoN1dCZiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjg6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9yYXBvcnQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1729777709);
+('A4mo05lgdCPpN0MSmv40COxVaQVuMbj7i8YUbHEw', 5, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMUVzaXFiS0RGcXR6VVpzTnRTS1VWVDVDNmxJREVFRm5iejNQeXBYWiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozMjoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL29yZGVyL2xvZ3MiO31zOjk6Il9wcmV2aW91cyI7YToxOntzOjM6InVybCI7czozNjoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL3VzZXIvZGFzaGJvYXJkIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6NTt9', 1730056083),
+('IMl9M6eZgrYay3O1rDJnAXMBEsG5DUqxSbi1Wvif', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiMVBUSXVrcU1LQll3V25ReHFVdVNKdlc4R2c3eXZVUTVmbmxHODBmbCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1730053022),
+('jGEbduE3dUPfChp0IcGi96NEVWZ5o4PJML6tDG3y', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiNDlqeTdaRnJiQkowV0swcTJqUmhNeUk3b2U1ZmpFMU9zYkhHRlBwNiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1730053022);
 
 -- --------------------------------------------------------
 
@@ -518,8 +580,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `pid`, `name`, `role_id`, `remember_token`, `debt`, `current_debt`, `old_debt`, `remnant`, `balance`, `created_at`, `updated_at`) VALUES
 (1, 'USR18011976000001', 'Ədalət Məmmədli', 1, NULL, 0, 0, 0, 0, 150, '1976-01-17 20:00:00', '2024-10-21 12:43:57'),
-(3, 'USR19031998000003', 'Ülvi Hüseynov', 2, NULL, 323.4, 23.4, 300, 0, 418.4, '1998-03-18 20:00:00', '2024-10-23 10:19:18'),
-(4, 'USR18011993000004', 'Pərviz Əliyarov', 3, NULL, 0, 0, 0, 300, 35, '1993-01-17 20:00:00', '2024-10-23 05:39:55'),
+(3, 'USR19031998000003', 'Ülvi Hüseynov', 2, NULL, 300, 0, 300, 0, 450, '1998-03-18 20:00:00', '2024-10-27 18:27:54'),
+(4, 'USR18011993000004', 'Pərviz Əliyarov', 3, NULL, 0, 0, 0, 300, 245, '1993-01-17 20:00:00', '2024-10-26 20:03:08'),
 (5, 'USR30041985000005', 'Elşən Həmidovv', 1, NULL, 148.6, 48.6, 100, 50, 289.8, '1985-04-29 20:00:00', '2024-10-23 10:13:10');
 
 --
@@ -581,6 +643,12 @@ ALTER TABLE `orders`
 -- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_logs`
+--
+ALTER TABLE `order_logs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -683,13 +751,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `order_logs`
+--
+ALTER TABLE `order_logs`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `order_status`
@@ -701,7 +775,7 @@ ALTER TABLE `order_status`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `payment_actions`
@@ -725,7 +799,7 @@ ALTER TABLE `phones`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `roles`

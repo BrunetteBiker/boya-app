@@ -3,6 +3,8 @@
 namespace App\Livewire\Order;
 
 use App\Events\AcceptPayment;
+use App\Events\CreateOrderLog;
+use App\Events\GeneralCalculate;
 use App\Events\PaymentLog;
 use App\Events\RecordUpdate;
 use App\Models\Order;
@@ -13,11 +15,13 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Lazy;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
 use phpDocumentor\Reflection\DocBlock\Tags\Deprecated;
 
+#[Lazy]
 #[Title("Sifariş məlumatları")]
 class Details extends Component
 {
@@ -31,7 +35,9 @@ class Details extends Component
         "orderItems" => false,
         "generalInfo" => true,
         "customerInfo" => true,
-        "cancel" => false
+        "cancel" => false,
+        "ready" => false,
+        "delivered" => false
     ];
 
     public $paymentInfo = [
@@ -86,7 +92,11 @@ class Details extends Component
                 $this->dispatch("notify", state: "warning", msg: "Balansda kifayət qədər vəsait yoxdur");
                 return;
             } else {
-                $this->order->customer->decrement("balance", $amount);
+                if ($amount > $debt) {
+                    $this->order->customer->decrement("balance", $amount - $debt);
+                } else {
+                    $this->order->customer->decrement("balance", $amount);
+                }
             }
 
         }
@@ -99,50 +109,12 @@ class Details extends Component
 
         event(new AcceptPayment(order: $this->order->id, customer: $this->order->customer_id, type: 4, amount: $amount, action: 1));
 
-        $this->order->debt = $debt;
-        $this->order->save();
-
-        $this->order->customer->current_debt = round(Order::where("customer_id", $this->order->customer_id)->sum("debt"), 2);
-        $this->order->customer->debt = $this->order->customer->old_debt + $this->order->customer->current_debt;
-        $this->order->customer->debt = round($this->order->customer->debt, 2);
-        $this->order->customer->save();
+        event(new GeneralCalculate($this->order->id));
 
         $this->dispatch("notify", state: "success", msg: "Ödəniş qeydə alındı");
 
     }
 
-    public $cancelExplanation = "";
-
-    function cancelOrder()
-    {
-        if ($this->cancelExplanation == "") {
-            $this->dispatch("notify", state: "info", msg: "Sifariş ləğv edildi");
-            return;
-        }
-
-        $this->order->status_id = 4;
-        $this->order->cancel_explanation = $this->cancelExplanation;
-        $this->order->cancelled_by = Auth::id();
-        $this->order->save();
-        Payment::where("order_id", $this->order->id)->update(["is_cancelled" => true]);
-
-        $refunded = Payment::where([
-            "order_id" => $this->order->id,
-            "is_cancelled" => true
-        ])->sum("amount");
-
-        $this->order->customer->increment("balance", $refunded);
-
-        event(new AcceptPayment(order: null, customer: $this->order->customer_id, amount: $refunded, action: 1, type: 2, note: $this->order->pid . " kodlu sifarişin ləğvindən gələn artım."));
-
-        $this->order->customer->current_debt = Order::where(["customer_id" => $this->order->customer_id])->whereNot("status_id", 4)->sum("debt");
-        $this->order->customer->current_debt = round($this->order->customer->current_debt, 2);
-        $this->order->customer->debt = $this->order->customer->old_debt + $this->order->customer->current_debt;
-        $this->order->customer->save();
-
-        $this->dispatch("notify", state: "info", msg: "Sifariş ləğv edildi");
-
-    }
 
     function mount($id)
     {
@@ -159,7 +131,7 @@ class Details extends Component
     #[Computed]
     function payments()
     {
-        $items = Payment::where("order_id", $this->order->id)->where("type_id", 4)->where("is_cancelled",false)->orderBy("id", "desc");
+        $items = Payment::where("order_id", $this->order->id)->where("type_id", 4)->where("is_cancelled", false)->orderBy("id", "desc");
 
         $items = $items->paginate(10);
 
@@ -182,6 +154,64 @@ class Details extends Component
         $items = $items->orderBy("id", "desc");
         $items = $items->paginate(10, pageName: "updateLogsPager");
         return $items;
+    }
+
+    public $readyData = [
+        "note" => ""
+    ];
+
+
+    public $cancelledData = [
+        "note" => ""
+    ];
+
+    function changeStatusToCancelled()
+    {
+        if ($this->cancelledData["note"] == "") {
+            $this->dispatch("notify", state: "danger", msg: "Ləğv səbəbi daxil edilməlidir", autoHide: true);
+            return;
+        }
+
+        $this->order->status_id = 4;
+        $this->order->save();
+
+        Payment::where("order_id", $this->order->id)->update(["is_cancelled" => true]);
+
+        $refunded = Payment::where([
+            "order_id" => $this->order->id,
+            "is_cancelled" => true
+        ])->sum("amount");
+
+        $this->order->customer->increment("balance", $refunded);
+
+        event(new AcceptPayment(order: null, customer: $this->order->customer_id, amount: $refunded, action: 1, type: 2, note: $this->order->pid . " kodlu sifarişin ləğvindən gələn artım."));
+
+        event(new GeneralCalculate($this->order->id));
+
+
+        $this->dispatch("notify", state: "info", msg: "Sifariş ləğv edildi");
+        event(new CreateOrderLog($this->order->id, "Sifarişin statusu LƏĞV EDİLDİ olaraq dəyişdirildi", $this->cancelledData["note"]));
+
+    }
+
+    function changeStatusToReady()
+    {
+        $this->order->status_id = 2;
+        $this->order->save();
+        event(new CreateOrderLog($this->order->id, "Sifarişin statusu HAZIRLANDI olaraq dəyişdirildi", $this->readyData["note"]));
+        $this->dispatch("notify", state: "info", msg: "Sorğunuz icra edildi", autoHide: true);
+    }
+
+    public $deliveredData = [
+        "note" => ""
+    ];
+
+    function changeStatusToDelivered()
+    {
+        $this->order->status_id = 3;
+        $this->order->save();
+        event(new CreateOrderLog($this->order->id, "Sifarişin statusu TƏHVİL VERİLDİ olaraq dəyişdirildi", $this->readyData["note"]));
+        $this->dispatch("notify", state: "info", msg: "Sorğunuz icra edildi", autoHide: true);
     }
 
     public function render()

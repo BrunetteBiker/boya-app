@@ -50,7 +50,7 @@
         <!--[if BLOCK]><![endif]--><?php if($payment->type_id == 4 && $payment->is_cancelled == false): ?>
             <div class="grid gap-1">
                 <div class="my-label">Ləğv səbəbi</div>
-                <textarea class="input w-full" rows="3" wire:model="explanation"></textarea>
+                <textarea class="input w-full" rows="3" wire:model="cancelData.explanation"></textarea>
             </div>
             <button
                 wire:loading.class="hidden"
