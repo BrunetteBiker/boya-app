@@ -14,15 +14,12 @@ use Livewire\Component;
 #[Title("Portala giriş")]
 class Login extends Component
 {
-
-
     public $executorId = null;
 
     function mount()
     {
 
     }
-
 
     #[Computed]
     function executors()

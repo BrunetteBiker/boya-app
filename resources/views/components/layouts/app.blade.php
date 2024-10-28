@@ -23,6 +23,7 @@
         <livewire:payment.details lazy/>
         <livewire:user.create lazy/>
         <livewire:navbar lazy/>
+        <livewire:product.create lazy/>
     @endif
     {{ $slot }}
 

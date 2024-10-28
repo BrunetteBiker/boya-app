@@ -1,10 +1,15 @@
 <div class="flex items-start gap-4">
 
-    <livewire:payment.cancel/>
-
     <div class="grid gap-4 flex-1">
         <x-payment.summary :summary="$this->summary"/>
+        <x-payment.time-summary :timeSummary="$this->timeSummary"/>
+
+
         <div class="my-container flex items-center gap-3">
+            <p class="text-sm">
+                Tapıldı : <strong class="font-semibold">{{$this->payments->total()}} ədəd</strong>
+            </p>
+            <hr class="border h-4">
             <div class="inline-flex gap-1.5 items-center">
                 <div class="my-label">Sıralama</div>
                 <select class="input" wire:model.live="filters.orderBy">
@@ -14,7 +19,8 @@
                 </select>
             </div>
             <input type="text" class="input" placeholder="Ödəniş kodu" wire:model.live="filters.term">
-            <button x-show="!state" x-data="{state : $wire.entangle('searchState')}" x-transition wire:click="$toggle('searchState')"
+            <button x-show="!state" x-data="{state : $wire.entangle('searchState')}" x-transition
+                    wire:click="$toggle('searchState')"
                     class="link link-primary link-small">
                 <span>Ətraflı axtarış</span>
 
@@ -57,8 +63,9 @@
                             <div class="flex gap-2 text-sm leading-none">
                                 <button wire:click="$dispatch('payment.details.changeState',{id : '{{$payment->id}}'})"
                                         class="btn btn-outline btn-outline-primary btn-small">
-                                    <svg class="size-5"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                     Detallar
                                 </button>
@@ -91,7 +98,8 @@
 
                         </td>
                         <td>
-                            <a href="{{url("user/details/$payment->customer_id")}}" class="underline hover:no-underline hover:text-sky-600" wire:navigate>
+                            <a href="{{url("user/details/$payment->customer_id")}}"
+                               class="underline hover:no-underline hover:text-sky-600" wire:navigate>
                                 {{$payment->customer->name}}
                             </a>
                         </td>
@@ -115,10 +123,11 @@
     <div x-data="{state : $wire.entangle('searchState')}" x-show="state" x-transition
          class="my-container z-10 w-80 grid gap-3" wire:keyup.enter="search" wire:click.outside="search(true)">
         <div class="flex justify-between gap-4 items-center text-blue-700">
-            <h1 class="text-2xl font-semibold">Ətraflı axtarış</h1>
+            <h1 class="text-3xl font-semibold">Ətraflı axtarış</h1>
             <button wire:click="$toggle('searchState')">
-                <svg class="size-6"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
             </button>
         </div>

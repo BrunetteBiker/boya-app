@@ -49,7 +49,7 @@
         </div>
         <div class="flex-1 my-container grid gap-4">
             <select class="input justify-self-start" wire:model.live="selectedYear">
-                @foreach($years as $year)
+                @foreach(range($years["min"],$years["max"]) as $year)
                     <option value="{{$year}}">{{$year}}</option>
                 @endforeach
             </select>

@@ -1,10 +1,9 @@
 <div class="grid gap-4">
-
     <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
-[$__name, $__params] = $__split('product.create', []);
+[$__name, $__params] = $__split('product.edit', []);
 
 $__html = app('livewire')->mount($__name, $__params, 'lw-2676686251-0', $__slots ?? [], get_defined_vars());
 
@@ -16,24 +15,6 @@ unset($__params);
 unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
-
-    <?php
-$__split = function ($name, $params = []) {
-    return [$name, $params];
-};
-[$__name, $__params] = $__split('product.edit', []);
-
-$__html = app('livewire')->mount($__name, $__params, 'lw-2676686251-1', $__slots ?? [], get_defined_vars());
-
-echo $__html;
-
-unset($__html);
-unset($__name);
-unset($__params);
-unset($__split);
-if (isset($__slots)) unset($__slots);
-?>
-
 
     <div class="flex gap-4 items-start">
         <div class="grid gap-3 flex-1">

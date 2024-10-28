@@ -43,8 +43,14 @@
     <?php endif; ?>
     <li>Çap tarixi : <?php echo e(now()->format("d/m/Y h:i:s")); ?></li>
 </ul>
-<p style="font-size: 0.85rem ; font-style: italic; border: 1px black solid; padding: 0.5rem"><span
-        style="text-decoration: underline">Qeyd </span> : <?php echo e($payment->note); ?></p>
+
+
+<?php if($payment->note != ""): ?>
+    <p style="font-size: 0.85rem ; font-style: italic; border: 1px black solid; padding: 0.5rem"><span
+            style="text-decoration: underline">Qeyd </span> : <?php echo e($payment->note); ?></p>
+<?php endif; ?>
+
+
 </body>
 </html>
 <?php /**PATH C:\laragon\www\boya-app\resources\views/print/payment.blade.php ENDPATH**/ ?>

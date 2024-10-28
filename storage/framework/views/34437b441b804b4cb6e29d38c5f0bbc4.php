@@ -2,7 +2,7 @@
     class="fixed top-0 left-0 w-full h-dvh bg-black/70 backdrop-blur grid justify-items-center p-8 items-start <?php echo e($state ? "" : "hidden"); ?> z-20">
     <div class="my-container w-1/3 grid gap-4" wire:click.outside="$dispatch('create-user')">
         <div class="flex justify-between gap-4 items-center text-blue-700">
-            <h1 class="text-2xl font-semibold">Yeni müştəri blankı</h1>
+            <h1 class="text-3xl font-semibold">Yeni müştəri blankı</h1>
             <button wire:click="$dispatch('create-user')">
                 <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -68,13 +68,12 @@
             </div>
         </div>
 
-
-        <p wire:target="createUser" wire:loading class="text-sm font-medium animate-pulse">Sorğunuz icra olunur...</p>
-
         <button wire:click="createUser" class="btn btn-success btn-large inline-flex items-center justify-center">
             <svg class="size-4"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 11h6m-3 -3v6" /></svg>
             Əlavə et
         </button>
+
+        <p wire:target="createUser" wire:loading class="text-sm font-medium animate-pulse">Sorğunuz icra olunur...</p>
 
 
     </div>

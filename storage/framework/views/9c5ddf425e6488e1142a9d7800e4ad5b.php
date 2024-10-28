@@ -47,15 +47,20 @@ unset($__defined_vars); ?>
                 <option value="<?php echo e($product->id); ?>"><?php echo e($product->name); ?></option>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
         </select>
-        <a href="<?php echo e(url("product/dashboard?create=true")); ?>" target="_blank" class="btn btn-outline btn-outline-primary">Yeni məhsul</a>
+        <button wire:click="$dispatch('product.create')" class="btn btn-outline btn-outline-primary inline-flex items-center gap-1.5">
+            <svg class="size-6"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Yeni məhsul
+        </button>
     </div>
     <!--[if BLOCK]><![endif]--><?php if($orderItems[$index]["productId"] != ""): ?>
         <div class="flex items-center gap-1.5">
             <div class="my-label">Tərkib</div>
             <div class="relative grid flex-1">
                 <input type="text" class="input" wire:model="orderItems.<?php echo e($index); ?>.receipt"
-                       wire:click.outside="$set(receipts.<?php echo e($index); ?>,[])"
-                       wire:keyup="searchReceipts($event.target.value , <?php echo e($index); ?>)">
+                       wire:click.outside="$set(receipts.<?php echo e($index); ?> , [] )"
+                       wire:keyup="searchReceipts($event.target.value , <?php echo e($index); ?> )">
                 <div
                     class="input absolute w-full top-full mt-2 bg-white flex flex-wrap gap-2 <?php echo e(count($receipts[$index]) > 0 ? "" : "hidden"); ?>">
                     <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $receipts[$index]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i=>$receipt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -79,17 +84,17 @@ unset($__defined_vars); ?>
             <div class="flex items-center gap-1.5">
                 <div class="my-label">Miqdar</div>
                 <input type="number" step="0.01" class="input flex-1"
-                       wire:model.live="orderItems.<?php echo e($index); ?>.amount">
+                       wire:model.blur="orderItems.<?php echo e($index); ?>.amount">
             </div>
             <div class="flex items-center gap-1.5">
                 <div class="my-label">Qiymət</div>
                 <input type="number" step="0.01" class="input flex-1"
-                       wire:model.live="orderItems.<?php echo e($index); ?>.price">
+                       wire:model.blur="orderItems.<?php echo e($index); ?>.price">
             </div>
             <div class="flex items-center gap-1.5">
                 <div class="my-label">Cəm</div>
                 <input type="text" class="input flex-1" disabled
-                       wire:model.live="orderItems.<?php echo e($index); ?>.total">
+                       wire:model.blur="orderItems.<?php echo e($index); ?>.total">
             </div>
         </div>
         <div class="flex justify-end gap-2">

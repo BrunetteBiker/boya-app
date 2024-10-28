@@ -1,9 +1,5 @@
 <div class="grid gap-4">
-
-    <livewire:product.create/>
-
     <livewire:product.edit/>
-
 
     <div class="flex gap-4 items-start">
         <div class="grid gap-3 flex-1">

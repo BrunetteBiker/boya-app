@@ -77,7 +77,7 @@
                 <p class="text-gray-600 text-sm"><?php echo e($this->summary["monthly"]["name"]); ?></p>
             </div>
         </div>
-        <div class="p-4 rounded-lg shadow-lg bg-white flex items-center gap-4 max-w-72">
+        <div class="p-4 rounded-lg shadow-lg bg-white flex items-center gap-4">
             <svg class="size-10" viewBox="0 0 32 32">
                 <defs></defs>
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
@@ -93,7 +93,7 @@
                     <?php echo e($this->summary["halfOfYear"]["count"]); ?>
 
                 </p>
-                <p class="text-gray-600 text-sm"><?php echo $this->summary["halfOfYear"]["name"]; ?></p>
+                <p class="text-gray-600 text-sm"><?php echo e($this->summary["halfOfYear"]["name"]); ?></p>
             </div>
         </div>
 
@@ -130,7 +130,12 @@
                             <td><?php echo e($item->order->pid); ?></td>
                             <td><?php echo e($item->executor->name); ?></td>
                             <td><?php echo e($item->info); ?></td>
-                            <td><?php echo e($item->note); ?></td>
+                            <td>
+                                <p class="line-clamp-1 hover:line-clamp-none">
+                                    <?php echo e($item->note); ?>
+
+                                </p>
+                            </td>
                             <td><?php echo e($item->created_at->format("d/m/Y h:i:s")); ?></td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->

@@ -43,7 +43,13 @@
     @endif
     <li>Çap tarixi : {{now()->format("d/m/Y h:i:s")}}</li>
 </ul>
-<p style="font-size: 0.85rem ; font-style: italic; border: 1px black solid; padding: 0.5rem"><span
-        style="text-decoration: underline">Qeyd </span> : {{$payment->note}}</p>
+
+
+@if($payment->note != "")
+    <p style="font-size: 0.85rem ; font-style: italic; border: 1px black solid; padding: 0.5rem"><span
+            style="text-decoration: underline">Qeyd </span> : {{$payment->note}}</p>
+@endif
+
+
 </body>
 </html>

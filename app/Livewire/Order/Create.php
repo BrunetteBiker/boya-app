@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Order;
 
+use App\Events\CreateOrderLog;
 use App\Events\PaymentLog;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -206,6 +207,8 @@ class Create extends Component
             $orderItem->total = $item["total"];
             $orderItem->save();
         }
+
+        event(new CreateOrderLog(orderId: $order->id ,info: Auth::user()->name . " tərəfindən sistemə daxil edildi"));
 
         return $this->dispatch("notify", state: "success", msg: "Sifariş qeydə alındı", redirect: url("order/details/$order->id"));
 

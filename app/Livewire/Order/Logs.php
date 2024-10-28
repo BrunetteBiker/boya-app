@@ -82,9 +82,9 @@ class Logs extends Component
             "count" => $count . " ədəd"
         ];
 
-        $count = OrderLog::query()->whereBetween("created_at",[Carbon::create(Carbon::now()->year,1,1),Carbon::now()])->count();
+        $count = OrderLog::query()->whereBetween("created_at",[now()->startOfYear(),now()])->count();
         $data["halfOfYear"] = [
-            "name" => "Yanvar ayından <strong class='font-semibold underline'>". now()->format("d-m-Y H:i:s") ."</strong> tarixinə qədər olan əməliyyatlar",
+            "name" =>  "Cari ildə olan əməliyyatlar",
             "count" => $count . " ədəd"
         ];
 

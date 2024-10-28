@@ -12,7 +12,6 @@ use Livewire\Component;
 class Create extends Component
 {
 
-    #[Url(except: false,as: 'create')]
     public $state = false;
     public $data = [
         "name" => null,
@@ -22,7 +21,7 @@ class Create extends Component
 
 
     public $status = [
-         "Deaktiv",
+        "Deaktiv",
         "Aktiv",
     ];
 
@@ -47,19 +46,19 @@ class Create extends Component
         $product->save();
 
 
-        $product->pid = "PROD".Str::of($product->id)->padLeft(6,0).now()->format("dmY");
+        $product->pid = "PROD" . Str::of($product->id)->padLeft(6, 0) . now()->format("dmY");
         $product->save();
 
-        $this->dispatch('notify', state: "info", msg: "Yeni məhsul əlavə edildi", autoHide: true);
+        $this->dispatch('notify', state: "info", msg: "Yeni məhsul əlavə edildi", reload: true);
         $this->reset("data");
         $this->dispatch('payment.reload');
 
     }
 
-    #[On("product.change-state")]
-    function changeState($state = false)
+    #[On("product.create")]
+    function changeState()
     {
-        $this->state = $state;
+        $this->state = !$this->state;
     }
 
     function mount()

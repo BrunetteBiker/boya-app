@@ -73,7 +73,7 @@
                 <p class="text-gray-600 text-sm">{{$this->summary["monthly"]["name"]}}</p>
             </div>
         </div>
-        <div class="p-4 rounded-lg shadow-lg bg-white flex items-center gap-4 max-w-72">
+        <div class="p-4 rounded-lg shadow-lg bg-white flex items-center gap-4">
             <svg class="size-10" viewBox="0 0 32 32">
                 <defs></defs>
                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
@@ -88,7 +88,7 @@
                 <p class="text-gray-800 text-lg font-semibold">
                     {{$this->summary["halfOfYear"]["count"]}}
                 </p>
-                <p class="text-gray-600 text-sm">{!! $this->summary["halfOfYear"]["name"] !!}</p>
+                <p class="text-gray-600 text-sm">{{$this->summary["halfOfYear"]["name"]}}</p>
             </div>
         </div>
 
@@ -125,7 +125,11 @@
                             <td>{{$item->order->pid}}</td>
                             <td>{{$item->executor->name}}</td>
                             <td>{{$item->info}}</td>
-                            <td>{{$item->note}}</td>
+                            <td>
+                                <p class="line-clamp-1 hover:line-clamp-none">
+                                    {{$item->note}}
+                                </p>
+                            </td>
                             <td>{{$item->created_at->format("d/m/Y h:i:s")}}</td>
                         </tr>
                     @endforeach

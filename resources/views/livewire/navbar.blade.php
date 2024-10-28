@@ -1,7 +1,5 @@
+<div class="bg-white p-4 rounded-lg flex justify-between items-center">
 
-
-<div
-     class="bg-white p-4 rounded-lg flex justify-between items-center">
     <div class="text-sm inline-flex items-center gap-1.5">
         <svg class="size-10" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
              x="0px"
@@ -238,10 +236,9 @@
 </svg>
 
         <span class="font-bold text-lg">{{auth()->user()->name}}</span></div>
-
     <div class="flex items-center gap-2 font-medium">
         <a href="{{url('order/dashboard')}}"
-           class="bg-sky-100 text-sky-800 p-2 px-5 rounded-full text-sm transition-all hover:bg-sky-500 hover:text-white {{ \Illuminate\Support\Str::of($currentUrl)->contains("order/dashboard") ? "bg-white border-2 border-sky-700" : ""}}">Sifarişlər</a>
+           class="bg-sky-100 text-sky-800 p-2 px-5 rounded-full text-sm transition-all hover:bg-sky-500 hover:text-white {{ \Illuminate\Support\Str::of($currentUrl)->contains("order") && !\Illuminate\Support\Str::of($currentUrl)->contains("logs") ? "bg-white border-2 border-sky-700" : ""}}">Sifarişlər</a>
         <a href="{{url('payment/dashboard')}}"
            class="bg-sky-100 text-sky-800 p-2 px-5 rounded-full text-sm transition-all hover:bg-sky-500 hover:text-white {{ \Illuminate\Support\Str::of($currentUrl)->contains("payment") ? "bg-white border-2 border-sky-700" : ""}}">Ödənişlər</a>
         <a href="{{url('user/dashboard')}}"

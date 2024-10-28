@@ -1,22 +1,5 @@
 <div class="flex items-start gap-4">
 
-    <?php
-$__split = function ($name, $params = []) {
-    return [$name, $params];
-};
-[$__name, $__params] = $__split('payment.cancel', []);
-
-$__html = app('livewire')->mount($__name, $__params, 'lw-1423118070-0', $__slots ?? [], get_defined_vars());
-
-echo $__html;
-
-unset($__html);
-unset($__name);
-unset($__params);
-unset($__split);
-if (isset($__slots)) unset($__slots);
-?>
-
     <div class="grid gap-4 flex-1">
         <?php if (isset($component)) { $__componentOriginalbeda7e54f937c77960cc09d050dfa323 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalbeda7e54f937c77960cc09d050dfa323 = $attributes; } ?>
@@ -38,7 +21,33 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginalbeda7e54f937c77960cc09d050dfa323; ?>
 <?php unset($__componentOriginalbeda7e54f937c77960cc09d050dfa323); ?>
 <?php endif; ?>
+        <?php if (isset($component)) { $__componentOriginal5df6ae0dcc756144c17f33fd76a3b361 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5df6ae0dcc756144c17f33fd76a3b361 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.payment.time-summary','data' => ['timeSummary' => $this->timeSummary]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('payment.time-summary'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['timeSummary' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($this->timeSummary)]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal5df6ae0dcc756144c17f33fd76a3b361)): ?>
+<?php $attributes = $__attributesOriginal5df6ae0dcc756144c17f33fd76a3b361; ?>
+<?php unset($__attributesOriginal5df6ae0dcc756144c17f33fd76a3b361); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal5df6ae0dcc756144c17f33fd76a3b361)): ?>
+<?php $component = $__componentOriginal5df6ae0dcc756144c17f33fd76a3b361; ?>
+<?php unset($__componentOriginal5df6ae0dcc756144c17f33fd76a3b361); ?>
+<?php endif; ?>
+
+
         <div class="my-container flex items-center gap-3">
+            <p class="text-sm">
+                Tapıldı : <strong class="font-semibold"><?php echo e($this->payments->total()); ?> ədəd</strong>
+            </p>
+            <hr class="border h-4">
             <div class="inline-flex gap-1.5 items-center">
                 <div class="my-label">Sıralama</div>
                 <select class="input" wire:model.live="filters.orderBy">
@@ -48,7 +57,8 @@ if (isset($__slots)) unset($__slots);
                 </select>
             </div>
             <input type="text" class="input" placeholder="Ödəniş kodu" wire:model.live="filters.term">
-            <button x-show="!state" x-data="{state : $wire.entangle('searchState')}" x-transition wire:click="$toggle('searchState')"
+            <button x-show="!state" x-data="{state : $wire.entangle('searchState')}" x-transition
+                    wire:click="$toggle('searchState')"
                     class="link link-primary link-small">
                 <span>Ətraflı axtarış</span>
 
@@ -91,8 +101,9 @@ if (isset($__slots)) unset($__slots);
                             <div class="flex gap-2 text-sm leading-none">
                                 <button wire:click="$dispatch('payment.details.changeState',{id : '<?php echo e($payment->id); ?>'})"
                                         class="btn btn-outline btn-outline-primary btn-small">
-                                    <svg class="size-5"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                     Detallar
                                 </button>
@@ -125,7 +136,8 @@ if (isset($__slots)) unset($__slots);
 
                         </td>
                         <td>
-                            <a href="<?php echo e(url("user/details/$payment->customer_id")); ?>" class="underline hover:no-underline hover:text-sky-600" wire:navigate>
+                            <a href="<?php echo e(url("user/details/$payment->customer_id")); ?>"
+                               class="underline hover:no-underline hover:text-sky-600" wire:navigate>
                                 <?php echo e($payment->customer->name); ?>
 
                             </a>
@@ -151,10 +163,11 @@ if (isset($__slots)) unset($__slots);
     <div x-data="{state : $wire.entangle('searchState')}" x-show="state" x-transition
          class="my-container z-10 w-80 grid gap-3" wire:keyup.enter="search" wire:click.outside="search(true)">
         <div class="flex justify-between gap-4 items-center text-blue-700">
-            <h1 class="text-2xl font-semibold">Ətraflı axtarış</h1>
+            <h1 class="text-3xl font-semibold">Ətraflı axtarış</h1>
             <button wire:click="$toggle('searchState')">
-                <svg class="size-6"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
             </button>
         </div>

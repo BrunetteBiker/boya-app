@@ -84,6 +84,22 @@ unset($__params);
 unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
+        <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('product.create', ['lazy' => true]);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-2629578069-4', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
     <?php endif; ?>
     <?php echo e($slot); ?>
 

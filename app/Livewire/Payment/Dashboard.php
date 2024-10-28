@@ -19,7 +19,6 @@ use Livewire\WithPagination;
 #[Title("Ödənişlər")]
 class Dashboard extends Component
 {
-
     use WithPagination;
 
     public $searchState = false;
@@ -119,6 +118,35 @@ class Dashboard extends Component
 
     }
 
+
+    #[Computed]
+    function timeSummary()
+    {
+
+        $data[] = [
+            "name" => "Cari gündə olan ödənişlər",
+            "funds" => Payment::query()->where("is_cancelled", false)->whereDay("created_at", now()->day)->whereMonth("created_at", now()->month)->sum("amount")
+        ];
+
+        $data[] = [
+            "name" => "Cari həftədə olan ödənişlər",
+            "funds" => Payment::query()->where("is_cancelled", false)->whereBetween("created_at", [now()->startOfWeek(), now()])->sum("amount")
+        ];
+
+        $data[] = [
+            "name" => "Cari ayda olan ödənişlər",
+            "funds" => Payment::query()->where("is_cancelled", false)->whereBetween("created_at", [now()->startOfMonth(), now()])->sum("amount")
+        ];
+
+        $data[] = [
+            "name" => "Cari ildə olan ödənişlər",
+            "funds" => Payment::query()->where("is_cancelled", false)->whereBetween("created_at", [now()->startOfYear(), now()])->sum("amount")
+        ];
+
+        return $data;
+
+    }
+
     #[Computed]
     function payments()
     {
@@ -210,7 +238,7 @@ class Dashboard extends Component
 
     function export()
     {
-        return \Maatwebsite\Excel\Facades\Excel::download(new Payments($this->filters), "ödənişlər-".now()->format("d-m-y-h-i").".xlsx");
+        return \Maatwebsite\Excel\Facades\Excel::download(new Payments($this->filters), "ödənişlər-" . now()->format("d-m-y-h-i") . ".xlsx");
     }
 
 

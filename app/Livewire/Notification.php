@@ -20,7 +20,7 @@ class Notification extends Component
     }
 
     #[On("notify")]
-    function notify($state = false, $msg = "", $autoHide = false, $redirect = '')
+    function notify($state = false, $msg = "", $autoHide = false, $redirect = '',$reload = false)
     {
         $this->state = $state;
         $this->msg = $msg;
@@ -29,9 +29,10 @@ class Notification extends Component
             $this->dispatch('autoHide');
         }
 
-        if ($this->reload){
+        if ($reload){
             $this->dispatch("reload");
         }
+
         if ($redirect != "") {
             $this->dispatch("redirect", url: $redirect);
         }

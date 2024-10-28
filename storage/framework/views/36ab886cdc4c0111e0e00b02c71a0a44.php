@@ -253,7 +253,7 @@
                         Ətraflı məlumat
                     </a>
                     <a href="<?php echo e(url("order/create?customer=$order->customer_id")); ?>" target="_blank"
-                       class="btn btn-success">
+                       class="btn btn-outline btn-outline-success">
                         <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
@@ -313,8 +313,8 @@
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                             <tr>
-                                <td colspan="5" class="!text-center !p-5 !text-2xl">
-                                    Ödəniş tapılmadı
+                                <td colspan="5">
+                                    <p class="font-bold p-8 text-slate-600 text-center text-3xl">Ödəniş tapılmadı</p>
                                 </td>
                             </tr>
                         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
@@ -323,56 +323,65 @@
                 </div>
                 <!--[if BLOCK]><![endif]--><?php if($order->debt > 0 && $order->status_id != 4): ?>
                     <div class="my-container w-80">
-                        <form action="" class="grid gap-3">
+                        <div class="grid gap-3">
                             <div class="grid gap-1">
                                 <div class="my-label">Qəbul edən</div>
                                 <input type="text" class="input" value="<?php echo e(auth()->user()->name); ?>" disabled>
-                                <!--[if BLOCK]><![endif]--><?php if($order->customer->balance > 0): ?>
-                                    <label for="pay-from-balance" class="input input-small ml-auto mt-1">
-                                        <input type="checkbox" id="pay-from-balance" value="1"
-                                               wire:model.live="paymentInfo.fromBalance"
-                                               wire:change="set('paymentInfo.addBalance',false)">
-                                        <span>Balansdan ödə</span>
-                                    </label>
-                                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                            </div>
 
+
+
+
+
+
+
+
+                            </div>
                             <div class="grid gap-1">
                                 <div class="my-label">Ödəniş miqdarı</div>
-                                <input type="number" step="0.01" class="input" wire:model="paymentInfo.amount"
-                                       wire:blur="calculate">
+                                <input type="number" step="0.01" class="input" wire:model.blur="paymentData.amount" wire:blur="calculate">
                             </div>
-
-                            <!--[if BLOCK]><![endif]--><?php if(!$paymentInfo["fromBalance"] && $paymentInfo["reminder"] > 0): ?>
+                            <!--[if BLOCK]><![endif]--><?php if($paymentData["reminder"] > 0): ?>
                                 <div class="grid gap-1">
                                     <div class="my-label">Qalıq</div>
-                                    <input type="text" class="input" disabled wire:model.live="paymentInfo.reminder">
+                                    <input type="text" class="input" disabled wire:model.live="paymentData.reminder">
                                 </div>
+                                <label for="add-to-balance" class="input input-small cursor-pointer ml-auto">
+                                    <input type="checkbox" value="1" wire:model="paymentData.addToBalance" id="add-to-balance">
+                                    <span>Balansa əlavə et</span>
+                                </label>
                             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
                             <div class="grid gap-1">
                                 <div class="my-label">Cari borc</div>
-                                <input type="text" class="input" disabled wire:model.live="paymentInfo.debt">
+                                <input type="text" class="input" disabled wire:model.live="paymentData.debt">
                             </div>
-
                             <div class="grid gap-1">
                                 <div class="my-label">Qeyd</div>
-                                <textarea class="input" rows="3" wire:model="paymentInfo.note"></textarea>
+                                <textarea class="input" rows="3" wire:model="paymentData.note"></textarea>
                             </div>
-
-                            <button wire:loading.class="hidden" type="button" wire:click="acceptPayment"
-                                    class="btn btn-success btn-large">
-                                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                                </svg>
-                                <span class="text-center flex-1">Mədaxil et</span>
-                            </button>
-                            <p wire:loading wire:target="acceptPayment" class="loading-text">
+                            <div class="grid gap-3">
+                                <button wire:loading.class="hidden" type="button" wire:click="pay('cash')"
+                                        class="btn btn-success inline-flex items-center gap-1.5">
+                                    <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                                    </svg>
+                                    <span class="text-center flex-1">Mədaxil et</span>
+                                </button>
+                                <button wire:loading.class="hidden" type="button" wire:click="pay('balance')"
+                                        class="btn btn-primary inline-flex gap-1.5 items-center">
+                                    <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                                    </svg>
+                                    <span class="text-center flex-1">Balansdan ödə</span>
+                                </button>
+                            </div>
+                            <p wire:loading wire:target="pay" class="loading-text">
                                 Sorğunuz
                                 icra olunur...</p>
 
-                        </form>
+                        </div>
                     </div>
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
             </div>

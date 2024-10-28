@@ -17,6 +17,7 @@ class Navbar extends Component
         </div>
         HTML;
     }
+
     public function render()
     {
         return view('livewire.navbar');

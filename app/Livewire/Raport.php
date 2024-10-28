@@ -23,17 +23,19 @@ class Raport extends Component
     public $quantityChart = [];
 
     public $fundsChart = [];
-    public $years = [2024];
+
+    public $years = [];
 
     public $selectedYear;
 
     function mount()
     {
-        $this->selectedYear = $this->years[0];
 
-        foreach (range(1, 30) as $item) {
-            $this->years[] = $this->years[0] + $item;
-        }
+
+        $this->years["min"] = Order::query()->first()->created_at->format("Y");
+        $this->years["max"] = Order::query()->latest()->first()->created_at->format("Y");
+
+        $this->selectedYear = $this->years["min"];
 
 
     }

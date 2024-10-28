@@ -40,91 +40,67 @@ class Details extends Component
         "delivered" => false
     ];
 
-    public $paymentInfo = [
-        "amount" => 0,
-        "fromBalance" => false,
-        "debt" => null,
-        "note" => "",
-        "reminder" => null
-    ];
-
     function calculate()
     {
-        $payFromBalance = $this->paymentInfo["fromBalance"];
-        $reminder = 0;
-        $amount = $this->paymentInfo["amount"];
-        $debt = (float)$amount - $this->order->debt;
-        $debt = round($debt, 2);
 
-
-        if ($payFromBalance) {
-            $reminder = 0;
-        }
-
-        if ($debt > 0) {
-            $reminder = $debt;
-            $debt = 0;
+        $this->paymentData["debt"] = $this->order->debt - $this->paymentData["amount"];
+        $this->paymentData["debt"] = round($this->paymentData["debt"], 2);
+        if ($this->paymentData["debt"] < 0) {
+            $this->paymentData["reminder"] = abs($this->paymentData["debt"]);
+            $this->paymentData["debt"] = 0;
         } else {
-            $debt = abs($debt);
+            $this->paymentData["reminder"] = 0;
         }
-
-        $this->paymentInfo["reminder"] = $reminder;
-        $this->paymentInfo["debt"] = $debt;
-        $this->paymentInfo["fromBalance"] = $payFromBalance;
-
     }
 
-    function acceptPayment()
+
+    function pay($method)
     {
-        $payFromBalance = $this->paymentInfo["fromBalance"];
-        $amount = $this->paymentInfo["amount"];
-        $debt = $this->paymentInfo["debt"];
-        $reminder = $this->paymentInfo["reminder"];
 
-
-        if ($amount == "" || $amount <= 0) {
-            $this->dispatch("notify", state: "warning", msg: "Ödəniş miqdarı düzgün qeyd olunmamışdır.");
-            return;
-        }
-
-        if ($payFromBalance) {
-            if ($amount > $this->order->customer->balance) {
-                $this->dispatch("notify", state: "warning", msg: "Balansda kifayət qədər vəsait yoxdur");
+        if ($method == "balance") {
+            if ($this->order->customer->balance < $this->paymentData["amount"]) {
+                $this->dispatch("notify", state: "warning", msg: "Balansda kifayət qədər vəsait yoxdur", autoHide: true);
                 return;
-            } else {
-                if ($amount > $debt) {
-                    $this->order->customer->decrement("balance", $amount - $debt);
-                } else {
-                    $this->order->customer->decrement("balance", $amount);
-                }
             }
-
+            $this->order->customer->decrement("balance", round($this->paymentData["amount"] - $this->paymentData["reminder"], 2));
+        } else {
+            if ($this->paymentData["addToBalance"]) {
+                $this->order->customer->increment("balance", $this->paymentData["reminder"]);
+                event(new AcceptPayment(order: null, amount: $this->paymentData["reminder"], customer: $this->order->customer_id, note: $this->order->pid . " kodlu sifarişin borc ödəniş qalığından yaranmış artım", action: 1, type: 2));
+            }
         }
 
-        if ($amount > $debt) {
-            $amount = $amount - $reminder;
-        }
+        $this->order->increment("paid", round($this->paymentData["amount"] - abs($this->paymentData["reminder"]), 2));
+        $this->order->debt = $this->paymentData["debt"];
+        $this->order->save();
 
-        $this->order->increment("paid", $amount);
+        event(new AcceptPayment(order: $this->order->id, amount: round($this->paymentData["amount"] - $this->paymentData["reminder"], 2), customer: $this->order->customer_id, note: $this->paymentData["note"], action: 1, type: 4));
 
-        event(new AcceptPayment(order: $this->order->id, customer: $this->order->customer_id, type: 4, amount: $amount, action: 1));
+        event(new CreateOrderLog(orderId: $this->order->id, info: $this->paymentData["amount"] . " AZN məbləğində borc ödənişi daxil edildi."));
 
-        event(new GeneralCalculate($this->order->id));
-
-        $this->dispatch("notify", state: "success", msg: "Ödəniş qeydə alındı");
+        $this->dispatch("notify", state: "success", msg: "Ödəniş qəbul edildi", reload: true);
 
     }
 
+    public $paymentData = [
+        "addToBalance" => false,
+        "fromBalance" => false,
+        "amount" => null,
+        "reminder" => null,
+        "debt" => 0,
+        "note" => ""
+    ];
 
     function mount($id)
     {
         $this->order = Order::findOrFail($id);
 
-        $this->paymentInfo["debt"] = $this->order->debt;
+        $this->paymentData["debt"] = $this->order->debt;
 
         $this->cancelExplanation = $this->order->cancel_explanation;
 
         $this->state["cancel"] = $this->order->status_id == 4;
+
 
     }
 
@@ -160,7 +136,6 @@ class Details extends Component
         "note" => ""
     ];
 
-
     public $cancelledData = [
         "note" => ""
     ];
@@ -182,7 +157,7 @@ class Details extends Component
             "is_cancelled" => true
         ])->sum("amount");
 
-        $this->order->customer->increment("balance", $refunded);
+        $this->order->customer->increment("balance", round($refunded, 2));
 
         event(new AcceptPayment(order: null, customer: $this->order->customer_id, amount: $refunded, action: 1, type: 2, note: $this->order->pid . " kodlu sifarişin ləğvindən gələn artım."));
 

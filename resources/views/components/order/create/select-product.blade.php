@@ -14,15 +14,20 @@
                 <option value="{{$product->id}}">{{$product->name}}</option>
             @endforeach
         </select>
-        <a href="{{url("product/dashboard?create=true")}}" target="_blank" class="btn btn-outline btn-outline-primary">Yeni məhsul</a>
+        <button wire:click="$dispatch('product.create')" class="btn btn-outline btn-outline-primary inline-flex items-center gap-1.5">
+            <svg class="size-6"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Yeni məhsul
+        </button>
     </div>
     @if($orderItems[$index]["productId"] != "")
         <div class="flex items-center gap-1.5">
             <div class="my-label">Tərkib</div>
             <div class="relative grid flex-1">
                 <input type="text" class="input" wire:model="orderItems.{{$index}}.receipt"
-                       wire:click.outside="$set(receipts.{{$index}},[])"
-                       wire:keyup="searchReceipts($event.target.value , {{$index}})">
+                       wire:click.outside="$set(receipts.{{$index}} , [] )"
+                       wire:keyup="searchReceipts($event.target.value , {{$index}} )">
                 <div
                     class="input absolute w-full top-full mt-2 bg-white flex flex-wrap gap-2 {{count($receipts[$index]) > 0 ? "" : "hidden"}}">
                     @foreach($receipts[$index] as $i=>$receipt)
@@ -46,17 +51,17 @@
             <div class="flex items-center gap-1.5">
                 <div class="my-label">Miqdar</div>
                 <input type="number" step="0.01" class="input flex-1"
-                       wire:model.live="orderItems.{{$index}}.amount">
+                       wire:model.blur="orderItems.{{$index}}.amount">
             </div>
             <div class="flex items-center gap-1.5">
                 <div class="my-label">Qiymət</div>
                 <input type="number" step="0.01" class="input flex-1"
-                       wire:model.live="orderItems.{{$index}}.price">
+                       wire:model.blur="orderItems.{{$index}}.price">
             </div>
             <div class="flex items-center gap-1.5">
                 <div class="my-label">Cəm</div>
                 <input type="text" class="input flex-1" disabled
-                       wire:model.live="orderItems.{{$index}}.total">
+                       wire:model.blur="orderItems.{{$index}}.total">
             </div>
         </div>
         <div class="flex justify-end gap-2">
