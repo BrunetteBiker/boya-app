@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Order;
 use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Broadcasting\Channel;
@@ -36,6 +37,11 @@ class AcceptPayment
 
         $payment->pid = "ÖDN" . Carbon::make($payment->created_at)->format("dmY") . Str::of($payment->id)->padLeft(6, 0);
         $payment->save();
+
+        $customer = $payment->customer;
+        $customer->current_debt = Order::query()->where("customer_id",$customer->id)->sum("debt");
+        $customer->debt = $customer->current_debt + $customer->old_debt;
+        $customer->save();
 
     }
 

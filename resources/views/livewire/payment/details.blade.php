@@ -1,6 +1,6 @@
 <div x-data="{state : $wire.entangle('state')}" x-show="state"
      x-transition
-     class="fixed top-0 left-0 h-dvh w-1/5 bg-white border-r-2 border-zinc-400 p-4 grid gap-3 content-start overflow-auto z-10"
+     class="fixed top-0 left-0 h-dvh w-1/4 bg-white border-r-2 border-zinc-400 p-4 grid gap-3 content-start overflow-auto z-10"
      @click.outside="state = false">
     <div class="flex justify-between items-center text-blue-700">
         <h1 class="text-3xl font-bold ">Ödəniş məlumatları</h1>

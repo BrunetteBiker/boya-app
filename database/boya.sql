@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Oct 28, 2024 at 02:11 PM
+-- Host: localhost:3306
+-- Generation Time: Nov 08, 2024 at 11:32 AM
 -- Server version: 8.0.30
--- PHP Version: 8.2.23
+-- PHP Version: 8.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -141,6 +141,13 @@ CREATE TABLE `orders` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `pid`, `customer_id`, `executor_id`, `amount`, `discount`, `total`, `status_id`, `paid`, `debt`, `notes`, `cancel_explanation`, `cancelled_by`, `created_at`, `updated_at`) VALUES
+(1, 'SFR08112024000001', 2, 1, 74.4, 5, 69.4, 1, 20, 49.4, '', NULL, NULL, '2024-11-08 08:54:30', '2024-11-08 09:11:32');
+
 -- --------------------------------------------------------
 
 --
@@ -157,6 +164,14 @@ CREATE TABLE `order_items` (
   `receipt` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `amount`, `price`, `total`, `receipt`) VALUES
+(1, 1, 34, 1, 10, 10, 'unde repudiandae eum'),
+(2, 1, 8, 2, 32.2, 64.4, 'nostrum nostrum doloribus');
+
 -- --------------------------------------------------------
 
 --
@@ -171,6 +186,16 @@ CREATE TABLE `order_logs` (
   `note` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_logs`
+--
+
+INSERT INTO `order_logs` (`id`, `order_id`, `executor_id`, `info`, `note`, `created_at`) VALUES
+(1, 1, 1, 'Ədalət Məmmədli tərəfindən sistemə daxil edildi', NULL, '2024-11-08 08:54:30'),
+(2, 1, 1, '20 AZN məbləğində borc ödənişi daxil edildi.', NULL, '2024-11-08 08:54:59'),
+(3, 1, 1, '10 AZN məbləğində borc ödənişi daxil edildi.', NULL, '2024-11-08 09:06:07'),
+(4, 1, 1, '10 AZN məbləğində borc ödənişi daxil edildi.', NULL, '2024-11-08 09:11:00');
 
 -- --------------------------------------------------------
 
@@ -227,6 +252,17 @@ CREATE TABLE `payments` (
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `pid`, `executor_id`, `order_id`, `customer_id`, `type_id`, `action_id`, `amount`, `note`, `is_cancelled`, `cancelled_by`, `explanation`, `created_at`, `updated_at`) VALUES
+(1, 'ÖDN08112024000001', 1, 1, 2, 4, 1, 20, '', 0, NULL, NULL, '2024-11-08 08:54:59', '2024-11-08 08:54:59'),
+(2, 'ÖDN08112024000002', 1, 1, 2, 4, 1, 10, '', 1, 1, 'Eveniet aliquam fugiat debitis natus explicabo magnam iure libero. Impedit quia quidem occaecati. Explicabo aliquam aliquam illum quisquam minima.', '2024-11-08 09:06:07', '2024-11-08 09:07:03'),
+(3, 'ÖDN08112024000003', 1, NULL, 2, 2, 1, 10, 'ÖDN08112024000002 kodlu ödənişin ləğvindən yaranmış artım.', 0, NULL, NULL, '2024-11-08 09:07:03', '2024-11-08 09:07:03'),
+(4, 'ÖDN08112024000004', 1, 1, 2, 4, 1, 10, '', 1, 1, 'test cancel', '2024-11-08 09:11:00', '2024-11-08 09:11:32'),
+(5, 'ÖDN08112024000005', 1, NULL, 2, 2, 1, 10, 'ÖDN08112024000004 kodlu ödənişin ləğvindən yaranmış artım.', 0, NULL, NULL, '2024-11-08 09:11:32', '2024-11-08 09:11:32');
 
 -- --------------------------------------------------------
 
@@ -335,7 +371,8 @@ INSERT INTO `phones` (`id`, `user_id`, `item`) VALUES
 (47, 47, '045-560-16-46'),
 (48, 48, '047-088-89-93'),
 (49, 49, '030-576-64-05'),
-(50, 50, '040-017-82-53');
+(50, 50, '040-017-82-53'),
+(51, 2, '023-042-93-40');
 
 -- --------------------------------------------------------
 
@@ -431,7 +468,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Pr7PaAdg0BMj50ByH0g1Fxk7kCSZIxmF0gJWt5de', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiY0tvS0M1M2d6MTc4U1J3cm9jcE5wR2x3MFlTOFlHWVVHY0hJUE5pOSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6Mzc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9vcmRlci9kYXNoYm9hcmQiO319', 1730124553);
+('gsWhhABptsNwlhbYFTZpfTjGU3ZHc8F4IT4MGmZF', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiSXdUSzM3eXZGbHBJNmVEaDl1cmNDMU02VWtKeWZaMFFCRWNIS2JiZiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9vcmRlci9sb2dzIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1731057244);
 
 -- --------------------------------------------------------
 
@@ -453,6 +490,14 @@ CREATE TABLE `users` (
   `created_at` timestamp NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `pid`, `name`, `role_id`, `remember_token`, `debt`, `current_debt`, `old_debt`, `remnant`, `balance`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Ədalət Məmmədli', 1, NULL, 0, NULL, 0, 0, 0, '2024-11-08 08:51:45', NULL),
+(2, 'USR081124000002', 'Test client', 2, NULL, 49.4, 49.4, 0, 0, 20, '2024-11-08 08:52:56', '2024-11-08 09:11:32');
 
 --
 -- Indexes for dumped tables
@@ -602,19 +647,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_logs`
 --
 ALTER TABLE `order_logs`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `order_status`
@@ -626,7 +671,7 @@ ALTER TABLE `order_status`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `payment_actions`
@@ -644,7 +689,7 @@ ALTER TABLE `payment_types`
 -- AUTO_INCREMENT for table `phones`
 --
 ALTER TABLE `phones`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -662,7 +707,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

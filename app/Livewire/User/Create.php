@@ -104,7 +104,6 @@ class Create extends Component
             ]);
         }
 
-        event(new RecordUpdate(userId: $user->id, note: Auth::user()->name . " tərəfindən portala əlavə olundu"));
 
 
         $this->state = false;

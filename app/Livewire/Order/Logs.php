@@ -84,7 +84,7 @@ class Logs extends Component
 
         $count = OrderLog::query()->whereBetween("created_at",[now()->startOfYear(),now()])->count();
         $data["halfOfYear"] = [
-            "name" =>  "Cari ildə olan əməliyyatlar",
+            "name" =>  "Cari ildə olan fəaliyyətlər",
             "count" => $count . " ədəd"
         ];
 

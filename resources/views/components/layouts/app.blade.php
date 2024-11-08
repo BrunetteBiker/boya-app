@@ -12,7 +12,7 @@
     <link rel="icon" type="image/x-icon" href="{{asset("pallet.ico")}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.54.1/apexcharts.min.css">
     @livewireStyles
-    @vite("resources/scss/app.scss")
+    <link rel="stylesheet" href="{{asset("app.css")}}">
     <title>{{ $title ?? 'Page Title' }}</title>
 </head>
 <body>

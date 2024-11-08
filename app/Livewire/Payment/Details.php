@@ -58,6 +58,11 @@ class Details extends Component
         $customer = $this->payment->customer;
         $customer->increment("balance", $this->payment->amount);
 
+        if (!is_null($this->payment->order_id)) {
+            $order = $this->payment->order;
+            $order->increment("debt",$this->payment->amount);
+            $order->decrement("paid",$this->payment->amount);
+        }
 
         event(new AcceptPayment(order: null, customer: $customer->id, amount: $this->payment->amount, action: 1, type: 2, note: $this->payment->pid . " kodlu ödənişin ləğvindən yaranmış artım."));
 
